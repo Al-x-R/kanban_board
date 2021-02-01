@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require('express');
+const config = require('./config/app');
 const router = require('./router');
 
 const app = express();
 
-const port = 3001;
+const port = config.appPort;
 
 app.use(router);
 
