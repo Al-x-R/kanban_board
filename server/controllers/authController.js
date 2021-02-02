@@ -36,5 +36,14 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  return res.send('REGISTER');
+  try {
+    const { body } = req;
+    const user = await User.create(body);
+    const userWithToken = generateToken(user.get({ raw: true }));
+
+    return res.status(201).send(userWithToken);
+
+  } catch (e) {
+    return res.status(409).json({ message: 'User with this mail already exists' });
+  }
 };
