@@ -1,5 +1,15 @@
-const User = require('../models').User;
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { User } = require('../models');
+const config = require('../config/app');
+
+const generateToken = (user) => {
+  delete user.password;
+
+  const token = jwt.sign(user, config.tokenSecret, { expiresIn: config.tokenExpiresIn });
+
+  return { ...{ user }, ...{ token } };
+};
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -11,19 +21,18 @@ exports.login = async (req, res) => {
       },
     });
 
-    if (!user) {
-      return res.status(404).send({ message: 'user not found' });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      const userWithToken = generateToken(user.get({ raw: true }));
+
+      return res.status(201).send(userWithToken);
     }
 
-    if (!bcrypt.compareSync(password, user.password)) {
-      return res.status(403).send({ message: 'Incorrect password' });
-    }
+    return res.status(403).send({ message: 'Incorrect password or email' });
 
-    return res.status(200).send(user);
   } catch (e) {
-    console.log(e);
+    return res.status(500).json({ message: e.message });
   }
-  return res.status(200).send(req.body);
+
 };
 
 exports.register = async (req, res) => {
