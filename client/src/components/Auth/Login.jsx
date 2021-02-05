@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -7,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import AuthService from '../../services/authService';
+import { loginRequest } from '../../store/actions/authAction';
 
 const initialValues = {
   email: '',
@@ -19,13 +22,18 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
 
   const paperStyle = { padding: 20, minHeight: '50vh', width: 300, margin: "0 auto" };
-  const btnstyle = { margin: '35px 0' }
+  const btnstyle = { margin: '35px 0' };
 
   const handleSubmit = useCallback(
     (values, formikBag) => {
-      console.log(values);
+      dispatch(loginRequest(values))
+      // AuthService.login(values)
+      //   .then(res => console.log(res));
+      // console.log(values);
+      // formikBag.resetForm();
     });
 
   return (
@@ -37,31 +45,31 @@ const Login = () => {
       {({ values, errors, isSubmitting, isValidating }) => (
         <Paper style={paperStyle}>
           <Form>
-            <Box component="span" m={1} >
+            <Box component="span" m={1}>
               <Field name="email" type="email" as={TextField} label="Email"
                      helperText={<ErrorMessage name="email">
-                       {msg => <span style={{color: 'red'}}>{msg}</span>}
+                       {msg => <span style={{ color: 'red' }}>{msg}</span>}
                      </ErrorMessage>}
                      fullWidth
               />
             </Box>
-            <Box component="span" m={1} >
+            <Box component="span" m={1}>
               <Field name="password" type="password" as={TextField} label="Password"
                      helperText={<ErrorMessage name="password">
-                       {msg => <span style={{color: 'red'}}>{msg}</span>}
+                       {msg => <span style={{ color: 'red' }}>{msg}</span>}
                      </ErrorMessage>
                      }
                      fullWidth
               />
             </Box>
-            <Box component="span" m={1} >
+            <Box component="span" m={1}>
               <Button type="submit" disabled={isSubmitting || isValidating}
                       color='primary' variant="contained"
                       style={btnstyle} fullWidth>Submit</Button>
             </Box>
-            <Typography > Don`t have an account? <Link to='/Register' >
-                Register
-              </Link>
+            <Typography> Don`t have an account? <Link to='/Register'>
+              Register
+            </Link>
             </Typography>
 
           </Form>

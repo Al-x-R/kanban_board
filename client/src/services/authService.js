@@ -5,7 +5,7 @@ const AuthService = {
   login: (data) => {
     return API.post('/login', data)
       .then(({ data }) => {
-        console.log(data.token)
+        console.log(data.user)
         API.defaults.headers['Authorization'] = `Bearer ${data.token}`
         return data;
       })
