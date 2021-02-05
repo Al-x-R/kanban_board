@@ -1,8 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Header from '../../components/Header';
+import { userSelector } from '../../store/selectors';
 
 const HomePage = () => {
+  const user = useSelector(userSelector);
+  console.log(user);
 
   return (
     <div>
