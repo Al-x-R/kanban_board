@@ -2,8 +2,8 @@ import produce from 'immer';
 import ACTION_TYPE from '../types';
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem('user')) ?? {},
-  token: localStorage.getItem('token') ?? '',
+  user: JSON.parse(localStorage.getItem('user')) || null,
+  token: localStorage.getItem('token') || '',
   isLoading: false,
   error: null,
 };

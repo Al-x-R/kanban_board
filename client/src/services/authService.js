@@ -27,12 +27,11 @@ const AuthService = {
       });
   },
 
-  //TODO logout
-/*  logout: () => {
+  logout: () => {
     API.defaults.headers['Authorization'] = '';
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-  },*/
+  },
 
 };
 
@@ -41,6 +40,5 @@ const setHeadersToLocalStorage = ({ user, token }) => {
   localStorage.setItem('user', JSON.stringify(user));
   localStorage.setItem('token', token);
 };
-
 
 export default AuthService;

@@ -32,8 +32,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(logoutRequest);
-    console.log('click');
+    dispatch(logoutRequest());
   };
 
   return (
@@ -48,17 +47,17 @@ const Header = () => {
         </Box>
         {user
           ? <Box component="span" m={1}>
-            <AccountCircleIcon style={icon}/>
-            <ExitToAppIcon onClick={logout} style={icon}/>
-          </Box>
+              <AccountCircleIcon style={icon}/>
+              <ExitToAppIcon onClick={logout} style={icon}/>
+            </Box>
           : <Box component="span" m={1}>
-            <Button color="inherit">
-              <Link to="/login">Login</Link>
-            </Button>
-            <Button color="inherit">
-              <Link to="/register">Register</Link>
-            </Button>
-          </Box>
+              <Button color="inherit">
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button color="inherit">
+                <Link to="/register">Register</Link>
+              </Button>
+            </Box>
         }
 
       </Toolbar>
