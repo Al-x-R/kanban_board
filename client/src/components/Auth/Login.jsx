@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -34,9 +34,9 @@ const Login = () => {
 
   const user = useSelector(userSelector);
 
-  // if (user) {
-  //   return <Redirect to={'/'}/>;
-  // }
+  if (user) {
+    return <Redirect to={'/boards'}/>;
+  }
 
 
   return (

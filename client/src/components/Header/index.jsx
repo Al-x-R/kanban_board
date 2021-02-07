@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
   const toolBar = { display: 'flex', justifyContent: 'space-between' };
-  const icon = { width: '40px', height: '40px', margin: '0 5px' };
+  const icon = { width: '40px', height: '40px', margin: '0 5px', color: 'white' };
 
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
@@ -35,27 +35,27 @@ const Header = () => {
     dispatch(logoutRequest());
   };
 
+  const link = {textDecoration: 'none', color: 'white'}
   return (
     <AppBar position="static">
       <Toolbar style={toolBar}>
         <Box component="span" m={1}>
-          <Typography variant="h6">
-            <Link to="/">
-              BOARDS
+            <Link to="/" style={link}>
+              <Typography  variant="h6"> BOARDS</Typography>
             </Link>
-          </Typography>
         </Box>
         {user
           ? <Box component="span" m={1}>
-              <AccountCircleIcon style={icon}/>
+            <Link to="/boards"><AccountCircleIcon style={icon}/></Link>
+
               <ExitToAppIcon onClick={logout} style={icon}/>
             </Box>
           : <Box component="span" m={1}>
               <Button color="inherit">
-                <Link to="/login">Login</Link>
+                <Link to="/login" style={link}>Login</Link>
               </Button>
               <Button color="inherit">
-                <Link to="/register">Register</Link>
+                <Link to="/register" style={link}>Register</Link>
               </Button>
             </Box>
         }
