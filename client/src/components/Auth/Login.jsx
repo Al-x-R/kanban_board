@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { loginRequest } from '../../store/actions/authAction';
-import { userSelector } from '../../store/selectors';
 
 const initialValues = {
   email: '',
@@ -31,13 +30,6 @@ const Login = () => {
     (values, formikBag) => {
       dispatch(loginRequest(values));
     });
-
-  const user = useSelector(userSelector);
-
-  if (user) {
-    return <Redirect to={'/boards'}/>;
-  }
-
 
   return (
     <Formik

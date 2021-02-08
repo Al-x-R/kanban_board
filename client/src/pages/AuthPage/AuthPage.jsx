@@ -5,12 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import Login from '../../components/Auth/Login';
 import Register from '../../components/Auth/Register';
 import Header from '../../components/Header';
+import { userSelector } from '../../store/selectors';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState();
   const location = useLocation();
-
-  const user = useSelector(state => state.auth.user);
+  const user = useSelector(userSelector);
 
   useLayoutEffect(() => {
     setIsLogin(location.pathname === '/login');
@@ -19,9 +19,9 @@ const AuthPage = () => {
   const Form = isLogin ? Login : Register;
   const pageTitle = isLogin ? 'LOGIN TO YOUR ACCOUNT' : 'CREATE AN ACCOUNT';
 
-  // if (user) {
-  //   return <Redirect to={'/'}/>;
-  // }
+  if (user) {
+    return <Redirect to={'/boards'}/>;
+  }
 
   return (
     <div>
