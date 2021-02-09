@@ -8,16 +8,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import { Box } from '@material-ui/core';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../../store/selectors';
-
 import boardsService from '../../../services/boardsService'
 
 const BoardCreate = () => {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [id, setId] = useState(0)
+  const [name, setName] = useState(null);
+  const [userId, setUserId] = useState(0)
 
   const user = useSelector(userSelector)
 
@@ -29,15 +27,16 @@ const BoardCreate = () => {
     setOpen(false);
   };
 
-  function setNameHandler()  {
-    boardsService.getBoards({ name, id })
-    // axios.post('http://localhost:3001/boards', { name, id });
+  function createNewBoard()  {
+    if (name && userId) {
+      boardsService.createBoard({ name, userId })
+    }
     setOpen(false);
   };
 
   useEffect(() => {
-    setId(user.id)
-    setNameHandler();
+    setUserId(user.id)
+    createNewBoard();
   }, []);
 
   const icon = { width: '40px', height: '40px' };
@@ -55,6 +54,7 @@ const BoardCreate = () => {
         <DialogContent>
           <TextField
             autoFocus
+            required={true}
             margin="dense"
             id="bordName"
             label="Name"
@@ -67,7 +67,7 @@ const BoardCreate = () => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={setNameHandler} color="primary">
+          <Button onClick={createNewBoard} color="primary">
             Create
           </Button>
         </DialogActions>
