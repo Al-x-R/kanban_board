@@ -46,6 +46,7 @@ const BoardsList = () => {
               </Paper>
             </Grid>
           ))}
+          <Grid item><BoardCreate /></Grid>
         </Grid>
       </Grid>
     </Grid>
