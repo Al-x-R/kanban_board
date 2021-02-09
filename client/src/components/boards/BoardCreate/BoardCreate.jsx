@@ -33,7 +33,7 @@ const BoardCreate = () => {
       dispatch(createBoardRequest({ name, userId }));
     }
     setOpen(false);
-  };
+  }
 
   useEffect(() => {
     setUserId(user.id);
