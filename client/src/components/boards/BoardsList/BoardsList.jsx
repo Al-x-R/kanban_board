@@ -1,52 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import BoardCreate from '../BoardCreate/BoardCreate';
-import { Box } from '@material-ui/core';
-import boardsService from '../../../services/boardsService'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    flexWrap: 'wrap',
-  },
-  paper: {
-    height: 200,
-    width: 200,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    cursor: 'pointer',
-  },
-  control: {
-    padding: theme.spacing(2),
-  },
-}));
+import BoardItem from '../BoardItem/BoardItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { boardsSelector } from '../../../store/selectors';
+import { getBoardsRequest } from '../../../store/actions/boardsAction';
 
 const BoardsList = () => {
-  const classes = useStyles();
-  const [boards, setBoards] = useState([]);
+  const dispatch = useDispatch();
+  const boards = useSelector(boardsSelector);
 
   useEffect(() => {
-    boardsService.getBoards()
-      .then(data => setBoards(data))
-  }, [])
+    dispatch(getBoardsRequest());
+  }, []);
 
   return (
-    <Grid container className={classes.root} spacing={2}>
+    <Grid container style={{ flexGrow: 1, flexWrap: 'wrap' }} spacing={2}>
       <Grid item xs={12}>
         <Grid container spacing={2}>
-          {boards.map(board => (
-            <Grid key={board.id} item>
-              <Paper className={classes.paper} onClick={() => {console.log('click')}}>
-                <Box>
-                  {board.name}
-                </Box>
-              </Paper>
+          {boards.length > 0 && boards.map(board => (
+            <Grid item>
+              <BoardItem key={board.id} id={board.id} name={board.name}/>
             </Grid>
           ))}
-          <Grid item><BoardCreate /></Grid>
+          <Grid item><BoardCreate/></Grid>
         </Grid>
       </Grid>
     </Grid>

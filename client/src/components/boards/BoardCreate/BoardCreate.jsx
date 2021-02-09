@@ -8,16 +8,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import { Box } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../../../store/selectors';
-import boardsService from '../../../services/boardsService'
+import { createBoardRequest } from '../../../store/actions/boardsAction';
 
 const BoardCreate = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(null);
-  const [userId, setUserId] = useState(0)
+  const [userId, setUserId] = useState(0);
 
-  const user = useSelector(userSelector)
+  const user = useSelector(userSelector);
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,15 +28,15 @@ const BoardCreate = () => {
     setOpen(false);
   };
 
-  function createNewBoard()  {
+  function createNewBoard() {
     if (name && userId) {
-      boardsService.createBoard({ name, userId })
+      dispatch(createBoardRequest({ name, userId }));
     }
     setOpen(false);
   };
 
   useEffect(() => {
-    setUserId(user.id)
+    setUserId(user.id);
     createNewBoard();
   }, []);
 
