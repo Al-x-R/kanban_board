@@ -5,7 +5,6 @@ const AuthService = {
   login: (data) => {
     return API.post('/login', data)
       .then(({ data }) => {
-        API.defaults.headers['Authorization'] = `Bearer ${data.token}`;
         setHeadersToLocalStorage(data);
         return data;
       })
@@ -18,7 +17,6 @@ const AuthService = {
   register: (data) => {
     return API.post('/register', data)
       .then(({ data }) => {
-        API.defaults.headers['Authorization'] = `Bearer ${data.token}`;
         setHeadersToLocalStorage(data);
         return data;
       })

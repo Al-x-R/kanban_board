@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import BoardCreate from '../BoardCreate/BoardCreate';
+import { Box } from '@material-ui/core';
+import boardsService from '../../../services/boardsService'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    flexWrap: 'wrap',
   },
   paper: {
     height: 200,
@@ -23,18 +26,23 @@ const useStyles = makeStyles((theme) => ({
 
 const BoardsList = () => {
   const classes = useStyles();
-  const icon = { width: '40px', height: '40px' };
-  const title = { padding: '40px 0 ' };
-  const board = [0, 1, 2]
+  const [boards, setBoards] = useState([]);
+
+  useEffect(() => {
+    boardsService.getBoards()
+      .then(data => setBoards(data))
+  }, [])
 
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
         <Grid container spacing={2}>
-          {board.map((value) => (
-            <Grid key={value} item>
+          {boards.map(board => (
+            <Grid key={board.id} item>
               <Paper className={classes.paper} onClick={() => {console.log('click')}}>
-                <AddIcon style={icon} color='primary'/>
+                <Box>
+                  {board.name}
+                </Box>
               </Paper>
             </Grid>
           ))}
