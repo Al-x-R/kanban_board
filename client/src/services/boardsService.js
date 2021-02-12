@@ -14,6 +14,10 @@ const boardsService = {
   getBoardById: (id) => {
     return API.get(`/board/${id}`)
       .then(res => res.data)
+  },
+
+  removeBoardById: (id) => {
+    return API.delete(`/board/${id}`)
   }
 }
 

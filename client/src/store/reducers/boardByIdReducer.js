@@ -27,6 +27,21 @@ const boardByIdReducer = produce((draftState, action) => {
       draftState.error = error;
       break;
 
+    case ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST:
+      draftState.isLoading = true;
+      break;
+
+    case ACTION_TYPE.REMOVE_BOARD_BY_ID_SUCCESS:
+      draftState.isLoading = false;
+      break;
+
+    case ACTION_TYPE.REMOVE_BOARD_BY_ID_ERROR: {
+      const { error } = payload;
+      draftState.isLoading = false;
+      draftState.error = error;
+    }
+      break;
+
     default:
       return initialState;
   }

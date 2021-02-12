@@ -20,3 +20,21 @@ export const getBoardByIdError = (err) => ({
     error: err,
   },
 });
+
+export const removeBoardByIdRequest = (id) => ({
+  type: ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST,
+  payload: {
+    id
+  }
+});
+
+export const removeBoardByIdSuccess = () => ({
+  type: ACTION_TYPE.REMOVE_BOARD_BY_ID_SUCCESS,
+});
+
+export const removeBoardByIdError = (err) => ({
+  type: ACTION_TYPE.REMOVE_BOARD_BY_ID_ERROR,
+  payload: {
+    error: err,
+  },
+});

@@ -7,10 +7,24 @@ export function* getBoardByIdSaga(action) {
     const { payload: { id } } = action;
 
     const board = yield BoardsService.getBoardById(id);
-    console.log('saga board ', board);
+
     yield put(BoardByIdAction.getBoardByIdSuccess(board));
 
   } catch (err) {
     yield put(BoardByIdAction.getBoardByIdError(err));
+  }
+}
+
+export function* removeBoardByIdSaga(action) {
+  console.log('action ', action)
+  try {
+    const { payload: { id } } = action;
+
+    yield BoardsService.removeBoardById(id)
+
+    yield put(BoardByIdAction.removeBoardByIdSuccess());
+
+  } catch (err) {
+    yield put(BoardByIdAction.removeBoardByIdError(err));
   }
 }

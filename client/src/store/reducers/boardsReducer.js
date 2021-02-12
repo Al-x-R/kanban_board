@@ -15,12 +15,11 @@ const boardsReducer = produce((draftState, action) => {
       draftState.isLoading = true;
       break;
 
-    case ACTION_TYPE.CREATE_BOARD_SUCCESS: {
+    case ACTION_TYPE.CREATE_BOARD_SUCCESS:
       const { board } = payload;
       draftState.boards.push(board);
       draftState.isLoading = false;
       break;
-    }
 
     case ACTION_TYPE.CREATE_BOARD_ERROR: {
       const { error } = payload;
@@ -33,11 +32,10 @@ const boardsReducer = produce((draftState, action) => {
       draftState.isLoading = true;
       break;
 
-    case ACTION_TYPE.GET_BOARDS_SUCCESS: {
+    case ACTION_TYPE.GET_BOARDS_SUCCESS:
       const { boards } = payload;
       draftState.boards = boards;
       draftState.isLoading = false;
-    }
       break;
 
     case ACTION_TYPE.GET_BOARDS_ERROR: {
