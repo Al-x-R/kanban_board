@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,8 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
-import { Box } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import Box from '@material-ui/core/Box';
 import { userSelector } from '../../../store/selectors';
 import { createBoardRequest } from '../../../store/actions/boardsAction';
 
@@ -40,14 +40,17 @@ const BoardCreate = () => {
     createNewBoard();
   }, []);
 
-  const icon = { width: '40px', height: '40px' };
-  const paper = { height: '200px', width: '200px', cursor: 'pointer' };
-  const wrapper = { height: '200px', width: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' };
+  const icon = { width: '40px', height: '40px', color: 'blue' };
+  const paper = { height: '200px', width: '200px', cursor: 'pointer', backgroundColor: 'lightGrey' };
+  const wrapper = { height: '200px', width: '200px',
+    display: 'flex', flexDirection: 'column',
+    justifyContent: 'center', alignItems: 'center', color: 'blue' };
 
   return (
-    <Paper style={paper}>
-      <Box style={wrapper} onClick={handleClickOpen}>
-        <AddIcon style={icon} color='primary'/>
+    <Paper style={paper} >
+      <Box style={wrapper} onClick={handleClickOpen} >
+        <AddIcon style={icon} />
+        Create new board
       </Box>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
