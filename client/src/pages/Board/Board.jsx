@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import ColumnCreate from '../../components/column/ColumnCreate/ColumnCreate';
 import Header from '../../components/Header';
 import Container from '@material-ui/core/Container';
@@ -7,30 +8,23 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import BoardMenu from '../../components/boards/BoardMenu/BoardMenu';
 import ColumnItem from '../../components/column/ColumnItem/ColumnItem';
-import { useSelector } from 'react-redux';
-import { boardsSelector } from '../../store/selectors';
+import { getBoardByIdRequest } from '../../store/actions/boardByIdAction';
+import { boardByIdSelector } from '../../store/selectors';
 
 const Board = () => {
-  const [board, setBoard] = useState([]);
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  const board = useSelector(boardByIdSelector);
 
   const header = { height: '70px', width: '100%', backgroundColor: 'lightBlue', display: 'flex', alignItems: 'center' };
   const headerWrapper = { display: 'flex', justifyContent: 'space-between' };
   const content = { display: 'flex', justifyContent: 'flex-start' };
 
-  const boards = useSelector(boardsSelector);
-  console.log(boards);
-
   useEffect(() => {
-    boards.map(board => {
-      console.log(board.name);
-      return setBoard(board)
-    });
-  }, [])
-
-  const params = useParams();
-  console.log(params);
-
-  console.log(board)
+    const id = params.id;
+    dispatch(getBoardByIdRequest(id));
+  }, [params]);
 
   return (
     <div>

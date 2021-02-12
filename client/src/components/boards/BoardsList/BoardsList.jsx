@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { boardsSelector } from '../../../store/selectors';
 import { getBoardsRequest } from '../../../store/actions/boardsAction';
 import Paper from '@material-ui/core/Paper';
-import boardsService from '../../../services/boardsService';
+import {getBoardByIdRequest} from '../../../store/actions/boardByIdAction'
 
 const BoardsList = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const BoardsList = () => {
 
   const onClickHandler = (e) => {
     const id = e.target.id
-    boardsService.getBoardById(id)
+    dispatch(getBoardByIdRequest(id))
     return history.push(`board/${id}`)
   }
 

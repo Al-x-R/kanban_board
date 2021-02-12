@@ -13,7 +13,7 @@ const boardsService = {
 
   getBoardById: (id) => {
     return API.get(`/board/${id}`)
-      .then(res => res.data).then(res => console.log(res))
+      .then(res => res.data)
   }
 }
 

@@ -28,7 +28,6 @@ exports.boardsGetAll = async (req, res) => {
 };
 
 exports.boardGetById = async (req, res) => {
-  console.log(req.params)
   try {
     const board = await Board.findOne({
       where: {
