@@ -15,7 +15,6 @@ import { createBoardRequest } from '../../../store/actions/boardsAction';
 const BoardCreate = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(null);
-  const [userId, setUserId] = useState(0);
 
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
@@ -29,6 +28,7 @@ const BoardCreate = () => {
   };
 
   function createNewBoard() {
+    const userId = user.id;
     if (name && userId) {
       dispatch(createBoardRequest({ name, userId }));
     }
@@ -36,20 +36,21 @@ const BoardCreate = () => {
   }
 
   useEffect(() => {
-    setUserId(user.id);
     createNewBoard();
   }, []);
 
   const icon = { width: '40px', height: '40px', color: 'blue' };
   const paper = { height: '200px', width: '200px', cursor: 'pointer', backgroundColor: 'lightGrey' };
-  const wrapper = { height: '200px', width: '200px',
+  const wrapper = {
+    height: '200px', width: '200px',
     display: 'flex', flexDirection: 'column',
-    justifyContent: 'center', alignItems: 'center', color: 'blue' };
+    justifyContent: 'center', alignItems: 'center', color: 'blue',
+  };
 
   return (
-    <Paper style={paper} >
-      <Box style={wrapper} onClick={handleClickOpen} >
-        <AddIcon style={icon} />
+    <Paper style={paper}>
+      <Box style={wrapper} onClick={handleClickOpen}>
+        <AddIcon style={icon}/>
         Create new board
       </Box>
 

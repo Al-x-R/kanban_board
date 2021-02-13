@@ -1,34 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import BoardCreate from '../BoardCreate/BoardCreate';
 import { useDispatch, useSelector } from 'react-redux';
-import { boardsSelector } from '../../../store/selectors';
-import { getBoardsRequest } from '../../../store/actions/boardsAction';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import {getBoardByIdRequest} from '../../../store/actions/boardByIdAction'
+import BoardCreate from '../BoardCreate/BoardCreate';
+import { boardsSelector } from '../../../store/selectors';
+import { getBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 
 const BoardsList = () => {
   const dispatch = useDispatch();
   const boards = useSelector(boardsSelector);
   const history = useHistory();
 
-  useEffect(() => {
-    dispatch(getBoardsRequest());
-  }, []);
-
   const paper = {
     height: 200, width: 200, display: 'flex',
     justifyContent: 'center', alignItems: 'center',
     cursor: 'pointer', backgroundColor: 'lightBlue',
-    color: 'white', fontSize: '18px', fontWeight: 'bold'
+    color: 'white', fontSize: '18px', fontWeight: 'bold',
   };
 
   const onClickHandler = (e) => {
-    const id = e.target.id
-    dispatch(getBoardByIdRequest(id))
-    return history.push(`board/${id}`)
-  }
+    const id = e.target.id;
+    dispatch(getBoardByIdRequest(id));
+    history.push(`board/${id}`);
+  };
 
   return (
     <Grid container style={{ flexGrow: 1, flexWrap: 'wrap' }} spacing={2}>
@@ -37,7 +32,7 @@ const BoardsList = () => {
           {boards.length > 0 && boards.map(board => (
             <Grid item key={board.id}>
               <Paper style={paper} id={board.id} onClick={onClickHandler}>
-                  {board.name}
+                {board.name}
               </Paper>
             </Grid>
           ))}

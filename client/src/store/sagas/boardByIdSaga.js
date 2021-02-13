@@ -16,7 +16,6 @@ export function* getBoardByIdSaga(action) {
 }
 
 export function* removeBoardByIdSaga(action) {
-  console.log('action ', action)
   try {
     const { payload: { id } } = action;
 

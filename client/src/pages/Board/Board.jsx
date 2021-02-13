@@ -9,13 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import BoardMenu from '../../components/boards/BoardMenu/BoardMenu';
 import ColumnItem from '../../components/column/ColumnItem/ColumnItem';
 import { getBoardByIdRequest } from '../../store/actions/boardByIdAction';
-import { boardByIdSelector } from '../../store/selectors';
+import { boardByIdSelector, boardsSelector } from '../../store/selectors';
 
 const Board = () => {
   const dispatch = useDispatch();
   const params = useParams();
 
-  const board = useSelector(boardByIdSelector);
+  const board = useSelector(state => state.boards.board);
 
   const header = { height: '70px', width: '100%', backgroundColor: 'lightBlue', display: 'flex', alignItems: 'center' };
   const headerWrapper = { display: 'flex', justifyContent: 'space-between' };

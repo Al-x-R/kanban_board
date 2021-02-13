@@ -3,6 +3,7 @@ import ACTION_TYPE from '../types';
 
 const initialState = {
   boards: [],
+  board: {},
   isLoading: false,
   error: null,
 };
@@ -15,10 +16,11 @@ const boardsReducer = produce((draftState, action) => {
       draftState.isLoading = true;
       break;
 
-    case ACTION_TYPE.CREATE_BOARD_SUCCESS:
+    case ACTION_TYPE.CREATE_BOARD_SUCCESS: {
       const { board } = payload;
       draftState.boards.push(board);
       draftState.isLoading = false;
+    }
       break;
 
     case ACTION_TYPE.CREATE_BOARD_ERROR: {
@@ -34,11 +36,49 @@ const boardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.GET_BOARDS_SUCCESS:
       const { boards } = payload;
-      draftState.boards = boards;
+      draftState.boards = [...boards];
       draftState.isLoading = false;
       break;
 
     case ACTION_TYPE.GET_BOARDS_ERROR: {
+      const { error } = payload;
+      draftState.isLoading = false;
+      draftState.error = error;
+    }
+      break;
+
+    case ACTION_TYPE.GET_BOARD_BY_ID_REQUEST:
+      draftState.isLoading = true;
+      break;
+
+    case ACTION_TYPE.GET_BOARD_BY_ID_SUCCESS:
+      const { board } = payload;
+      draftState.board = board;
+      draftState.isLoading = false;
+      break;
+
+    case ACTION_TYPE.GET_BOARD_BY_ID_ERROR:
+      const { error } = payload;
+      draftState.isLoading = false;
+      draftState.error = error;
+      break;
+
+    case ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST:
+      const { id } = payload;
+      const index = draftState.boards.findIndex(board => board.id === id);
+      if (index !== -1) {
+        draftState.boards.splice(index, 1);
+      }
+      draftState.board = {};
+      draftState.isLoading = true;
+      break;
+
+    case ACTION_TYPE.REMOVE_BOARD_BY_ID_SUCCESS:
+      draftState.isLoading = false;
+
+      break;
+
+    case ACTION_TYPE.REMOVE_BOARD_BY_ID_ERROR: {
       const { error } = payload;
       draftState.isLoading = false;
       draftState.error = error;

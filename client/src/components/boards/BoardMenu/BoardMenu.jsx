@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -15,8 +15,8 @@ const BoardMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const dispatch = useDispatch();
-  const board = useSelector(boardByIdSelector);
-  const history = useHistory()
+  const board = useSelector(state => state.boards.board);
+  const history = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,12 +29,12 @@ const BoardMenu = () => {
   const removeBoard = () => {
     const id = board.id;
     dispatch(removeBoardByIdRequest(id));
-    history.push('/boards')
+    history.replace('/boards')
     setOpen(false);
   };
 
   return (
-    <div >
+    <div>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         Show Menu
       </Button>
@@ -46,7 +46,7 @@ const BoardMenu = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={removeBoard}><DeleteIcon/> Remove board</MenuItem>
-        <MenuItem ><AssignmentIcon/> Activity</MenuItem>
+        <MenuItem><AssignmentIcon/> Activity</MenuItem>
       </Menu>
     </div>
   );
