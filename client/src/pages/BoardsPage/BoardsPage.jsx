@@ -9,12 +9,9 @@ import { getBoardsRequest } from '../../store/actions/boardsAction';
 
 const BoardsPage = () => {
   const dispatch = useDispatch();
-  const query = useSelector(state => state);
-  const isLoading = query.isLoading;
+  const isLoading = useSelector(state => state.boards.isLoading);
 
-  console.log('BoardsPage');
   useEffect(() => {
-    console.log('Effect');
     dispatch(getBoardsRequest());
   }, []);
 
