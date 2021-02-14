@@ -17,7 +17,7 @@ exports.getColumns = async (req, res) => {
   try {
     const columns = await Column.findAll({
       where: {
-        boardId: req.board.id,
+        boardId: req.params.id,
       },
     });
 
@@ -28,18 +28,18 @@ exports.getColumns = async (req, res) => {
   }
 };
 
-exports.removeColumn = async (req, res) => {
-  try {
-    const column = await Column.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    await column.destroy();
-    res.status(200).send({ message: `the column ${column}  has been removed` });
-
-  } catch (e) {
-    return res.status(400).send({ message: e.message });
-  }
-};
+// exports.removeColumn = async (req, res) => {
+//   try {
+//     const column = await Column.findOne({
+//       where: {
+//         id: req.params.id,
+//       },
+//     });
+//
+//     await column.destroy();
+//     res.status(200).send({ message: `the column ${column}  has been removed` });
+//
+//   } catch (e) {
+//     return res.status(400).send({ message: e.message });
+//   }
+// };

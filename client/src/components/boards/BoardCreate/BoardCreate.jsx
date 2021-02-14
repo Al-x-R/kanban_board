@@ -40,7 +40,6 @@ const BoardCreate = () => {
     setOpen(false);
   }
 
-
   const icon = { width: '40px', height: '40px', color: 'blue' };
   const paper = { height: '200px', width: '200px', cursor: 'pointer', backgroundColor: 'lightGrey' };
   const wrapper = {
