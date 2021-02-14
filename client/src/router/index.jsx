@@ -10,9 +10,9 @@ export default () => {
   return (
     <Switch>
       <Route path='/' component={HomePage} exact/>
-      <Route path={['/login', '/register']} component={AuthPage} />
-      <ProtectedRoute path='/boards' component={BoardsPage} />
-      <ProtectedRoute path='/board/:id' component={Board} />
+      <Route path={['/login', '/register']} component={AuthPage}/>
+      <ProtectedRoute exact path='/boards/' component={BoardsPage}/>
+      <ProtectedRoute path='/boards/:id' component={Board}/>
     </Switch>
   );
 }

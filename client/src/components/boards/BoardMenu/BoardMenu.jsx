@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -7,8 +7,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { removeBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { boardByIdSelector } from '../../../store/selectors';
-
 
 const BoardMenu = () => {
   const [open, setOpen] = useState(false);
@@ -29,7 +27,7 @@ const BoardMenu = () => {
   const removeBoard = () => {
     const id = board.id;
     dispatch(removeBoardByIdRequest(id));
-    history.replace('/boards')
+    history.replace('/boards');
     setOpen(false);
   };
 

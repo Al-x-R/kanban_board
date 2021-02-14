@@ -4,7 +4,7 @@ const { boardCreate, boardsGetAll, boardGetById, boardRemoving } = require('../c
 
 borderRouter.post('/boards', [auth], boardCreate);
 borderRouter.get('/boards', [auth], boardsGetAll);
-borderRouter.get('/board/:id', [auth], boardGetById);
-borderRouter.delete('/board/:id', [auth], boardRemoving);
+borderRouter.get('/boards/:id', [auth], boardGetById);
+borderRouter.delete('/boards/:id', [auth], boardRemoving);
 
 module.exports = borderRouter;

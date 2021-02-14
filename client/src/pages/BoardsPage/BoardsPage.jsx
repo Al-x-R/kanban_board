@@ -5,11 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import Header from '../../components/Header';
 import BoardsList from '../../components/boards/BoardsList/BoardsList';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import { getBoardsRequest } from '../../store/actions/boardsAction';
 
 const BoardsPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.boards.isLoading);
+  const isError = useSelector(state => state.boards.error);
 
   useEffect(() => {
     dispatch(getBoardsRequest());
@@ -23,7 +25,13 @@ const BoardsPage = () => {
           Personal Boards
         </Typography>
         {
-          isLoading ? <CircularProgress/> : <BoardsList/>
+          isError
+            ? <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              <strong>{isError}</strong>
+            </Alert>
+            :
+            isLoading ? <CircularProgress/> : <BoardsList/>
         }
       </Container>
     </div>

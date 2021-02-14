@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
@@ -22,14 +22,14 @@ const BoardsList = () => {
   const onClickHandler = (e) => {
     const id = e.target.id;
     dispatch(getBoardByIdRequest(id));
-    history.push(`board/${id}`);
+    history.push(`boards/${id}`);
   };
 
   return (
     <Grid container style={{ flexGrow: 1, flexWrap: 'wrap' }} spacing={2}>
       <Grid item xs={12}>
         <Grid container spacing={2}>
-          {boards.length > 0 && boards.map(board => (
+          {boards && boards.map(board => (
             <Grid item key={board.id}>
               <Paper style={paper} id={board.id} onClick={onClickHandler}>
                 {board.name}

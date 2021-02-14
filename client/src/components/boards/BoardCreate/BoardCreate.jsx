@@ -19,6 +19,11 @@ const BoardCreate = () => {
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    createNewBoard();
+  }, []);
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -35,9 +40,6 @@ const BoardCreate = () => {
     setOpen(false);
   }
 
-  useEffect(() => {
-    createNewBoard();
-  }, []);
 
   const icon = { width: '40px', height: '40px', color: 'blue' };
   const paper = { height: '200px', width: '200px', cursor: 'pointer', backgroundColor: 'lightGrey' };
