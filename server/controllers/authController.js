@@ -30,7 +30,7 @@ exports.login = async (req, res) => {
     return res.status(403).send({ message: 'Incorrect password or email' });
 
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    return res.status(400).json({ message: e.message });
   }
 
 };

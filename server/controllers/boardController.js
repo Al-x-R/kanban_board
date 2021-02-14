@@ -7,8 +7,9 @@ exports.boardCreate = async (req, res) => {
     const board = await Board.create(body);
 
     return res.status(201).send(board);
+
   } catch (e) {
-    return res.status(500).send({ message: e });
+    return res.status(400).send({ message: e.message });
   }
 };
 
@@ -23,7 +24,7 @@ exports.boardsGetAll = async (req, res) => {
     return res.status(200).send(boards);
 
   } catch (e) {
-    return res.status(500).send({ message: e });
+    return res.status(400).send({ message: e.message });
   }
 };
 
@@ -34,9 +35,15 @@ exports.boardGetById = async (req, res) => {
         id: req.params.id,
       },
     });
+
+    if (!board) {
+      return res.status(404).send({ message: 'Board not found' });
+    }
+
     return res.status(200).send(board);
+
   } catch (e) {
-    return res.status(500).send({ message: e });
+    return res.status(400).send({ message: e.message });
   }
 };
 
@@ -47,9 +54,11 @@ exports.boardRemoving = async (req, res) => {
         id: req.params.id,
       },
     });
+
     await board.destroy();
     res.status(200).send({ message: `the board ${board}  has been removed` });
-  } catch (e) {
 
+  } catch (e) {
+    return res.status(400).send({ message: e.message });
   }
 };
