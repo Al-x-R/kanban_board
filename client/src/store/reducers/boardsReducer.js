@@ -19,6 +19,7 @@ const boardsReducer = produce((draftState, action) => {
     case ACTION_TYPE.CREATE_BOARD_SUCCESS: {
       const { board } = payload;
       draftState.boards.push(board);
+      draftState.board = board
       draftState.isLoading = false;
     }
       break;

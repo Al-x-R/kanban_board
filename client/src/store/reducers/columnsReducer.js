@@ -37,8 +37,8 @@ const columnsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.GET_COLUMNS_SUCCESS: {
       const { columns } = payload;
-      draftState.columns = columns;
       draftState.isLoading = false;
+      draftState.columns = columns;
     }
       break;
 

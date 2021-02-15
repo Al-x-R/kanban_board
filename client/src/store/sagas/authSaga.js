@@ -5,9 +5,7 @@ import AuthService from '../../services/authService';
 export function* loginSaga(action) {
   try {
     const { payload: { values } } = action;
-
     const data = yield AuthService.login(values);
-
     yield put(AuthAction.loginSuccess(data));
 
   } catch (err) {
@@ -18,9 +16,7 @@ export function* loginSaga(action) {
 export function* registerSaga(action) {
   try {
     const { payload: { values } } = action;
-
     const data = yield AuthService.register(values);
-
     yield put(AuthAction.registerSuccess(data));
 
   } catch (err) {

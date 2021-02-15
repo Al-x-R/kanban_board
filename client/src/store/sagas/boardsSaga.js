@@ -5,9 +5,7 @@ import BoardsService from '../../services/boardsService';
 export function* createBoardSaga(action) {
   try {
     const { payload: { values } } = action;
-
     const board = yield BoardsService.createBoard(values);
-
     yield put(BoardsAction.createBoardSuccess(board));
 
   } catch (err) {
@@ -18,7 +16,6 @@ export function* createBoardSaga(action) {
 export function* getBoardsSaga() {
   try {
     const data = yield BoardsService.getBoards();
-
     yield put(BoardsAction.getBoardsSuccess(data));
 
   } catch (err) {
