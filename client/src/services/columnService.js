@@ -8,7 +8,7 @@ const columnService = {
 
   getColumns: (id) => {
     return API.get(`/column/${id}`)
-      // .then(res => res.data);
+      .then(res => res.data);
   },
 
 };

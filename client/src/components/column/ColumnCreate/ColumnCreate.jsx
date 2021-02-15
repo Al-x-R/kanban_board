@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
-import columnService from '../../../services/columnService';
+import { createColumnRequest } from '../../../store/actions/columnsAction';
 
 const ColumnCreate = () => {
   const [name, setName] = useState('');
   const params = useParams();
+  const dispatch = useDispatch()
 
   const paper = { width: '250px', padding: '3px 7px' };
   const button = { width: '35px', flex: 'start', backgroundColor: '#4ebb22', color: 'white' };
@@ -18,8 +20,7 @@ const ColumnCreate = () => {
 
   const createColumn = () => {
     const boardId = params.id;
-    console.log(boardId, name);
-    columnService.createColumn({ boardId, name });
+    dispatch(createColumnRequest({ boardId, name }))
   };
 
   return (

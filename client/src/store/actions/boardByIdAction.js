@@ -3,8 +3,8 @@ import ACTION_TYPE from '../types';
 export const getBoardByIdRequest = (id) => ({
   type: ACTION_TYPE.GET_BOARD_BY_ID_REQUEST,
   payload: {
-    id
-  }
+    id,
+  },
 });
 
 export const getBoardByIdSuccess = (board) => ({
@@ -24,8 +24,8 @@ export const getBoardByIdError = (err) => ({
 export const removeBoardByIdRequest = (id) => ({
   type: ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST,
   payload: {
-    id
-  }
+    id,
+  },
 });
 
 export const removeBoardByIdSuccess = () => ({
