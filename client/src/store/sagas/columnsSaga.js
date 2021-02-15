@@ -13,7 +13,7 @@ export function* createColumnSaga(action) {
   }
 }
 
-export function* getColumns(action) {
+export function* getColumnsSaga(action) {
   try {
     const { payload: { id } } = action;
     const columns = yield ColumnService.getColumns(id);

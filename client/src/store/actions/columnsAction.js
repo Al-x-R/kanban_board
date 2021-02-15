@@ -29,14 +29,14 @@ export const getColumnsRequest = (id) => ({
 });
 
 export const getColumnsSuccess = (columns) => ({
-  type: ACTION_TYPE.GET_COLUMNS_REQUEST,
+  type: ACTION_TYPE.GET_COLUMNS_SUCCESS,
   payload: {
     columns,
   },
 });
 
 export const getColumnsError = (error) => ({
-  type: ACTION_TYPE.GET_COLUMNS_REQUEST,
+  type: ACTION_TYPE.GET_COLUMNS_ERROR,
   payload: {
     error,
   },

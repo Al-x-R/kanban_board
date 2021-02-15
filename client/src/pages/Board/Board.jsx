@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ColumnCreate from '../../components/column/ColumnCreate/ColumnCreate';
@@ -9,14 +9,15 @@ import Typography from '@material-ui/core/Typography';
 import BoardMenu from '../../components/boards/BoardMenu/BoardMenu';
 import ColumnItem from '../../components/column/ColumnItem/ColumnItem';
 import { getBoardByIdRequest } from '../../store/actions/boardByIdAction';
-import columnService from '../../services/columnService'
+import { getColumnsRequest } from '../../store/actions/columnsAction';
+import {boardSelector, columnsSelector} from '../../store/selectors'
 
 const Board = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const id = params.id;
-  const board = useSelector(state => state.boards.board);
-  const [items, setItems] = useState()
+  const board = useSelector(boardSelector);
+  const columns = useSelector(columnsSelector)
 
   const header = { height: '70px', width: '100%', backgroundColor: 'lightBlue', display: 'flex', alignItems: 'center' };
   const headerWrapper = { display: 'flex', justifyContent: 'space-between' };
@@ -24,11 +25,8 @@ const Board = () => {
 
   useEffect(() => {
     dispatch(getBoardByIdRequest(id));
+    dispatch(getColumnsRequest(id))
   }, [id]);
-
-  useEffect(() => {
-    columnService.getColumns( id ).then(res => setItems(res.data));
-  }, [])
 
 
   return (
@@ -42,12 +40,12 @@ const Board = () => {
       </Grid>
 
       <Grid container style={content}>
-        { items &&
-        items.map(column => (
-            <Grid item xs={3} key={column.id}>
-              <ColumnItem name={column.name}/>
-            </Grid>
-          ))
+        {columns &&
+        columns.map(column => (
+          <Grid item xs={3} key={column.id}>
+            <ColumnItem name={column.name}/>
+          </Grid>
+        ))
         }
         <Grid item xs={3}>
           <ColumnCreate/>
