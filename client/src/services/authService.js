@@ -29,6 +29,8 @@ const AuthService = {
     API.defaults.headers['Authorization'] = '';
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    localStorage.removeItem('board');
+    localStorage.removeItem('boards');
   },
 
 };

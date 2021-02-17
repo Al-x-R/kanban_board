@@ -1,22 +1,17 @@
 import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
-import Paper from '@material-ui/core/Paper';
-import { createColumnRequest } from '../../../store/actions/columnsAction';
-// import { columnSelector } from '../../../store/selectors';
-import cardService from '../../../services/cardService';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useParams } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '@material-ui/core/Menu';
+import { createCardRequest } from '../../../store/actions/cardsAction';
 
 const CardCreate = ({ id }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [name, setName] = useState('');
-  const params = useParams();
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
@@ -48,20 +43,20 @@ const CardCreate = ({ id }) => {
   ));
 
   const paper = { width: '210px', margin: '0' };
-  const menuButton = {width: '244px', height: '40px', }
+  const menuButton = { width: '244px', height: '40px' };
   const button = { width: '35px', flex: 'start', color: 'white' };
   const icon = { width: '40px', height: '40px', color: 'grey' };
   const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
 
   const createCard = useCallback(() => {
+    const columnId = id
     console.log('card create');
-    cardService.createCard({ id, name });
-    // dispatch(createColumnRequest({ columnId, name }))
-  }, [name]);
+    dispatch(createCardRequest({ columnId, name }))
+  }, [id]);
 
   return (
     <div>
-      <Button style={menuButton}  aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Button style={menuButton} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         Add a card...
       </Button>
       <StyledMenu

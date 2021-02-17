@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -12,6 +12,9 @@ import Divider from '@material-ui/core/Divider';
 const BoardMenu = () => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const params = useParams();
+  const id = params.id;
+  console.log('menu',id)
 
   const dispatch = useDispatch();
   const board = useSelector(state => state.boards.board);
@@ -26,8 +29,8 @@ const BoardMenu = () => {
   };
 
   const removeBoard = useCallback(() => {
-    const id = board.id;
     dispatch(removeBoardByIdRequest(id));
+    localStorage.removeItem('board');
     history.replace('/boards');
     setOpen(false);
   }, [dispatch]);

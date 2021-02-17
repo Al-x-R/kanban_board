@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -18,11 +19,7 @@ const BoardCreate = () => {
 
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    createNewBoard();
-  }, []);
-
+  const history = useHistory();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,13 +29,18 @@ const BoardCreate = () => {
     setOpen(false);
   };
 
-  function createNewBoard() {
+  const createNewBoard = () => {
     const userId = user.id;
     if (name && userId) {
       dispatch(createBoardRequest({ name, userId }));
+      history.push('/boards')
     }
     setOpen(false);
   }
+
+  useEffect(() => {
+    createNewBoard()
+  }, [])
 
   const icon = { width: '40px', height: '40px', color: 'blue' };
   const paper = { height: '200px', width: '200px', cursor: 'pointer', backgroundColor: 'lightGrey' };

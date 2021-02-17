@@ -3,7 +3,6 @@ import ACTION_TYPE from '../types';
 
 const initialState = {
   columns: [],
-  column: {},
   isLoading: false,
   error: null,
 };

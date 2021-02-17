@@ -2,8 +2,8 @@ import produce from 'immer';
 import ACTION_TYPE from '../types';
 
 const initialState = {
-  boards: [],
-  board: {},
+  boards: JSON.parse(localStorage.getItem('boards')) ?? [],
+  board: JSON.parse(localStorage.getItem('board')) ?? {},
   isLoading: false,
   error: null,
 };
@@ -19,7 +19,6 @@ const boardsReducer = produce((draftState, action) => {
     case ACTION_TYPE.CREATE_BOARD_SUCCESS: {
       const { board } = payload;
       draftState.boards.push(board);
-      draftState.board = board
       draftState.isLoading = false;
     }
       break;
@@ -37,7 +36,7 @@ const boardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.GET_BOARDS_SUCCESS:
       const { boards } = payload;
-      draftState.boards = [...boards];
+      draftState.boards = boards;
       draftState.isLoading = false;
       break;
 
@@ -54,7 +53,7 @@ const boardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.GET_BOARD_BY_ID_SUCCESS:
       const { board } = payload;
-      draftState.board = board;
+      draftState.board = board
       draftState.isLoading = false;
       break;
 
@@ -66,11 +65,11 @@ const boardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST:
       const { id } = payload;
-      const index = draftState.boards.findIndex(board => board.id === id);
-      if (index !== -1) {
-        draftState.boards.splice(index, 1);
-      }
-      draftState.board = {};
+      draftState.boards.filter(board => board.id !== id)
+      // const index = draftState.boards.findIndex(board => board.id === id);
+      // if (index !== -1) {
+      //   draftState.boards.splice(index, 1);
+      // }
       draftState.isLoading = true;
       break;
 
