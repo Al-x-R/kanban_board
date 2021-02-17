@@ -9,22 +9,9 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { makeStyles } from '@material-ui/core/styles';
 import { logoutRequest } from '../../store/actions/authAction';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: '25px',
-    marginTop: '20px',
-    width: '50px',
-    height: '50px',
-  },
-}));
-
 const Header = () => {
-  const classes = useStyles();
   const toolBar = { display: 'flex', justifyContent: 'space-between' };
   const icon = { width: '40px', height: '40px', margin: '0 5px', color: 'white' };
 
@@ -35,22 +22,23 @@ const Header = () => {
     dispatch(logoutRequest());
   };
 
-  const link = {textDecoration: 'none', color: 'white'}
+  const link = { textDecoration: 'none', color: 'white' };
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: '#002984' }}>
       <Toolbar style={toolBar}>
         <Box component="span" m={1}>
-            <Link to="/" style={link}>
-              <Typography  variant="h6"> BOARDS</Typography>
-            </Link>
+          <Link to="/boards" style={link}>
+            <Typography variant="h6"> BOARDS</Typography>
+          </Link>
         </Box>
-        {user
-          ? <Box component="span" m={1}>
-            <Link to="/boards"><AccountCircleIcon style={icon}/></Link>
+        {
+          user
+            ? <Box component="span" m={1}>
+              <Link to="/boards"><AccountCircleIcon style={icon}/></Link>
 
               <ExitToAppIcon onClick={logout} style={icon}/>
             </Box>
-          : <Box component="span" m={1}>
+            : <Box component="span" m={1}>
               <Button color="inherit">
                 <Link to="/login" style={link}>Login</Link>
               </Button>
@@ -59,7 +47,6 @@ const Header = () => {
               </Button>
             </Box>
         }
-
       </Toolbar>
     </AppBar>
   );

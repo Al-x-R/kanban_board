@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
@@ -19,19 +19,23 @@ const BoardsList = () => {
     color: 'white', fontSize: '18px', fontWeight: 'bold',
   };
 
-  const onClickHandler = (e) => {
+  const goToCard = useCallback((e) => {
     const id = e.target.id;
-    dispatch(getBoardByIdRequest(id));
-    history.push(`boards/${id}`);
-  };
+    dispatch(getBoardByIdRequest( id ));
+    history.push(`/boards/${id}`);
+  }, []);
+
+  if (!boards.length) {
+    return null;
+  }
 
   return (
     <Grid container style={{ flexGrow: 1, flexWrap: 'wrap' }} spacing={2}>
       <Grid item xs={12}>
         <Grid container spacing={2}>
-          {boards && boards.map(board => (
+          {boards.map(board => (
             <Grid item key={board.id}>
-              <Paper style={paper} id={board.id} onClick={onClickHandler}>
+              <Paper style={paper} id={board.id} onClick={goToCard}>
                 {board.name}
               </Paper>
             </Grid>

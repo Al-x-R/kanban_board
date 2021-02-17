@@ -1,34 +1,33 @@
-import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import ColumnList from '../ColumnList/ColumnList';
+import React, { useCallback, useEffect } from 'react';
+import CardCreate from '../../card/CardCreate/CardCreate';
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItem from '@material-ui/core/ListItem';
+import ColumnRemove from '../ColumnRemove/ColumnRemove';
+import Card from '../../card/Card/Card';
+import Divider from '@material-ui/core/Divider';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    overflow: 'hidden',
-    padding: theme.spacing(0, 3),
-  },
-  paper: {
-    maxWidth: 250,
-    margin: `${theme.spacing(1)}px auto`,
-    padding: theme.spacing(2),
-  },
-}));
-
-const ColumnItem = ({name}) => {
-  const classes = useStyles();
+const ColumnItem = ({ id, name }) => {
+  const divStyle = { display: 'flex', justifyContent: 'space-between',
+    alignItems: 'center', overflow: 'hidden' };
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <Grid container wrap="nowrap" spacing={2} >
-          <p>{name}</p>
-          <ColumnList />
-        </Grid>
-      </Paper>
+    <div style={{border: '1px solid', borderRadius: '4px' ,maxWidth: '244px', display: 'flex',
+      alignItems: 'center', flexDirection: 'column'}}>
+      <List role="list" subheader={
+        <ListSubheader component='div'  style={divStyle}>
+          {name} <ColumnRemove id={id} />
+        </ListSubheader>}>
+        <ListItem role="listitem" style={{padding: '0', display: 'block'}}>
+          <Card />
+        </ListItem>
+        <Divider/>
+        <ListItem role="listitem" style={{padding: '0'}}>
+          <CardCreate id={id}/>
+        </ListItem>
+      </List>
     </div>
+
   );
 };
 

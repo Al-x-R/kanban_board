@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { removeBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Divider from '@material-ui/core/Divider';
 
 const BoardMenu = () => {
   const [open, setOpen] = useState(false);
@@ -24,12 +25,12 @@ const BoardMenu = () => {
     setAnchorEl(null);
   };
 
-  const removeBoard = () => {
+  const removeBoard = useCallback(() => {
     const id = board.id;
     dispatch(removeBoardByIdRequest(id));
     history.replace('/boards');
     setOpen(false);
-  };
+  }, [dispatch]);
 
   return (
     <div>
@@ -44,6 +45,7 @@ const BoardMenu = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={removeBoard}><DeleteIcon/> Remove board</MenuItem>
+        <Divider/>
         <MenuItem><AssignmentIcon/> Activity</MenuItem>
       </Menu>
     </div>
