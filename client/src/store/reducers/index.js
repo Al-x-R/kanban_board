@@ -8,5 +8,5 @@ export default combineReducers({
   auth: authReducer,
   boards: boardsReducer,
   columns: columnsReducer,
-  // cards: cardsReducer
+  cards: cardsReducer
 });
