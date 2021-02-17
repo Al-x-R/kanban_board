@@ -1,8 +1,8 @@
 const cardRouter = require('express').Router()
-const {cardCreate} = require('../controllers/cardController')
+const {cardCreate, getCards} = require('../controllers/cardController')
 
 cardRouter.post('/card', cardCreate)
-cardRouter.get('/card/:id')
+cardRouter.get('/card/:id', getCards)
 cardRouter.patch('/card/:id')
 cardRouter.delete('/card/:id')
 

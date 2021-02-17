@@ -10,3 +10,18 @@ exports.cardCreate = async (req, res) => {
     return res.status(400).send({ message: e.message });
   }
 };
+
+exports.getCards = async (req, res) => {
+  try {
+    const cards = await Card.findAll({
+      where: {
+        columnId: req.params.id,
+      },
+    });
+
+    return res.status(200).send(cards);
+
+  } catch (e) {
+    return res.status(400).send({ message: e.message });
+  }
+}
