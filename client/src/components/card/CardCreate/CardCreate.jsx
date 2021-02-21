@@ -1,12 +1,13 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
+import Menu from '@material-ui/core/Menu';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
 import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import React, { useCallback, useState } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Menu from '@material-ui/core/Menu';
+
 import { createCardRequest } from '../../../store/actions/cardsAction';
 
 const CardCreate = ({ id }) => {

@@ -1,14 +1,15 @@
-import React, { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { registerRequest } from '../../store/actions/authAction';
 import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+import { registerRequest } from '../../store/actions/authAction';
 
 const initialValues = {
   firstName: '',
@@ -40,7 +41,7 @@ const Register = () => {
     (values, formikBag) => {
       dispatch(registerRequest(values));
       console.log(values);
-    });
+    }, [dispatch]);
 
   return (
     <Formik

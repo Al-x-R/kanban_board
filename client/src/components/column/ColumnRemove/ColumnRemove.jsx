@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import React, { useCallback, useState } from 'react';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 const ColumnRemove = ({id}) => {
   const [anchorEl, setAnchorEl] = useState(null);

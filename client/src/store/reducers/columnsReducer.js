@@ -41,15 +41,14 @@ const columnsReducer = produce((draftState, action) => {
     }
       break;
 
-    case ACTION_TYPE.GET_COLUMNS_ERROR:
+    case ACTION_TYPE.GET_COLUMNS_ERROR: {
       const { error } = payload;
       draftState.error = error;
       draftState.isLoading = false;
+    }
       break;
-
-    default:
-      return initialState;
+      
   }
-});
+}, initialState);
 
 export default columnsReducer;

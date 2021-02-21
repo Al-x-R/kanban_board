@@ -1,15 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
+import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import TextField from '@material-ui/core/TextField';
+import { useDispatch, useSelector } from 'react-redux';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import AddIcon from '@material-ui/icons/Add';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
+
 import { userSelector } from '../../../store/selectors';
 import { createBoardRequest } from '../../../store/actions/boardsAction';
 

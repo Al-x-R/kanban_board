@@ -1,8 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
-import { useHistory, Route, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { useHistory } from 'react-router-dom';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import { useDispatch, useSelector } from 'react-redux';
+
 import BoardCreate from '../BoardCreate/BoardCreate';
 import { boardsSelector } from '../../../store/selectors';
 import { getBoardsRequest } from '../../../store/actions/boardsAction';
@@ -10,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Board from '../Board/Board';
 
-const BoardsList = (props) => {
+const BoardsList = () => {
   const boards = useSelector(boardsSelector);
 
   const history = useHistory();
@@ -20,10 +23,6 @@ const BoardsList = (props) => {
     dispatch(getBoardsRequest());
   }, []);
 
-  console.group('B-List')
-  console.log('boards list ', boards);
-  console.groupEnd()
-
   const paper = {
     height: 200, width: 200, display: 'flex',
     justifyContent: 'center', alignItems: 'center',
@@ -31,9 +30,9 @@ const BoardsList = (props) => {
     color: 'white', fontSize: '18px', fontWeight: 'bold',
   };
 
-  // const goToBoard = ({ target: { id } }) => (
-  //   history.push(`/boards/${id}`)
-  // )
+  const goToBoard = ({ target: { id } }) => (
+    history.push(`/boards/${id}`)
+  )
 
   if (!boards.length) return null;
 
@@ -46,24 +45,16 @@ const BoardsList = (props) => {
         <Grid item xs={12}>
           <Grid container spacing={2}>
             {boards.map(board => (
-              <Grid item key={board.id}>
-                <Link to={`${props.match.url}/${board.id}`} style={{textDecoration:'none'}}>
+              <Grid item key={board.id} onClick={goToBoard}>
                   <Paper style={paper} id={board.id}  >
                     {board.name}
                   </Paper>
-                </Link>
               </Grid>
             ))}
             <Grid item><BoardCreate/></Grid>
           </Grid>
         </Grid>
       </Grid>
-      <Route path={`${props.match.url}/:id`}
-             render={props => {
-               const board = boards.find(b => b.id === props.match.params.id);
-               return <Board {...props} board={board}/>;
-             }}
-      />
     </Container>
   );
 };

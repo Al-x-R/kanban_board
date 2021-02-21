@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import CardCreate from '../../card/CardCreate/CardCreate';
-import { useDispatch, useSelector } from 'react-redux';
 import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItem from '@material-ui/core/ListItem';
-import ColumnRemove from '../ColumnRemove/ColumnRemove';
-import Card from '../../card/Card/Card';
 import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
+import { useDispatch, useSelector } from 'react-redux';
+import ListSubheader from '@material-ui/core/ListSubheader';
+
+import Card from '../../card/Card/Card';
+import ColumnRemove from '../ColumnRemove/ColumnRemove';
+import CardCreate from '../../card/CardCreate/CardCreate';
 import { getCardsRequest } from '../../../store/actions/cardsAction';
 
 const ColumnItem = ({ id, name }) => {
   const [toggle, setToggle] = useState(true)
   const dispatch = useDispatch();
-  const divStyle = {
+  const columnHeader = {
     display: 'flex', justifyContent: 'space-between',
     alignItems: 'center', overflow: 'hidden',
   };
-  const cards = useSelector(state => state.cards.cards)
+
+  const cards = useSelector(state => state.cards.data)
+  console.group('Col item')
+  console.log('item id ', id)
+  console.log('item name ', name)
+  console.log('cards ', cards)
+  console.groupEnd()
 
   useEffect(() => {
     dispatch(getCardsRequest(id));
   }, [dispatch]);
-
-  if (!cards) return null
 
   return (
     <div style={{
@@ -31,13 +36,10 @@ const ColumnItem = ({ id, name }) => {
       alignItems: 'center', flexDirection: 'column',
     }}>
       <List role="list" subheader={
-        toggle ?
-        <ListSubheader onDoubleClick={() => {
-          setToggle(false)
-        }} component='div' style={divStyle}>
+        <ListSubheader component='div' style={columnHeader}>
           {name} <ColumnRemove id={id}/>
-        </ListSubheader> : <TextField id="standard-basic" />}>
-        {cards.map(card => (
+        </ListSubheader>}>
+        {cards && cards.map(card => (
           <ListItem key={card.id} role="listitem" style={{ padding: '0', display: 'block' }}>
             <Card name={card.name}/>
           </ListItem>

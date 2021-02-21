@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getColumnsRequest } from '../../../store/actions/columnsAction';
 import Grid from '@material-ui/core/Grid';
-import ColumnItem from '../ColumnItem/ColumnItem';
-import { columnsSelector } from '../../../store/selectors';
-import ColumnCreate from '../ColumnCreate/ColumnCreate';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ColumnsList = () => {
+import ColumnItem from '../ColumnItem/ColumnItem';
+import ColumnCreate from '../ColumnCreate/ColumnCreate';
+import { columnsSelector } from '../../../store/selectors';
+import { getColumnsRequest } from '../../../store/actions/columnsAction';
+
+const ColumnsList = ({id}) => {
   const dispatch = useDispatch();
-  const params = useParams();
-  const id = params.id;
+  const columns = useSelector(columnsSelector);
+  const params = useParams()
+  console.log(params)
 
   useEffect(() => {
     dispatch(getColumnsRequest(id));
   }, [id]);
-
-  const columns = useSelector(columnsSelector);
 
   const content = { display: 'flex', justifyContent: 'flex-start' };
 
@@ -28,7 +28,7 @@ const ColumnsList = () => {
         </Grid>
       ))}
       <Grid item xs={3}>
-        <ColumnCreate/>
+        <ColumnCreate id={id}/>
       </Grid>
     </Grid>
   );

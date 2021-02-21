@@ -1,24 +1,21 @@
-import React, { useCallback, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import { removeBoardByIdRequest } from '../../../store/actions/boardByIdAction';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import MenuItem from '@material-ui/core/MenuItem';
+import DeleteIcon from '@material-ui/icons/Delete';
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
-const BoardMenu = () => {
+import { removeBoardByIdRequest } from '../../../store/actions/boardByIdAction';
+
+const BoardMenu = ({id}) => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const params = useParams();
-  const id = params.id;
-  console.log('menu',id)
 
-  const dispatch = useDispatch();
-  const board = useSelector(state => state.boards.board);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

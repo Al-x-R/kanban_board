@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
-import { createColumnRequest } from '../../../store/actions/columnsAction';
+import TextField from '@material-ui/core/TextField';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
-const ColumnCreate = () => {
+import { createColumnRequest } from '../../../store/actions/columnsAction';
+
+const ColumnCreate = ({id}) => {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
-  const params = useParams();
   const dispatch = useDispatch();
 
   console.group('Create col')
-  console.log(params)
+  console.log(id)
   console.groupEnd()
 
 
@@ -31,7 +31,7 @@ const ColumnCreate = () => {
   const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
 
   const createColumn = () => {
-    const boardId = params.id;
+    const boardId = id;
     if (name) {
       dispatch(createColumnRequest({ boardId, name }));
     }
@@ -65,7 +65,6 @@ const ColumnCreate = () => {
             <ClearIcon style={icon} onClick={handleClick} color="primary"/>
           </Box>
         </div> : null}
-
       </div>
     </ClickAwayListener>
   );

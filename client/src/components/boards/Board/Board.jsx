@@ -1,11 +1,10 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import BoardMenu from '../BoardMenu/BoardMenu';
-import { getBoardByIdRequest } from '../../../store/actions/boardByIdAction';
+
+import { boardSelector } from '../../../store/selectors';
 import ColumnsList from '../../column/ColumnsList/ColumnsList';
+import { getBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 
 const Board = ({history, match }) => {
 
@@ -13,8 +12,7 @@ const Board = ({history, match }) => {
   const id = match.params.id;
   const board = useSelector(state => state.boards.board)
   console.group('Board');
-  console.log('board ', board);
-  console.log('history', history);
+  console.log('board ', name);
   console.log('match', match);
   console.log('match.params', id);
   console.groupEnd();
@@ -22,9 +20,9 @@ const Board = ({history, match }) => {
   const header = { height: '70px', width: '100%', backgroundColor: 'lightBlue', display: 'flex', alignItems: 'center' };
   const headerWrapper = { display: 'flex', justifyContent: 'space-between' };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(getBoardByIdRequest(id));
-  }, [id]);
+  }, []);
 
   return (
     <div>

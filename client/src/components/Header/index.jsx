@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { userSelector } from '../../store/selectors';
-import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { useDispatch, useSelector } from 'react-redux';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
+import { userSelector } from '../../store/selectors';
 import { logoutRequest } from '../../store/actions/authAction';
 
 const Header = () => {

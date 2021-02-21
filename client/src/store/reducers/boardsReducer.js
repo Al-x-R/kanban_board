@@ -75,7 +75,6 @@ const boardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.REMOVE_BOARD_BY_ID_SUCCESS:
       draftState.isLoading = false;
-
       break;
 
     case ACTION_TYPE.REMOVE_BOARD_BY_ID_ERROR: {

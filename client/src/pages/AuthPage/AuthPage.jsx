@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
+import { useLocation, Redirect } from 'react-router-dom';
+
 import Login from '../../components/Auth/Login';
-import Register from '../../components/Auth/Register';
 import { userSelector } from '../../store/selectors';
+import Register from '../../components/Auth/Register';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState();
@@ -23,7 +24,7 @@ const AuthPage = () => {
   }
 
   return (
-    <div>
+    <div style={{textAlign: 'center'}}>
       <Typography style={{ margin: '50px auto 30px' }} variant="h5" component="h2" gutterBottom>{pageTitle}</Typography>
       <Form/>
     </div>

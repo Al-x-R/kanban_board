@@ -3,7 +3,6 @@ import ACTION_TYPE from '../types';
 
 const initialState = {
   cards: [],
-  card: {},
   isLoading: false,
   error: null,
 };
