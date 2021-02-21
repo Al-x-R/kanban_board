@@ -10,20 +10,17 @@ const boardsService = {
       })
   },
 
-  createBoard: (data) => {
-    return API.post('/boards', data);
+  createBoard: async (data) => {
+    return await API.post('/boards', data);
   },
 
-  getBoardById: (id) => {
-    return API.get(`/boards/${id}`)
-      .then(({data}) => {
-        localStorage.setItem('board', JSON.stringify(data));
-        return data
-      })
+  getBoardById: async (id) => {
+    const { data } = await API.get(`/boards/${id}`);
+    return data;
   },
 
-  removeBoardById: (id) => {
-    return API.delete(`/boards/${id}`);
+  removeBoardById: async (id) => {
+    return await API.delete(`/boards/${id}`);
   },
 };
 

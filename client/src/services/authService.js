@@ -14,22 +14,16 @@ const AuthService = {
       });
   },
 
-  register: (data) => {
-    return API.post('/register', data)
-      .then(({ data }) => {
-        setHeadersToLocalStorage(data);
-        return data;
-      })
-      .catch(err => {
-        console.log('Auth service error', err);
-      });
+  register: async (values) => {
+    const {data} = await API.post('/register', values)
+    setHeadersToLocalStorage(data);
+    return data;
   },
 
   logout: () => {
     API.defaults.headers['Authorization'] = '';
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    localStorage.removeItem('board');
     localStorage.removeItem('boards');
   },
 
