@@ -1,13 +1,14 @@
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
 import { loginRequest } from '../../store/actions/authAction';
 
 const initialValues = {
@@ -23,13 +24,13 @@ const validationSchema = Yup.object({
 const Login = () => {
   const dispatch = useDispatch();
 
-  const paperStyle = { padding: 20, minHeight: '50vh', width: 300, margin: "0 auto" };
-  const btnstyle = { margin: '35px 0' };
+  const paperStyle = { padding: 20, minHeight: '50vh', width: 300, margin: '0 auto' };
+  const btnStyle = { margin: '35px 0' };
 
   const handleSubmit = useCallback(
     (values, formikBag) => {
       dispatch(loginRequest(values));
-    });
+    }, [dispatch]);
 
   return (
     <Formik
@@ -60,7 +61,7 @@ const Login = () => {
             <Box component="span" m={1}>
               <Button type="submit" disabled={isValidating}
                       color='primary' variant="contained"
-                      style={btnstyle} fullWidth>Submit</Button>
+                      style={btnStyle} fullWidth>Submit</Button>
             </Box>
             <Typography> Don`t have an account? <Link to='/Register'>
               Register

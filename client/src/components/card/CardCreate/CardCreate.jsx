@@ -27,21 +27,22 @@ const CardCreate = ({ id }) => {
     paper: {
       border: '1px solid #d3d4d5',
     },
-  })((props) => (
-    <Menu
-      elevation={0}
-      getContentAnchorEl={null}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
-      {...props}
-    />
-  ));
+  })(
+    (props) => (
+      <Menu
+        elevation={0}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        {...props}
+      />
+    ));
 
   const paper = { width: '210px', margin: '0' };
   const menuButton = { width: '244px', height: '40px' };
@@ -50,9 +51,9 @@ const CardCreate = ({ id }) => {
   const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
 
   const createCard = useCallback(() => {
-    const columnId = id
+    const columnId = id;
     console.log('card create');
-    dispatch(createCardRequest({ columnId, name }))
+    dispatch(createCardRequest({ columnId, name }));
   }, [id]);
 
   return (
@@ -82,7 +83,7 @@ const CardCreate = ({ id }) => {
               <Button variant="contained" style={button} color='primary' onClick={createCard}>
                 Add
               </Button>
-              <ClearIcon style={icon} onClick={handleClose} color="primary"/>
+              <ClearIcon style={icon} onClick={handleClose} color="primary" />
             </Box>
           </div>
         </MenuItem>

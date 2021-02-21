@@ -9,9 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import BoardCreate from '../BoardCreate/BoardCreate';
 import { boardsSelector } from '../../../store/selectors';
 import { getBoardsRequest } from '../../../store/actions/boardsAction';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Board from '../Board/Board';
 
 const BoardsList = () => {
   const boards = useSelector(boardsSelector);

@@ -4,17 +4,15 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { userSelector } from '../../store/selectors';
 
-const ProtectedRoute = ({ component: Component, ...props }) => {
+const ProtectedRoute = (props) => {
   const user = useSelector(userSelector);
 
   return (
-    <Route {...props}
-           render={(props) => (
-             user
-               ? <Component {...props}/>
-               : <Redirect to='/login'/>
-           )}
-    />
+    user
+    ?
+    <Route {...props} />
+    :
+    <Redirect to='/login' />
   );
 };
 

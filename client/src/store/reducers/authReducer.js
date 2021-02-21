@@ -2,15 +2,14 @@ import produce from 'immer';
 import ACTION_TYPE from '../types';
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem('user')) ?? {},
-  token: localStorage.getItem('token') ?? '',
+  user: JSON.parse(localStorage.getItem('user')) || null,
+  token: localStorage.getItem('token') || null,
   isLoading: false,
   error: null,
 };
 
 const authReducer = produce((draftState, action) => {
   const { type, payload } = action;
-
   switch (type) {
     case ACTION_TYPE.LOGIN_REQUEST:
       draftState.isLoading = true;
@@ -61,10 +60,7 @@ const authReducer = produce((draftState, action) => {
       draftState.error = error;
     }
       break;
-
-    default:
-      return initialState;
   }
-});
+}, initialState);
 
 export default authReducer;

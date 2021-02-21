@@ -2,16 +2,10 @@ import API from './api';
 
 const AuthService = {
 
-  login: (data) => {
-    return API.post('/login', data)
-      .then(({ data }) => {
-        setHeadersToLocalStorage(data);
-        return data;
-      })
-      .catch(err => {
-        console.log('Auth service error', err);
-        // throw err
-      });
+  login: async (values) => {
+    const { data } = await API.post('/login', values);
+    setHeadersToLocalStorage(data);
+    return data;
   },
 
   register: async (values) => {

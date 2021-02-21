@@ -8,8 +8,9 @@ const composeEnhancers = composeWithDevTools({
   trace: true,
 });
 
-const store = createStore(rootReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware)));
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 sagaMiddleware.run(rootSaga);
 

@@ -10,23 +10,24 @@ import Register from '../../components/Auth/Register';
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState();
   const location = useLocation();
-  const user = useSelector(userSelector);
+
+  const user = useSelector(userSelector)
 
   useEffect(() => {
     setIsLogin(location.pathname === '/login');
   }, [location.pathname]);
 
+  if (user) {
+    return <Redirect to='/boards' />;
+  }
+
   const Form = isLogin ? Login : Register;
   const pageTitle = isLogin ? 'LOGIN TO YOUR ACCOUNT' : 'CREATE AN ACCOUNT';
-
-  if (user) {
-    return <Redirect to={'/boards'}/>;
-  }
 
   return (
     <div style={{textAlign: 'center'}}>
       <Typography style={{ margin: '50px auto 30px' }} variant="h5" component="h2" gutterBottom>{pageTitle}</Typography>
-      <Form/>
+      <Form />
     </div>
   );
 };

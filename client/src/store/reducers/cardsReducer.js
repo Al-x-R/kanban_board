@@ -35,7 +35,7 @@ const cardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.GET_CARDS_SUCCESS: {
       const { cards } = payload;
-      draftState.cards = cards
+      draftState.cards = cards;
       draftState.isLoading = false;
     }
       break;
@@ -46,10 +46,7 @@ const cardsReducer = produce((draftState, action) => {
       draftState.error = error;
     }
       break;
-
-    default:
-      return initialState;
   }
-});
+}, initialState);
 
 export default cardsReducer;

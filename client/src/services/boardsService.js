@@ -2,12 +2,9 @@ import API from './api';
 
 const boardsService = {
 
-  getBoards: () => {
-    return API.get('/boards')
-      .then(({data}) => {
-        localStorage.setItem('boards', JSON.stringify(data));
-        return data
-      })
+  getBoards: async () => {
+    const { data } = await API.get('/boards');
+    return data;
   },
 
   createBoard: async (data) => {

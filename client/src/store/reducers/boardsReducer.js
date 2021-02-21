@@ -2,8 +2,8 @@ import produce from 'immer';
 import ACTION_TYPE from '../types';
 
 const initialState = {
-  boards: JSON.parse(localStorage.getItem('boards')) ?? [],
-  board: JSON.parse(localStorage.getItem('board')) ?? {},
+  boards: [],
+  board: {},
   isLoading: false,
   error: null,
 };
@@ -34,10 +34,11 @@ const boardsReducer = produce((draftState, action) => {
       draftState.isLoading = true;
       break;
 
-    case ACTION_TYPE.GET_BOARDS_SUCCESS:
+    case ACTION_TYPE.GET_BOARDS_SUCCESS: {
       const { boards } = payload;
       draftState.boards = boards;
       draftState.isLoading = false;
+    }
       break;
 
     case ACTION_TYPE.GET_BOARDS_ERROR: {
@@ -51,26 +52,25 @@ const boardsReducer = produce((draftState, action) => {
       draftState.isLoading = true;
       break;
 
-    case ACTION_TYPE.GET_BOARD_BY_ID_SUCCESS:
+    case ACTION_TYPE.GET_BOARD_BY_ID_SUCCESS: {
       const { board } = payload;
-      draftState.board = board
+      draftState.board = board;
       draftState.isLoading = false;
+    }
       break;
 
-    case ACTION_TYPE.GET_BOARD_BY_ID_ERROR:
+    case ACTION_TYPE.GET_BOARD_BY_ID_ERROR: {
       const { error } = payload;
       draftState.isLoading = false;
       draftState.error = error;
+    }
       break;
 
-    case ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST:
+    case ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST: {
       const { id } = payload;
-      draftState.boards.filter(board => board.id !== id)
-      // const index = draftState.boards.findIndex(board => board.id === id);
-      // if (index !== -1) {
-      //   draftState.boards.splice(index, 1);
-      // }
+      draftState.boards.filter(board => board.id !== id);
       draftState.isLoading = true;
+    }
       break;
 
     case ACTION_TYPE.REMOVE_BOARD_BY_ID_SUCCESS:
@@ -83,10 +83,7 @@ const boardsReducer = produce((draftState, action) => {
       draftState.error = error;
     }
       break;
-
-    default:
-      return initialState;
   }
-});
+}, initialState);
 
 export default boardsReducer;

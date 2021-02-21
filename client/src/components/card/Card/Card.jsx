@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
@@ -26,7 +26,7 @@ const Card = () => {
       <Dialog fullWidth open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Card Name</DialogTitle>
         <DialogContent>
-          <DialogContentText>in 'List name'</DialogContentText>
+          <DialogContentText>{`in 'List name'`}</DialogContentText>
           <TextField
             autoFocus
             id="description"

@@ -1,17 +1,22 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from './router';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import Header from './components/Header';
+import AuthPage from './pages/AuthPage/AuthPage';
+import Board from './components/boards/Board/Board';
+import BoardsList from './components/boards/BoardsList/BoardsList';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Header />
-        <Routes/>
-      </Router>
-    </div>
+    <Router>
+      <Header />
+      <Switch>
+        <ProtectedRoute exact path='/boards' component={BoardsList} />
+        <ProtectedRoute path='/boards/:id' component={Board} />
+        <Route path={['/login', '/register']} component={AuthPage} />
+      </Switch>
+    </Router>
   );
 }
 
