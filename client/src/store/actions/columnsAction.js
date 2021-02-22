@@ -59,3 +59,25 @@ export const removeColumnError = (error) => ({
     error,
   },
 });
+
+export const updateColumnRequest = (id, values) => ({
+  type: ACTION_TYPE.UPDATE_COLUMN_REQUEST,
+  payload: {
+    id,
+    values,
+  },
+});
+
+export const updateColumnSuccess = (column) => ({
+  type: ACTION_TYPE.UPDATE_COLUMN_SUCCESS,
+  payload: {
+    column
+  }
+});
+
+export const updateColumnError = (error) => ({
+  type: ACTION_TYPE.UPDATE_COLUMN_ERROR,
+  payload: {
+    error,
+  },
+});

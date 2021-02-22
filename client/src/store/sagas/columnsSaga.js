@@ -34,3 +34,14 @@ export function* removeColumnSaga(action) {
     yield put(ColumnAction.removeColumnError(err));
   }
 }
+
+export function* updateColumnSaga(action) {
+  try {
+    const { payload: { id, values } } = action;
+    const column = yield ColumnService.updateColumn(id,  values );
+    yield put(ColumnAction.updateColumnSuccess(column));
+
+  } catch (err) {
+    yield put(ColumnAction.updateColumnError(err));
+  }
+}

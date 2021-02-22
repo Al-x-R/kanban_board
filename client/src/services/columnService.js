@@ -14,6 +14,11 @@ const columnService = {
   removeColumn: async (id) => {
     return await API.delete(`/column/${id}`);
   },
+
+  updateColumn: async (id, values) => {
+    console.log(values)
+    return await API.patch(`/column/${id}`, values)
+}
 };
 
 export default columnService;

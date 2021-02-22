@@ -19,7 +19,6 @@ const ColumnRemove = ({ id }) => {
   };
 
   const removeColumn = useCallback(() => {
-    console.log(id, removeColumnRequest());
     dispatch(removeColumnRequest(id));
     setAnchorEl(null);
   }, [dispatch]);

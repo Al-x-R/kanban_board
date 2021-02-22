@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
+import Title from '../Title/Title';
 import Card from '../../card/Card/Card';
 import ColumnRemove from '../ColumnRemove/ColumnRemove';
 import { cardsSelector } from '../../../store/selectors';
@@ -30,8 +31,8 @@ const ColumnItem = ({ id, name }) => {
       alignItems: 'center', flexDirection: 'column',
     }}>
       <List role="list" subheader={
-        <ListSubheader component='div' style={columnHeader}>
-          {name} <ColumnRemove id={id}/>
+        <ListSubheader component='div' style={columnHeader}><Title id={id} name={name}/>
+          <ColumnRemove id={id}/>
         </ListSubheader>}>
         {cards && cards.map(card => (
           <ListItem key={card.id} role="listitem" style={{ padding: '0', display: 'block' }}>

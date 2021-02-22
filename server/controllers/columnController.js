@@ -28,7 +28,6 @@ exports.getColumns = async (req, res) => {
 
 exports.removeColumn = async (req, res) => {
   try {
-
     const column = await Column.findOne({
       where: {
         id: req.params.id,
@@ -37,6 +36,27 @@ exports.removeColumn = async (req, res) => {
 
     await column.destroy();
     res.status(200).send({ message: `the column ${column}  has been removed` });
+
+  } catch (e) {
+    return res.status(400).send({ message: e.message });
+  }
+};
+
+exports.updateColumn = async (req, res) => {
+  const { params: { id }, body } = req;
+  try {
+    const [rows, [result]] = await Column.update(body, {
+      where: {
+        id: id,
+      },
+      returning: true,
+    });
+
+    if (rows) {
+      return res.status(200).send({
+        column: result,
+      });
+    }
 
   } catch (e) {
     return res.status(400).send({ message: e.message });
