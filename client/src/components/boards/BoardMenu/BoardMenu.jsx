@@ -1,17 +1,16 @@
+import { useDispatch } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
 import { removeBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 
-const BoardMenu = ({id}) => {
-  const [open, setOpen] = useState(false);
+const BoardMenu = ({ id }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const history = useHistory();
@@ -27,9 +26,8 @@ const BoardMenu = ({id}) => {
 
   const removeBoard = useCallback(() => {
     dispatch(removeBoardByIdRequest(id));
-    localStorage.removeItem('board');
     history.replace('/boards');
-    setOpen(false);
+    setAnchorEl(null);
   }, [dispatch]);
 
   return (

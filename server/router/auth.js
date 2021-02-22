@@ -5,7 +5,6 @@ const { rules: loginRules } = require('../validators/auth/login');
 const { rules: registrationRules } = require('../validators/auth/register');
 
 authRouter.post('/login', [loginRules, validate], login);
-
 authRouter.post('/register', [registrationRules, validate], register);
 
 module.exports = authRouter;

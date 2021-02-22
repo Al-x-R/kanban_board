@@ -5,9 +5,7 @@ const config = require('../config/app');
 
 const generateToken = (user) => {
   delete user.password;
-
   const token = jwt.sign(user, config.tokenSecret, { expiresIn: config.tokenExpiresIn });
-
   return { ...{ user }, ...{ token } };
 };
 
@@ -23,7 +21,6 @@ exports.login = async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const userWithToken = generateToken(user.get({ raw: true }));
-
       return res.status(201).send(userWithToken);
     }
 

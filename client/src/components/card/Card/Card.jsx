@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
-const Card = () => {
+const Card = ({ name }) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -21,7 +21,7 @@ const Card = () => {
   return (
     <div>
       <Button fullWidth variant="outlined" color="primary" onClick={handleClickOpen}>
-        card name
+        {name}
       </Button>
       <Dialog fullWidth open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Card Name</DialogTitle>

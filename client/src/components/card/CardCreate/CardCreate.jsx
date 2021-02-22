@@ -1,48 +1,21 @@
+import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
-import Menu from '@material-ui/core/Menu';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import React, { useCallback, useState } from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import { createCardRequest } from '../../../store/actions/cardsAction';
 
 const CardCreate = ({ id }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
   const [name, setName] = useState('');
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = () => {
+    setOpen((prev) => !prev);
   };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const StyledMenu = withStyles({
-    paper: {
-      border: '1px solid #d3d4d5',
-    },
-  })(
-    (props) => (
-      <Menu
-        elevation={0}
-        getContentAnchorEl={null}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        {...props}
-      />
-    ));
 
   const paper = { width: '210px', margin: '0' };
   const menuButton = { width: '244px', height: '40px' };
@@ -50,45 +23,41 @@ const CardCreate = ({ id }) => {
   const icon = { width: '40px', height: '40px', color: 'grey' };
   const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
 
-  const createCard = useCallback(() => {
+  const createCard = () => {
     const columnId = id;
-    console.log('card create');
-    dispatch(createCardRequest({ columnId, name }));
-  }, [id]);
+
+    if (name) {
+      dispatch(createCardRequest({ columnId, name }));
+    }
+    setOpen((prev) => !prev);
+  };
 
   return (
-    <div>
-      <Button style={menuButton} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        Add a card...
-      </Button>
-      <StyledMenu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem>
-          <div style={paper}>
-            <TextField
-              variant="outlined"
-              autoFocus
-              placeholder="Add new list..."
-              required={true}
-              label="Column name"
-              type="text"
-              fullWidth
-              onChange={e => setName(e.target.value)}
-            />
-            <Box style={box}>
-              <Button variant="contained" style={button} color='primary' onClick={createCard}>
-                Add
-              </Button>
-              <ClearIcon style={icon} onClick={handleClose} color="primary" />
-            </Box>
-          </div>
-        </MenuItem>
-      </StyledMenu>
-    </div>
+    <ClickAwayListener onClickAway={() => setOpen(false)}>
+      <div style={{ position: 'relative' }}>
+        <Button style={menuButton} onClick={handleClick}>
+          Add a card...
+        </Button>
+        {open ? <div style={paper}>
+          <TextField
+            variant="outlined"
+            autoFocus
+            placeholder="Add card..."
+            required={true}
+            label="Card name"
+            type="text"
+            fullWidth
+            onChange={(e) => setName(e.target.value)}
+          />
+          <Box style={box}>
+            <Button variant="contained" style={button} color='primary' onClick={createCard}>
+              Add
+            </Button>
+            <ClearIcon style={icon} onClick={handleClick} color="primary"/>
+          </Box>
+        </div> : null}
+      </div>
+    </ClickAwayListener>
   );
 };
 

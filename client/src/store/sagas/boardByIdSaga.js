@@ -16,7 +16,7 @@ export function* getBoardByIdSaga(action) {
 export function* removeBoardByIdSaga(action) {
   try {
     const { payload: { id } } = action;
-    yield BoardsService.removeBoardById(id)
+    yield BoardsService.removeBoardById(id);
     yield put(BoardByIdAction.removeBoardByIdSuccess());
 
   } catch (err) {

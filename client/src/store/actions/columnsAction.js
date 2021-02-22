@@ -41,3 +41,21 @@ export const getColumnsError = (error) => ({
     error,
   },
 });
+
+export const removeColumnRequest = (id) => ({
+  type: ACTION_TYPE.REMOVE_COLUMN_REQUEST,
+  payload: {
+    id,
+  },
+});
+
+export const removeColumnSuccess = () => ({
+  type: ACTION_TYPE.REMOVE_COLUMN_SUCCESS,
+});
+
+export const removeColumnError = (error) => ({
+  type: ACTION_TYPE.REMOVE_COLUMN_ERROR,
+  payload: {
+    error,
+  },
+});

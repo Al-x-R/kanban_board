@@ -19,6 +19,7 @@ function* rootSaga() {
 
   yield takeLatest(ACTION_TYPE.CREATE_COLUMN_REQUEST, ColumnsSaga.createColumnSaga);
   yield takeLatest(ACTION_TYPE.GET_COLUMNS_REQUEST, ColumnsSaga.getColumnsSaga);
+  yield takeLatest(ACTION_TYPE.REMOVE_COLUMN_REQUEST, ColumnsSaga.removeColumnSaga);
 
   yield takeLatest(ACTION_TYPE.CREATE_CARD_REQUEST, CardsSaga.createCardSaga);
   yield takeLatest(ACTION_TYPE.GET_CARDS_REQUEST, CardsSaga.getCardsSaga);

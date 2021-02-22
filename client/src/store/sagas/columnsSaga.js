@@ -23,3 +23,14 @@ export function* getColumnsSaga(action) {
     yield put(ColumnAction.getColumnsError(e));
   }
 }
+
+export function* removeColumnSaga(action) {
+  try {
+    const { payload: { id } } = action;
+    yield ColumnService.removeColumn(id);
+    yield put(ColumnAction.removeColumnSuccess());
+
+  } catch (err) {
+    yield put(ColumnAction.removeColumnError(err));
+  }
+}

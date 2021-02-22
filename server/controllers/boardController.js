@@ -3,9 +3,7 @@ const { Board } = require('../models');
 exports.boardCreate = async (req, res) => {
   try {
     const { body } = req;
-
     const board = await Board.create(body);
-
     return res.status(201).send(board);
 
   } catch (e) {

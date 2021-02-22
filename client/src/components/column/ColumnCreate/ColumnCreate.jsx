@@ -1,30 +1,26 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
 import TextField from '@material-ui/core/TextField';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import { createColumnRequest } from '../../../store/actions/columnsAction';
 
-const ColumnCreate = ({id}) => {
+const ColumnCreate = ({ id }) => {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-
-  console.group('Create col')
-  console.log(id)
-  console.groupEnd()
-
 
   const handleClick = () => {
     setOpen((prev) => !prev);
   };
 
-  const paper = { width: '244px', margin: '0', position: 'absolute',
-    top: 0, right: 0, left: 0, zIndex: 1, border: '1px solid', backgroundColor: 'lightGrey'};
+  const paper = {
+    width: '244px', margin: '0', position: 'absolute',
+    top: 0, right: 0, left: 0, zIndex: 1, border: '1px solid', backgroundColor: 'lightGrey',
+  };
   const menuButton = { width: '244px', height: '40px' };
   const button = { width: '35px', flex: 'start', color: 'white' };
   const icon = { width: '40px', height: '40px', color: 'grey' };
@@ -32,18 +28,17 @@ const ColumnCreate = ({id}) => {
 
   const createColumn = () => {
     const boardId = id;
+
     if (name) {
       dispatch(createColumnRequest({ boardId, name }));
     }
     setOpen((prev) => !prev);
   };
 
-  const handleClickAway = () => setOpen(false)
-
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <div style={{position: 'relative'}}>
-        <Button style={menuButton} color='primary' variant="contained" aria-controls="simple-menu" aria-haspopup="true"
+    <ClickAwayListener onClickAway={() => setOpen(false)}>
+      <div style={{ position: 'relative' }}>
+        <Button style={menuButton} color='primary' variant="contained"
                 onClick={handleClick}>
           Add new list...
         </Button>

@@ -15,12 +15,6 @@ const Board = ({ match }) => {
   const board = useSelector(boardSelector)
   const name = board.name
 
-  console.group('Board');
-  console.log('board ', name);
-  console.log('match', match);
-  console.log('match.params', id);
-  console.groupEnd();
-
   const header = { height: '70px', width: '100%', backgroundColor: 'lightBlue', display: 'flex', alignItems: 'center' };
   const headerWrapper = { display: 'flex', justifyContent: 'space-between' };
 

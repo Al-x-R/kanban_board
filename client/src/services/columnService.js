@@ -2,15 +2,18 @@ import API from './api';
 
 const columnService = {
 
-  createColumn: (data) => {
-    return API.post('/column', data);
+  createColumn: async (values) => {
+    return await API.post('/column', values);
   },
 
-  getColumns: (id) => {
-    return API.get(`/column/${id}`)
-      .then(res => res.data);
+  getColumns: async (id) => {
+    const { data } = await API.get(`/column/${id}`);
+    return data;
   },
 
+  removeColumn: async (id) => {
+    return await API.delete(`/column/${id}`);
+  },
 };
 
 export default columnService;

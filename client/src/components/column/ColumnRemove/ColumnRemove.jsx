@@ -1,10 +1,14 @@
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import React, { useCallback, useState } from 'react';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-const ColumnRemove = ({id}) => {
+import { removeColumnRequest } from '../../../store/actions/columnsAction';
+
+const ColumnRemove = ({ id }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -15,8 +19,10 @@ const ColumnRemove = ({id}) => {
   };
 
   const removeColumn = useCallback(() => {
+    console.log(id, removeColumnRequest());
+    dispatch(removeColumnRequest(id));
     setAnchorEl(null);
-  }, [id])
+  }, [dispatch]);
 
   return (
     <div>

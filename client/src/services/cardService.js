@@ -2,12 +2,13 @@ import API from './api';
 
 const cardService = {
 
-  createCard: (data) => {
-    return API.post('/card', data);
+  createCard: async (values) => {
+    return await API.post('/card', values);
   },
 
-  getCards: (id) => {
-    return API.get(`/card/${id}`);
+  getCards: async (id) => {
+    const { data } = await API.get(`/card/${id}`);
+    return data;
   },
 
 };

@@ -1,30 +1,24 @@
+import React, { useEffect } from 'react';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import React, { useEffect, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
 import Card from '../../card/Card/Card';
 import ColumnRemove from '../ColumnRemove/ColumnRemove';
+import { cardsSelector } from '../../../store/selectors';
 import CardCreate from '../../card/CardCreate/CardCreate';
 import { getCardsRequest } from '../../../store/actions/cardsAction';
 
 const ColumnItem = ({ id, name }) => {
-  const [toggle, setToggle] = useState(true)
   const dispatch = useDispatch();
+  const cards = useSelector(cardsSelector);
+
   const columnHeader = {
     display: 'flex', justifyContent: 'space-between',
     alignItems: 'center', overflow: 'hidden',
   };
-
-  const cards = useSelector(state => state.cards.data)
-  console.group('Col item')
-  console.log('item id ', id)
-  console.log('item name ', name)
-  console.log('cards ', cards)
-  console.groupEnd()
 
   useEffect(() => {
     dispatch(getCardsRequest(id));

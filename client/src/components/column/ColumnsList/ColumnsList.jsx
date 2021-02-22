@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ColumnItem from '../ColumnItem/ColumnItem';
@@ -8,11 +7,9 @@ import ColumnCreate from '../ColumnCreate/ColumnCreate';
 import { columnsSelector } from '../../../store/selectors';
 import { getColumnsRequest } from '../../../store/actions/columnsAction';
 
-const ColumnsList = ({id}) => {
+const ColumnsList = ({ id }) => {
   const dispatch = useDispatch();
   const columns = useSelector(columnsSelector);
-  const params = useParams()
-  console.log(params)
 
   useEffect(() => {
     dispatch(getColumnsRequest(id));
