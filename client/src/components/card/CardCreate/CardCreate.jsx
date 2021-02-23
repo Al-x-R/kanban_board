@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
 import TextField from '@material-ui/core/TextField';
@@ -12,6 +13,7 @@ const CardCreate = ({ id }) => {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const params = useParams();
 
   const handleClick = () => {
     setOpen((prev) => !prev);
@@ -25,9 +27,10 @@ const CardCreate = ({ id }) => {
 
   const createCard = () => {
     const columnId = id;
+    const boardId = params.id;
 
     if (name) {
-      dispatch(createCardRequest({ columnId, name }));
+      dispatch(createCardRequest({ boardId, columnId, name }));
     }
     setOpen((prev) => !prev);
   };

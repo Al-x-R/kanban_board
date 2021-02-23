@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
-const Card = ({ name }) => {
+const Card = ({ name, id }) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {

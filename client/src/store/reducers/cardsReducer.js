@@ -11,6 +11,7 @@ const cardsReducer = produce((draftState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case ACTION_TYPE.GET_CARDS_REQUEST:
     case ACTION_TYPE.CREATE_CARD_REQUEST:
       draftState.isLoading = true;
       break;
@@ -22,17 +23,6 @@ const cardsReducer = produce((draftState, action) => {
     }
       break;
 
-    case ACTION_TYPE.CREATE_CARD_ERROR: {
-      const { error } = payload;
-      draftState.isLoading = false;
-      draftState.error = error;
-    }
-      break;
-
-    case ACTION_TYPE.GET_CARDS_REQUEST:
-      draftState.isLoading = true;
-      break;
-
     case ACTION_TYPE.GET_CARDS_SUCCESS: {
       const { cards } = payload;
       draftState.cards = cards;
@@ -40,7 +30,8 @@ const cardsReducer = produce((draftState, action) => {
     }
       break;
 
-    case ACTION_TYPE.GET_CARDS_ERROR: {
+    case ACTION_TYPE.GET_CARDS_ERROR:
+    case ACTION_TYPE.CREATE_CARD_ERROR: {
       const { error } = payload;
       draftState.isLoading = false;
       draftState.error = error;

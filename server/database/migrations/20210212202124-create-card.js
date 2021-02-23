@@ -27,6 +27,14 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
+      boardId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Boards',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

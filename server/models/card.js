@@ -12,15 +12,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Column, {
-        foreignKey: 'columnId'
+        foreignKey: 'columnId',
+      })
+      this.belongsTo(models.Board, {
+        foreignKey: 'boardId'
       })
     }
   };
   Card.init({
     name: DataTypes.STRING,
+    columnId: DataTypes.INTEGER,
+    boardId: DataTypes.INTEGER,
     description: DataTypes.STRING,
     comment: DataTypes.STRING,
-    columnId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Card',

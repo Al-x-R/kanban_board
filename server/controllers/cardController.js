@@ -15,7 +15,7 @@ exports.getCards = async (req, res) => {
   try {
     const cards = await Card.findAll({
       where: {
-        columnId: req.params.id,
+        boardId: req.params.id,
       },
     });
 

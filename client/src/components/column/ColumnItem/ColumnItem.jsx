@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+import { useParams } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -15,6 +15,7 @@ import { getCardsRequest } from '../../../store/actions/cardsAction';
 const ColumnItem = ({ id, name }) => {
   const dispatch = useDispatch();
   const cards = useSelector(cardsSelector);
+  const params = useParams();
 
   const columnHeader = {
     display: 'flex', justifyContent: 'space-between',
@@ -22,8 +23,8 @@ const ColumnItem = ({ id, name }) => {
   };
 
   useEffect(() => {
-    dispatch(getCardsRequest(id));
-  }, [dispatch]);
+    dispatch(getCardsRequest(params.id));
+  }, [id]);
 
   return (
     <div style={{
@@ -34,12 +35,12 @@ const ColumnItem = ({ id, name }) => {
         <ListSubheader component='div' style={columnHeader}><Title id={id} name={name}/>
           <ColumnRemove id={id}/>
         </ListSubheader>}>
-        {cards && cards.map(card => (
-          <ListItem key={card.id} role="listitem" style={{ padding: '0', display: 'block' }}>
-            <Card name={card.name}/>
+        {cards && cards.filter(c => c.columnId === id).map((card, index) => (
+          <ListItem key={card.id} role="listitem" style={{ padding: '5px ', display: 'block' }}>
+            <Card name={card.name} id={card.id}/>
           </ListItem>
         ))}
-        <Divider/>
+        {/*<Divider/>*/}
         <ListItem role="listitem" style={{ padding: '0' }}>
           <CardCreate id={id}/>
         </ListItem>
