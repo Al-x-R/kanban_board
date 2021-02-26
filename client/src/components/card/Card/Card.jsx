@@ -13,8 +13,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import { ItemTypes } from '../../../utils/items';
 import { updateCardRequest } from '../../../store/actions/cardsAction';
 
-const Card = ({ name, id, index, columnId }) => {
+const Card = ({ name, id, index, columnId, columnName }) => {
   const [open, setOpen] = useState(false);
+  const [description, setDescription] = useState('');
+  const [comment, setComment] = useState('');
+
   const dispatch = useDispatch();
   console.log('columnId ', columnId);
 
@@ -45,6 +48,11 @@ const Card = ({ name, id, index, columnId }) => {
     setOpen(false);
   };
 
+  const updateCard = () => {
+    dispatch(updateCardRequest(id, { description, comment }));
+    setOpen(false);
+  };
+
   const opacity = isDragging ? '0.5' : '1';
 
   return (
@@ -54,9 +62,9 @@ const Card = ({ name, id, index, columnId }) => {
         {name}
       </Button>
       <Dialog fullWidth open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Card Name</DialogTitle>
+        <DialogTitle id="form-dialog-title">{name}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{`in 'List name'`}</DialogContentText>
+          <DialogContentText>{`in ${columnName}`}</DialogContentText>
           <TextField
             autoFocus
             id="description"
@@ -64,6 +72,7 @@ const Card = ({ name, id, index, columnId }) => {
             placeholder="Edit the description"
             type="text"
             fullWidth
+            onChange={e => setDescription(e.target.value)}
           />
           <DialogTitle id="form-title-2">Add comment</DialogTitle>
           <TextField
@@ -75,6 +84,7 @@ const Card = ({ name, id, index, columnId }) => {
             label="Comment"
             type="text"
             fullWidth
+            onChange={e => setComment(e.target.value)}
           />
           <DialogTitle id="form-title-3">Activity</DialogTitle>
         </DialogContent>
@@ -82,7 +92,7 @@ const Card = ({ name, id, index, columnId }) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={updateCard} color="primary">
             Subscribe
           </Button>
         </DialogActions>

@@ -38,7 +38,7 @@ const ColumnItem = ({ id, name }) => {
       </Box>
       <Box ref={drop}>
         {cards && cards.filter(c => c.columnId === id).map((card, index) => (
-          <Card key={card.id} name={card.name} id={card.id} index={index} columnId={id}/>
+          <Card key={card.id} name={card.name} id={card.id} index={index} columnId={id} columnName={name}/>
         ))}
       </Box>
       <CardCreate id={id}/>

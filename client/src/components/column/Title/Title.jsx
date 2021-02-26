@@ -9,7 +9,7 @@ const Title = ({ id, name }) => {
   const [toggle, setToggle] = useState(true);
   const [newName, setNewName] = useState(name);
 
-  const dispatch =useDispatch()
+  const dispatch = useDispatch()
 
   return (
       toggle ? (
