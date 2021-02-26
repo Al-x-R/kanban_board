@@ -28,14 +28,14 @@ const Header = () => {
     <AppBar position="static" style={{ backgroundColor: '#002984' }}>
       <Toolbar style={toolBar}>
         <Box component="span" m={1}>
-          <Link to="/boards" style={link}>
+          <Link to="/" style={link}>
             <Typography variant="h6"> BOARDS</Typography>
           </Link>
         </Box>
         {
           user
             ? <Box component="span" m={1}>
-              <Link to="/boards"><AccountCircleIcon style={icon}/></Link>
+              <Link to="/"><AccountCircleIcon style={icon}/></Link>
 
               <ExitToAppIcon onClick={logout} style={icon}/>
             </Box>

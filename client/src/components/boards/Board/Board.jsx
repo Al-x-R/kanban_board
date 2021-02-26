@@ -1,37 +1,37 @@
+import Box from '@material-ui/core/Box';
 import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import BoardMenu from '../BoardMenu/BoardMenu';
-import Container from '@material-ui/core/Container';
 import { useDispatch, useSelector } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
 
+import Typography from '@material-ui/core/Typography';
 import { boardSelector } from '../../../store/selectors';
 import ColumnsList from '../../column/ColumnsList/ColumnsList';
 import { getBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 
 const Board = ({ match }) => {
+  const board = useSelector(boardSelector);
   const dispatch = useDispatch();
   const id = match.params.id;
-  const board = useSelector(boardSelector)
-  const name = board.name
+  const name = board.name;
 
-  const header = { height: '70px', width: '100%', backgroundColor: 'lightBlue', display: 'flex', alignItems: 'center' };
-  const headerWrapper = { display: 'flex', justifyContent: 'space-between' };
+  const header = { height: '70px', width: '100%', display: 'flex', alignItems: 'center' };
+  const headerWrapper = { width: '100%', display: 'flex', justifyContent: 'space-between', padding: '0 35px' };
 
   useEffect(() => {
     dispatch(getBoardByIdRequest(id));
   }, []);
 
   return (
-    <div>
+    <Box>
       <Grid container style={header}>
-        <Container style={headerWrapper}>
+        <Box style={headerWrapper}>
           <Typography variant="h6" component="h1">{name}</Typography>
-          <BoardMenu id={id} />
-        </Container>
+          <BoardMenu id={id}/>
+        </Box>
       </Grid>
-      <ColumnsList id={id} />
-    </div>
+      <ColumnsList id={id}/>
+    </Box>
   );
 };
 

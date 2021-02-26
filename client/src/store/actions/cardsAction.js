@@ -41,3 +41,25 @@ export const getCardsError = (err) => ({
     error: err,
   },
 });
+
+export const updateCardRequest = (id, values) => ({
+  type: ACTION_TYPE.UPDATE_CARD_REQUEST,
+  payload: {
+    id,
+    values,
+  },
+});
+
+export const updateCardSuccess = (card) => ({
+  type: ACTION_TYPE.UPDATE_CARD_SUCCESS,
+  payload: {
+    card,
+  },
+});
+
+export const updateCardError = (err) => ({
+  type: ACTION_TYPE.UPDATE_CARD_ERROR,
+  payload: {
+    error: err,
+  },
+});

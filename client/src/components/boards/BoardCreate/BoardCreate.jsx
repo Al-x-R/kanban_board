@@ -32,16 +32,17 @@ const BoardCreate = () => {
 
   const createNewBoard = () => {
     const userId = user.id;
+
     if (name && userId) {
       dispatch(createBoardRequest({ name, userId }));
-      history.push('/boards')
+      history.push('/');
     }
     setOpen(false);
-  }
+  };
 
   useEffect(() => {
-    createNewBoard()
-  }, [])
+    createNewBoard();
+  }, []);
 
   const icon = { width: '40px', height: '40px', color: 'blue' };
   const paper = { height: '200px', width: '200px', cursor: 'pointer', backgroundColor: 'lightGrey' };
@@ -57,7 +58,6 @@ const BoardCreate = () => {
         <AddIcon style={icon}/>
         Create new board
       </Box>
-
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Please enter your new board name</DialogTitle>
         <DialogContent>

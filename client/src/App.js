@@ -9,14 +9,14 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <Switch>
-        <ProtectedRoute exact path='/boards' component={BoardsList} />
-        <ProtectedRoute path='/boards/:id' component={Board} />
-        <Route path={['/login', '/register']} component={AuthPage} />
-      </Switch>
-    </Router>
+      <Router>
+        <Header/>
+        <Switch>
+          <ProtectedRoute exact path='/' component={BoardsList}/>
+          <ProtectedRoute path='/boards/:id' component={Board}/>
+          <Route path={['/login', '/register']} component={AuthPage}/>
+        </Switch>
+      </Router>
   );
 }
 

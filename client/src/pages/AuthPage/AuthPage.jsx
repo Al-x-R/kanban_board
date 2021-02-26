@@ -18,7 +18,7 @@ const AuthPage = () => {
   }, [location.pathname]);
 
   if (user) {
-    return <Redirect to='/boards' />;
+    return <Redirect to='/' />;
   }
 
   const Form = isLogin ? Login : Register;

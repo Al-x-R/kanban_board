@@ -23,3 +23,14 @@ export function* getCardsSaga(action) {
     yield put(CardAction.getCardsError(err));
   }
 }
+
+export function* updateCardSaga(action) {
+  try {
+    const { payload: { id, values } } = action;
+    const card = yield CardService.updateCard(id, values);
+    yield put(CardAction.updateCardSuccess(card));
+
+  } catch (err) {
+    yield put(CardAction.updateCardError(err));
+  }
+}

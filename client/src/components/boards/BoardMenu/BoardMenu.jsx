@@ -26,7 +26,7 @@ const BoardMenu = ({ id }) => {
 
   const removeBoard = useCallback(() => {
     dispatch(removeBoardByIdRequest(id));
-    history.replace('/boards');
+    history.replace('/');
     setAnchorEl(null);
   }, [dispatch]);
 

@@ -11,6 +11,10 @@ const cardService = {
     return data;
   },
 
+  updateCard: async (id, values) => {
+    return await API.patch(`/card/${id}`, values);
+  },
+
 };
 
 export default cardService;

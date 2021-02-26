@@ -1,4 +1,7 @@
+import { useDrag } from 'react-dnd';
+import Box from '@material-ui/core/Box';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
@@ -7,8 +10,32 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
-const Card = ({ name, id }) => {
+import { ItemTypes } from '../../../utils/items';
+import { updateCardRequest } from '../../../store/actions/cardsAction';
+
+const Card = ({ name, id, index, columnId }) => {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  console.log('columnId ', columnId);
+
+  const [{ isDragging }, drag] = useDrag({
+    item: {
+      type: ItemTypes.CARD,
+      id: id,
+    },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+      if (dropResult && dropResult.column !== id) {
+        dispatch(updateCardRequest(item.id, { columnId: dropResult.column }));
+      }
+      console.log('dropResult', dropResult);
+      console.log('dropResult column', dropResult.column);
+      console.log('item ', item);
+    },
+    collect: monitor => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -18,9 +45,12 @@ const Card = ({ name, id }) => {
     setOpen(false);
   };
 
+  const opacity = isDragging ? '0.5' : '1';
+
   return (
-    <div>
-      <Button fullWidth variant="outlined" color="primary" onClick={handleClickOpen}>
+    <Box style={{ width: '200px', margin: '5px' }}>
+      <Button ref={drag} style={{ opacity }}
+              fullWidth={true} variant="outlined" color="primary" onClick={handleClickOpen}>
         {name}
       </Button>
       <Dialog fullWidth open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -57,7 +87,7 @@ const Card = ({ name, id }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 

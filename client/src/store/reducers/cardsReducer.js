@@ -16,6 +16,20 @@ const cardsReducer = produce((draftState, action) => {
       draftState.isLoading = true;
       break;
 
+    case ACTION_TYPE.UPDATE_COLUMN_REQUEST: {
+      const { id, values } = payload;
+      const cardIndex = draftState.cards.findIndex(card => card.id === id);
+      if (cardIndex !== -1) {
+        draftState.cards[cardIndex] = {
+          ...draftState.cards[cardIndex],
+          ...values,
+        };
+      }
+      draftState.isLoading = true;
+    }
+      break;
+
+    case ACTION_TYPE.UPDATE_CARD_SUCCESS:
     case ACTION_TYPE.CREATE_CARD_SUCCESS: {
       const { card } = payload;
       draftState.cards.push(card);
@@ -31,7 +45,8 @@ const cardsReducer = produce((draftState, action) => {
       break;
 
     case ACTION_TYPE.GET_CARDS_ERROR:
-    case ACTION_TYPE.CREATE_CARD_ERROR: {
+    case ACTION_TYPE.CREATE_CARD_ERROR:
+    case ACTION_TYPE.UPDATE_CARD_ERROR: {
       const { error } = payload;
       draftState.isLoading = false;
       draftState.error = error;

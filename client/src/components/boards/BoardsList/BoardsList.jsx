@@ -31,8 +31,6 @@ const BoardsList = () => {
     history.push(`/boards/${id}`)
   )
 
-  if (!boards.length) return null;
-
   return (
     <Container>
       <Typography component='h1' variant="h4" style={{ padding: '40px 0 ' }}>
@@ -41,7 +39,7 @@ const BoardsList = () => {
       <Grid container style={{ flexGrow: 1, flexWrap: 'wrap' }} spacing={2}>
         <Grid item xs={12}>
           <Grid container spacing={2}>
-            {boards.map(board => (
+            {boards && boards.map(board => (
               <Grid item key={board.id} onClick={goToBoard}>
                   <Paper style={paper} id={board.id}  >
                     {board.name}
