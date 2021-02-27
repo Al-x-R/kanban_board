@@ -10,6 +10,7 @@ const initialState = {
 
 const authReducer = produce((draftState, action) => {
   const { type, payload } = action;
+
   switch (type) {
     case ACTION_TYPE.LOGIN_REQUEST:
       draftState.isLoading = true;

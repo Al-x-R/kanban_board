@@ -1,16 +1,17 @@
 import ACTION_TYPE from '../types';
 
-export const createColumnRequest = (values) => ({
+export const createColumnRequest = (boardId, values) => ({
   type: ACTION_TYPE.CREATE_COLUMN_REQUEST,
   payload: {
+    boardId,
     values,
   },
 });
 
-export const createColumnSuccess = (column) => ({
+export const createColumnSuccess = (data) => ({
   type: ACTION_TYPE.CREATE_COLUMN_SUCCESS,
   payload: {
-    column,
+    data,
   },
 });
 
@@ -21,19 +22,20 @@ export const createColumnError = (error) => ({
   },
 });
 
-export const getColumnsRequest = (id) => ({
+export const getColumnsRequest = (boardId) => ({
   type: ACTION_TYPE.GET_COLUMNS_REQUEST,
   payload: {
-    id,
+    boardId,
   },
 });
 
-export const getColumnsSuccess = (columns) => ({
+export const getColumnsSuccess = (data) => ({
   type: ACTION_TYPE.GET_COLUMNS_SUCCESS,
   payload: {
-    columns,
+    data,
   },
 });
+
 
 export const getColumnsError = (error) => ({
   type: ACTION_TYPE.GET_COLUMNS_ERROR,
@@ -42,10 +44,11 @@ export const getColumnsError = (error) => ({
   },
 });
 
-export const removeColumnRequest = (id) => ({
+export const removeColumnRequest = (boardId, columnId) => ({
   type: ACTION_TYPE.REMOVE_COLUMN_REQUEST,
   payload: {
-    id,
+    boardId,
+    columnId,
   },
 });
 
@@ -60,19 +63,20 @@ export const removeColumnError = (error) => ({
   },
 });
 
-export const updateColumnRequest = (id, values) => ({
+export const updateColumnRequest = (boardId, columnId, values) => ({
   type: ACTION_TYPE.UPDATE_COLUMN_REQUEST,
   payload: {
-    id,
+    boardId,
+    columnId,
     values,
   },
 });
 
-export const updateColumnSuccess = (column) => ({
+export const updateColumnSuccess = (data) => ({
   type: ACTION_TYPE.UPDATE_COLUMN_SUCCESS,
   payload: {
-    column
-  }
+    data,
+  },
 });
 
 export const updateColumnError = (error) => ({

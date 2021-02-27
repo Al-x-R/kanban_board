@@ -7,18 +7,17 @@ const boardsService = {
     return data;
   },
 
-  createBoard: async (data) => {
-    return await API.post('/boards', data);
-  },
-
-  getBoardById: async (id) => {
-    const { data } = await API.get(`/boards/${id}`);
+  createBoard: async (values) => {
+    const { data } = await API.post('/boards', values);
     return data;
   },
 
-  removeBoardById: async (id) => {
-    return await API.delete(`/boards/${id}`);
+  getBoardById: async (boardId) => {
+    const { data } = await API.get(`/boards/${boardId}`);
+    return data;
   },
+
+  removeBoardById: (boardId) => API.delete(`/boards/${boardId}`),
 };
 
 export default boardsService;

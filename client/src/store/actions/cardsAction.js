@@ -1,65 +1,76 @@
 import ACTION_TYPE from '../types';
 
-export const createCardRequest = (values) => ({
-  type: ACTION_TYPE.CREATE_CARD_REQUEST,
-  payload: {
-    values,
-  },
-});
+export const createCardRequest = (boardId, values) => ({
+    type: ACTION_TYPE.CREATE_CARD_REQUEST,
+    payload: {
+      values,
+      boardId,
+    },
+  }
+);
 
-export const createCardSuccess = (card) => ({
-  type: ACTION_TYPE.CREATE_CARD_SUCCESS,
-  payload: {
-    card,
-  },
-});
+export const createCardSuccess = (data) => ({
+    type: ACTION_TYPE.CREATE_CARD_SUCCESS,
+    payload: {
+      data,
+    },
+  }
+);
 
 export const createCardError = (err) => ({
-  type: ACTION_TYPE.CREATE_CARD_ERROR,
-  payload: {
-    error: err,
-  },
-});
+    type: ACTION_TYPE.CREATE_CARD_ERROR,
+    payload: {
+      error: err,
+    },
+  }
+);
 
-export const getCardsRequest = (id) => ({
-  type: ACTION_TYPE.GET_CARDS_REQUEST,
-  payload: {
-    id,
-  },
-});
+export const getCardsRequest = (boardId) => ({
+    type: ACTION_TYPE.GET_CARDS_REQUEST,
+    payload: {
+      boardId,
+    },
+  }
+);
 
-export const getCardsSuccess = (cards) => ({
-  type: ACTION_TYPE.GET_CARDS_SUCCESS,
-  payload: {
-    cards,
-  },
-});
+export const getCardsSuccess = (data) => ({
+    type: ACTION_TYPE.GET_CARDS_SUCCESS,
+    payload: {
+      data,
+    },
+  }
+);
 
 export const getCardsError = (err) => ({
-  type: ACTION_TYPE.GET_CARDS_ERROR,
-  payload: {
-    error: err,
-  },
-});
+    type: ACTION_TYPE.GET_CARDS_ERROR,
+    payload: {
+      error: err,
+    },
+  }
+);
 
-export const updateCardRequest = (id, values) => ({
-  type: ACTION_TYPE.UPDATE_CARD_REQUEST,
-  payload: {
-    id,
-    values,
-  },
-});
+export const updateCardRequest = (boardId, cardId, values) => ({
+    type: ACTION_TYPE.UPDATE_CARD_REQUEST,
+    payload: {
+      boardId,
+      cardId,
+      values,
+    },
+  }
+);
 
-export const updateCardSuccess = (card) => ({
-  type: ACTION_TYPE.UPDATE_CARD_SUCCESS,
-  payload: {
-    card,
-  },
-});
+export const updateCardSuccess = (data) => ({
+    type: ACTION_TYPE.UPDATE_CARD_SUCCESS,
+    payload: {
+      data,
+    },
+  }
+);
 
 export const updateCardError = (err) => ({
-  type: ACTION_TYPE.UPDATE_CARD_ERROR,
-  payload: {
-    error: err,
-  },
-});
+    type: ACTION_TYPE.UPDATE_CARD_ERROR,
+    payload: {
+      error: err,
+    },
+  }
+);

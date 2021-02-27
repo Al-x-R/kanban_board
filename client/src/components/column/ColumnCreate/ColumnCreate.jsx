@@ -8,7 +8,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import { createColumnRequest } from '../../../store/actions/columnsAction';
 
-const ColumnCreate = ({ id }) => {
+const ColumnCreate = ({ boardId }) => {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -27,10 +27,8 @@ const ColumnCreate = ({ id }) => {
   const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
 
   const createColumn = () => {
-    const boardId = id;
-
     if (name) {
-      dispatch(createColumnRequest({ boardId, name }));
+      dispatch(createColumnRequest(boardId, { boardId, name }));
     }
     setOpen((prev) => !prev);
   };

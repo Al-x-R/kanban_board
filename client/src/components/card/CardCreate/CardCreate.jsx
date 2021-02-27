@@ -9,11 +9,11 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import { createCardRequest } from '../../../store/actions/cardsAction';
 
-const CardCreate = ({ id }) => {
+const CardCreate = ({ columnId }) => {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const params = useParams();
+  const { boardId } = useParams();
 
   const handleClick = () => {
     setOpen((prev) => !prev);
@@ -26,11 +26,8 @@ const CardCreate = ({ id }) => {
   const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
 
   const createCard = () => {
-    const columnId = id;
-    const boardId = params.id;
-
     if (name) {
-      dispatch(createCardRequest({ boardId, columnId, name }));
+      dispatch(createCardRequest(boardId, { columnId, name }));
     }
     setOpen((prev) => !prev);
   };
@@ -56,7 +53,7 @@ const CardCreate = ({ id }) => {
             <Button variant="contained" style={button} color='primary' onClick={createCard}>
               Add
             </Button>
-            <ClearIcon style={icon} onClick={handleClick} color="primary"/>
+            <ClearIcon style={icon} onClick={handleClick} color="primary" />
           </Box>
         </div> : null}
       </div>

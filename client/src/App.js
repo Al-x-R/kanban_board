@@ -13,7 +13,7 @@ function App() {
         <Header/>
         <Switch>
           <ProtectedRoute exact path='/' component={BoardsList}/>
-          <ProtectedRoute path='/boards/:id' component={Board}/>
+          <ProtectedRoute path='/boards/:boardId' component={Board}/>
           <Route path={['/login', '/register']} component={AuthPage}/>
         </Switch>
       </Router>

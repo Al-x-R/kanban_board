@@ -1,9 +1,12 @@
 const { Card } = require('../models');
 
-exports.cardCreate = async (req, res) => {
+exports.createCard = async (req, res) => {
   try {
-    const { body } = req;
-    const card = await Card.create(body);
+    const { body, params: { boardId } } = req;
+    const card = await Card.create({
+      ...body,
+      boardId,
+    });
     return res.status(201).send(card);
 
   } catch (e) {
@@ -15,7 +18,7 @@ exports.getCards = async (req, res) => {
   try {
     const cards = await Card.findAll({
       where: {
-        boardId: req.params.id,
+        boardId: req.params.boardId,
       },
     });
 
@@ -26,21 +29,26 @@ exports.getCards = async (req, res) => {
   }
 };
 
-exports.updateCard = async (req, res) => {
-  const { params: { id }, body } = req;
+exports.updateCardById = async (req, res) => {
+  const { params: { cardId, boardId }, body } = req;
+
   try {
-    const [rows, [result]] = await Card.update(body, {
+    const card = await Card.findOne({
       where: {
-        id: id,
+        id: cardId,
+        boardId,
       },
-      returning: true
     });
 
-    if (rows) {
-      return res.status(200).send({
-        card: result
-      })
+    if (!card) {
+      return res.send(404).send({
+        message: 'Card not found.',
+      });
     }
+
+    const updatedCard = await card.update(body);
+    res.status(200).send(updatedCard);
+
   } catch (e) {
     return res.status(400).send({ message: e.message });
   }

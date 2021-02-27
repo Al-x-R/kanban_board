@@ -1,8 +1,9 @@
 const { Board } = require('../models');
 
 exports.boardCreate = async (req, res) => {
+  const { body } = req;
+
   try {
-    const { body } = req;
     const board = await Board.create(body);
     return res.status(201).send(board);
 
@@ -12,10 +13,12 @@ exports.boardCreate = async (req, res) => {
 };
 
 exports.boardsGetAll = async (req, res) => {
+  const { user: { id } } = req;
+
   try {
     const boards = await Board.findAll({
       where: {
-        userId: req.user.id,
+        userId: id,
       },
     });
 
@@ -27,10 +30,12 @@ exports.boardsGetAll = async (req, res) => {
 };
 
 exports.boardGetById = async (req, res) => {
+  const { params: { id } } = req;
+
   try {
     const board = await Board.findOne({
       where: {
-        id: req.params.id,
+        id,
       },
     });
 
@@ -46,10 +51,12 @@ exports.boardGetById = async (req, res) => {
 };
 
 exports.boardRemoving = async (req, res) => {
+  const { params: { id } } = req;
+
   try {
     const board = await Board.findOne({
       where: {
-        id: req.params.id,
+        id,
       },
     });
 

@@ -10,9 +10,21 @@ import BoardCreate from '../BoardCreate/BoardCreate';
 import { boardsSelector } from '../../../store/selectors';
 import { getBoardsRequest } from '../../../store/actions/boardsAction';
 
+const paperStyle = {
+  width: 200,
+  height: 200,
+  color: 'white',
+  display: 'flex',
+  fontSize: '18px',
+  cursor: 'pointer',
+  fontWeight: 'bold',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'lightBlue',
+};
+
 const BoardsList = () => {
   const boards = useSelector(boardsSelector);
-
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -20,16 +32,10 @@ const BoardsList = () => {
     dispatch(getBoardsRequest());
   }, []);
 
-  const paper = {
-    height: 200, width: 200, display: 'flex',
-    justifyContent: 'center', alignItems: 'center',
-    cursor: 'pointer', backgroundColor: 'lightBlue',
-    color: 'white', fontSize: '18px', fontWeight: 'bold',
-  };
-
-  const goToBoard = ({ target: { id } }) => (
+  const goToBoard = ({ target: {id} }) => {
+    console.log(id)
     history.push(`/boards/${id}`)
-  )
+    };
 
   return (
     <Container>
@@ -41,12 +47,12 @@ const BoardsList = () => {
           <Grid container spacing={2}>
             {boards && boards.map(board => (
               <Grid item key={board.id} onClick={goToBoard}>
-                  <Paper style={paper} id={board.id}  >
-                    {board.name}
-                  </Paper>
+                <Paper style={paperStyle} id={board?.id} >
+                  {board?.name}
+                </Paper>
               </Grid>
             ))}
-            <Grid item><BoardCreate/></Grid>
+            <Grid item><BoardCreate /></Grid>
           </Grid>
         </Grid>
       </Grid>

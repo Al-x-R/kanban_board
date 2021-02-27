@@ -1,16 +1,16 @@
 import ACTION_TYPE from '../types';
 
-export const getBoardByIdRequest = (id) => ({
+export const getBoardByIdRequest = (boardId) => ({
   type: ACTION_TYPE.GET_BOARD_BY_ID_REQUEST,
   payload: {
-    id,
+    boardId,
   },
 });
 
-export const getBoardByIdSuccess = (board) => ({
+export const getBoardByIdSuccess = (data) => ({
   type: ACTION_TYPE.GET_BOARD_BY_ID_SUCCESS,
   payload: {
-    board,
+    data,
   },
 });
 
@@ -21,10 +21,10 @@ export const getBoardByIdError = (err) => ({
   },
 });
 
-export const removeBoardByIdRequest = (id) => ({
+export const removeBoardByIdRequest = (boardId) => ({
   type: ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST,
   payload: {
-    id,
+    boardId,
   },
 });
 

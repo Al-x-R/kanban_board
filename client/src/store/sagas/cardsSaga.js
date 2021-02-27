@@ -4,9 +4,9 @@ import CardService from '../../services/cardService';
 
 export function* createCardSaga(action) {
   try {
-    const { payload: { values } } = action;
-    const card = yield CardService.createCard(values);
-    yield put(CardAction.createCardSuccess(card));
+    const { payload: { values, boardId } } = action;
+    const data = yield CardService.createCard(boardId, values);
+    yield put(CardAction.createCardSuccess(data));
 
   } catch (err) {
     yield put(CardAction.createCardError(err));
@@ -15,9 +15,9 @@ export function* createCardSaga(action) {
 
 export function* getCardsSaga(action) {
   try {
-    const { payload: { id } } = action;
-    const cards = yield CardService.getCards(id);
-    yield put(CardAction.getCardsSuccess(cards));
+    const { payload: { boardId } } = action;
+    const data = yield CardService.getCards(boardId);
+    yield put(CardAction.getCardsSuccess(data));
 
   } catch (err) {
     yield put(CardAction.getCardsError(err));
@@ -26,9 +26,9 @@ export function* getCardsSaga(action) {
 
 export function* updateCardSaga(action) {
   try {
-    const { payload: { id, values } } = action;
-    const card = yield CardService.updateCard(id, values);
-    yield put(CardAction.updateCardSuccess(card));
+    const { payload: { boardId, cardId, values } } = action;
+    yield CardService.updateCard(boardId, cardId, values);
+    yield put(CardAction.updateCardSuccess());
 
   } catch (err) {
     yield put(CardAction.updateCardError(err));

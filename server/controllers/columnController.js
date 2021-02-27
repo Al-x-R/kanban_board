@@ -1,8 +1,9 @@
 const { Column } = require('../models');
 
-exports.columnCreate = async (req, res) => {
+exports.createColumn = async (req, res) => {
+  const { body } = req;
+
   try {
-    const { body } = req;
     const column = await Column.create(body);
     return res.status(201).send(column);
 
@@ -12,10 +13,12 @@ exports.columnCreate = async (req, res) => {
 };
 
 exports.getColumns = async (req, res) => {
+  const { params: { boardId } } = req;
+
   try {
     const columns = await Column.findAll({
       where: {
-        boardId: req.params.id,
+        boardId: boardId,
       },
     });
 
@@ -27,10 +30,13 @@ exports.getColumns = async (req, res) => {
 };
 
 exports.removeColumn = async (req, res) => {
+  const { params: { boardId, columnId } } = req;
+
   try {
     const column = await Column.findOne({
       where: {
-        id: req.params.id,
+        boardId,
+        id: columnId,
       },
     });
 
@@ -43,20 +49,24 @@ exports.removeColumn = async (req, res) => {
 };
 
 exports.updateColumn = async (req, res) => {
-  const { params: { id }, body } = req;
+  const { params: { boardId, columnId }, body } = req;
+
   try {
-    const [rows, [result]] = await Column.update(body, {
+    const column = await Column.findOne(body, {
       where: {
-        id: id,
+        boardId,
+        id: columnId,
       },
-      returning: true,
     });
 
-    if (rows) {
-      return res.status(200).send({
-        column: result,
+    if (!column) {
+      return res.status(404).send({
+        message: 'Column not found.',
       });
     }
+
+    const updatedColumn = await column.update(body);
+    res.status(200).send(updatedColumn);
 
   } catch (e) {
     return res.status(400).send({ message: e.message });

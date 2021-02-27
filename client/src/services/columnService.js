@@ -1,24 +1,22 @@
 import API from './api';
 
+const basePath = '/boards';
+
 const columnService = {
 
-  createColumn: async (values) => {
-    return await API.post('/column', values);
-  },
-
-  getColumns: async (id) => {
-    const { data } = await API.get(`/column/${id}`);
+  createColumn: async (boardId, values) => {
+    const { data } = await API.post(`${basePath}/${boardId}/columns`, values);
     return data;
   },
 
-  removeColumn: async (id) => {
-    return await API.delete(`/column/${id}`);
+  getColumns: async (boardId) => {
+    const { data } = await API.get(`${basePath}/${boardId}/columns`);
+    return data;
   },
 
-  updateColumn: async (id, values) => {
-    console.log(values)
-    return await API.patch(`/column/${id}`, values)
-}
+  removeColumn: (boardId, columnId) => API.delete(`${basePath}/${boardId}/columns/${columnId}`),
+
+  updateColumn: (boardId, columnId, values) => API.patch(`${basePath}/${boardId}/columns/${columnId}`, values),
 };
 
 export default columnService;

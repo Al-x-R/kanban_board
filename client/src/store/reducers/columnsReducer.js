@@ -17,15 +17,15 @@ const columnsReducer = produce((draftState, action) => {
       break;
 
     case ACTION_TYPE.REMOVE_COLUMN_REQUEST: {
-      const { id } = payload;
-      draftState.columns.filter(column => column.id !== id);
+      const { columnId } = payload;
+      draftState.columns.filter(column => column.id !== columnId);
       draftState.isLoading = true;
     }
       break;
 
     case ACTION_TYPE.UPDATE_COLUMN_REQUEST: {
-      const { id, values } = payload;
-      const columnIndex = draftState.columns.findIndex(column => column.id === id);
+      const { columnId, values } = payload;
+      const columnIndex = draftState.columns.findIndex(column => column.id === columnId);
       if (columnIndex !== -1) {
         draftState.columns[columnIndex] = {
           ...draftState.columns[columnIndex],
@@ -36,23 +36,30 @@ const columnsReducer = produce((draftState, action) => {
     }
       break;
 
-    case ACTION_TYPE.UPDATE_COLUMN_SUCCESS:
+    case ACTION_TYPE.UPDATE_COLUMN_SUCCESS:{
+      draftState.isLoading = false;
+    }
+    break
+
     case ACTION_TYPE.CREATE_COLUMN_SUCCESS: {
-      const { column } = payload;
-      draftState.columns.push(column);
+      const { data } = payload;
+      draftState.columns.push(data);
       draftState.isLoading = false;
     }
       break;
 
     case ACTION_TYPE.GET_COLUMNS_SUCCESS: {
-      const { columns } = payload;
+      const { data } = payload;
+      draftState.columns = data;
       draftState.isLoading = false;
-      draftState.columns = columns;
     }
       break;
 
-    case ACTION_TYPE.REMOVE_COLUMN_SUCCESS:
+    case ACTION_TYPE.REMOVE_COLUMN_SUCCESS: {
+      const { data } = payload;
+      draftState.columns = data;
       draftState.isLoading = false;
+    }
       break;
 
     case ACTION_TYPE.GET_COLUMNS_ERROR:

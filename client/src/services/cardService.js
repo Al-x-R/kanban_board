@@ -1,19 +1,20 @@
 import API from './api';
 
+const basePath = '/boards';
+
 const cardService = {
 
-  createCard: async (values) => {
-    return await API.post('/card', values);
-  },
-
-  getCards: async (id) => {
-    const { data } = await API.get(`/card/${id}`);
+  createCard: async (boardId, values) => {
+    const { data } = await API.post(`${basePath}/${boardId}/cards`, values);
     return data;
   },
 
-  updateCard: async (id, values) => {
-    return await API.patch(`/card/${id}`, values);
+  getCards: async (boardId) => {
+    const { data } = await API.get(`${basePath}/${boardId}/cards`);
+    return data;
   },
+
+  updateCard: (boardId, cardId, values) => API.patch(`${basePath}/${boardId}/cards/${cardId}`, values),
 
 };
 

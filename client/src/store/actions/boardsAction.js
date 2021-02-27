@@ -7,10 +7,10 @@ export const createBoardRequest = (values) => ({
   },
 });
 
-export const createBoardSuccess = (board) => ({
+export const createBoardSuccess = (data) => ({
   type: ACTION_TYPE.CREATE_BOARD_SUCCESS,
   payload: {
-    board,
+    data,
   },
 });
 
@@ -25,10 +25,10 @@ export const getBoardsRequest = () => ({
   type: ACTION_TYPE.GET_BOARDS_REQUEST,
 });
 
-export const getBoardsSuccess = (boards) => ({
+export const getBoardsSuccess = (data) => ({
   type: ACTION_TYPE.GET_BOARDS_SUCCESS,
   payload: {
-    boards,
+    data,
   },
 });
 

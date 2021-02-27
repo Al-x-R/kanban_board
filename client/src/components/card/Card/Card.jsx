@@ -2,6 +2,7 @@ import { useDrag } from 'react-dnd';
 import Box from '@material-ui/core/Box';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
@@ -13,50 +14,45 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import { ItemTypes } from '../../../utils/items';
 import { updateCardRequest } from '../../../store/actions/cardsAction';
 
-const Card = ({ name, id, index, columnId, columnName }) => {
+const cardStyles = { width: '200px', margin: '5px' }
+
+const Card = ({ name, cardId, index, columnId, columnName }) => {
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
   const [comment, setComment] = useState('');
+  const { boardId } = useParams();
 
   const dispatch = useDispatch();
-  console.log('columnId ', columnId);
 
   const [{ isDragging }, drag] = useDrag({
     item: {
       type: ItemTypes.CARD,
-      id: id,
+      id: cardId,
     },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
-      if (dropResult && dropResult.column !== id) {
-        dispatch(updateCardRequest(item.id, { columnId: dropResult.column }));
+      if (dropResult && dropResult.column !== columnId) {
+        dispatch(updateCardRequest(boardId, item.id , { columnId: dropResult.column }));
       }
-      console.log('dropResult', dropResult);
-      console.log('dropResult column', dropResult.column);
-      console.log('item ', item);
     },
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const handleClickOpen = () => setOpen(true);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const updateCard = () => {
-    dispatch(updateCardRequest(id, { description, comment }));
+    dispatch(updateCardRequest(boardId, cardId, { columnId, description, comment }));
     setOpen(false);
   };
 
   const opacity = isDragging ? '0.5' : '1';
 
   return (
-    <Box style={{ width: '200px', margin: '5px' }}>
+    <Box style={cardStyles}>
       <Button ref={drag} style={{ opacity }}
               fullWidth={true} variant="outlined" color="primary" onClick={handleClickOpen}>
         {name}

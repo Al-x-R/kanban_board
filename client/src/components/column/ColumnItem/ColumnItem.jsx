@@ -13,35 +13,54 @@ import { cardsSelector } from '../../../store/selectors';
 import CardCreate from '../../card/CardCreate/CardCreate';
 import { getCardsRequest } from '../../../store/actions/cardsAction';
 
-const ColumnItem = ({ id, name }) => {
+const wrapperStyle = {
+  margin: '0 5px',
+  display: 'flex',
+  border: '1px solid',
+  borderRadius: '4px',
+  alignItems: 'center',
+  flexDirection: 'column',
+};
+
+const columnHeaderStyle = {
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+};
+
+const ColumnItem = ({ columnId, name }) => {
   const dispatch = useDispatch();
   const cards = useSelector(cardsSelector);
-  const params = useParams();
+  const { boardId } = useParams();
 
   useEffect(() => {
-    dispatch(getCardsRequest(params.id));
-  }, [id]);
+    dispatch(getCardsRequest(boardId));
+  }, [boardId]);
 
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
-    drop: () => ({ column: id }),
+    drop: () => ({ column: columnId }),
   });
 
   return (
-    <Paper style={{
-      margin: '0 5px', border: '1px solid', borderRadius: '4px', display: 'flex', alignItems: 'center',
-      flexDirection: 'column',
-    }}>
-      <Box p={1} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Title id={id} name={name}/>
-        <ColumnRemove id={id}/>
+    <Paper style={wrapperStyle} ref={drop}>
+      <Box p={1} style={columnHeaderStyle}>
+        <Title boardId={boardId} columnId={columnId} name={name}/>
+        <ColumnRemove columnId={columnId}/>
       </Box>
-      <Box ref={drop}>
-        {cards && cards.filter(c => c.columnId === id).map((card, index) => (
-          <Card key={card.id} name={card.name} id={card.id} index={index} columnId={id} columnName={name}/>
+      <Box>
+        {cards && cards.filter(c => c.columnId === columnId).map((card, index) => (
+          <Card key={card.id}
+                name={card.name}
+                cardId={card.id}
+                index={index}
+                columnId={columnId}
+                columnName={name}
+          />
         ))}
       </Box>
-      <CardCreate id={id}/>
+      <CardCreate columnId={columnId}/>
     </Paper>
   );
 };

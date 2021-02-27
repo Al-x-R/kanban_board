@@ -11,51 +11,62 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 
-import { userSelector } from '../../../store/selectors';
+import { boardsStateSelector, userSelector } from '../../../store/selectors';
 import { createBoardRequest } from '../../../store/actions/boardsAction';
 
+const iconStyle = {
+  color: 'blue',
+  width: '40px',
+  height: '40px',
+};
+
+const paperStyle = {
+  height: '200px',
+  width: '200px',
+  cursor: 'pointer',
+  backgroundColor: 'lightGrey',
+};
+
+const wrapperStyle = {
+  color: 'blue',
+  width: '200px',
+  height: '200px',
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  justifyContent: 'center',
+};
+
 const BoardCreate = () => {
-  const [open, setOpen] = useState(false);
   const [name, setName] = useState(null);
+  const [open, setOpen] = useState(false);
 
-  const user = useSelector(userSelector);
-  const dispatch = useDispatch();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { id: userId } = useSelector(userSelector);
+  const { currentBoardIndex, boards } = useSelector(boardsStateSelector);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const handleClickOpen = () => setOpen(true);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const createNewBoard = () => {
-    const userId = user.id;
-
     if (name && userId) {
       dispatch(createBoardRequest({ name, userId }));
-      history.push('/');
     }
     setOpen(false);
   };
 
   useEffect(() => {
-    createNewBoard();
-  }, []);
-
-  const icon = { width: '40px', height: '40px', color: 'blue' };
-  const paper = { height: '200px', width: '200px', cursor: 'pointer', backgroundColor: 'lightGrey' };
-  const wrapper = {
-    height: '200px', width: '200px',
-    display: 'flex', flexDirection: 'column',
-    justifyContent: 'center', alignItems: 'center', color: 'blue',
-  };
+    if (typeof currentBoardIndex === 'number') {
+      history.push(`/boards/${boards[currentBoardIndex].id}`);
+    }
+  }, [currentBoardIndex]);
 
   return (
-    <Paper style={paper}>
-      <Box style={wrapper} onClick={handleClickOpen}>
-        <AddIcon style={icon}/>
+    <Paper style={paperStyle}>
+      <Box style={wrapperStyle} onClick={handleClickOpen}>
+        <AddIcon style={iconStyle}/>
         Create new board
       </Box>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

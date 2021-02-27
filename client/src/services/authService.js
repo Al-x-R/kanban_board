@@ -9,7 +9,7 @@ const AuthService = {
   },
 
   register: async (values) => {
-    const {data} = await API.post('/register', values)
+    const { data } = await API.post('/register', values);
     setHeadersToLocalStorage(data);
     return data;
   },
