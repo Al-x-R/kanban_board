@@ -3,6 +3,7 @@ import ACTION_TYPE from '../types';
 
 const initialState = {
   boards: [],
+  currentBoard: null,
   currentBoardIndex: null,
   isLoading: false,
   error: null,
@@ -49,13 +50,16 @@ const boardsReducer = produce((draftState, action) => {
     }
       break;
 
-    case ACTION_TYPE.GET_BOARD_BY_ID_REQUEST:
+    case ACTION_TYPE.GET_BOARD_BY_ID_REQUEST: {
+      const { boardId } = payload;
+      draftState.boards.filter(board => board.id === boardId);
       draftState.isLoading = true;
+    }
       break;
 
     case ACTION_TYPE.GET_BOARD_BY_ID_SUCCESS: {
-      const { boardId } = payload;
-      draftState.boards.filter(board => board.id === boardId);
+      const { data } = payload;
+      draftState.currentBoard = data;
       draftState.isLoading = false;
     }
       break;
@@ -70,7 +74,7 @@ const boardsReducer = produce((draftState, action) => {
     case ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST: {
       const { boardId } = payload;
       draftState.boards.filter(board => board.id !== boardId);
-      draftState.currentBoardIndex = null
+      draftState.currentBoardIndex = null;
       draftState.isLoading = true;
     }
       break;

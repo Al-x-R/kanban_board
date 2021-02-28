@@ -53,3 +53,22 @@ exports.updateCardById = async (req, res) => {
     return res.status(400).send({ message: e.message });
   }
 };
+
+exports.removeCard = async (req, res) => {
+  const { params: { boardId, cardId } } = req;
+
+  try {
+    const card = await Card.findOne({
+      where: {
+        boardId,
+        id: cardId,
+      },
+    });
+
+    await card.destroy();
+    res.status(200).send({ message: `the column ${card}  has been removed` });
+
+  } catch (e) {
+    return res.status(400).send({ message: e.message });
+  }
+};

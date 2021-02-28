@@ -16,6 +16,8 @@ const cardService = {
 
   updateCard: (boardId, cardId, values) => API.patch(`${basePath}/${boardId}/cards/${cardId}`, values),
 
+  removeCard: (boardId, cardId) => API.delete(`${basePath}/${boardId}/cards/${cardId}`),
+
 };
 
 export default cardService;

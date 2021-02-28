@@ -2,11 +2,11 @@ import Box from '@material-ui/core/Box';
 import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { useParams } from 'react-router-dom';
-import BoardMenu from '../BoardMenu/BoardMenu';
-
 import { useDispatch, useSelector } from 'react-redux';
+
+import BoardMenu from '../BoardMenu/BoardMenu';
 import Typography from '@material-ui/core/Typography';
-import { boardSelector } from '../../../store/selectors';
+import { currentBoard } from '../../../store/selectors';
 import ColumnsList from '../../column/ColumnsList/ColumnsList';
 import { getBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 
@@ -24,19 +24,19 @@ const headerWrapperStyles = {
 };
 
 const Board = () => {
-  const currentBoard = useSelector(boardSelector);
+  const board = useSelector(currentBoard);
   const dispatch = useDispatch();
   const { boardId } = useParams();
 
   useEffect(() => {
     dispatch(getBoardByIdRequest(boardId));
-  }, []);
+  }, [boardId]);
 
   return (
     <Box>
       <Grid container style={boardHeaderStyles}>
         <Box style={headerWrapperStyles}>
-          <Typography variant="h6" component="h1">{currentBoard?.name}</Typography>
+          <Typography variant="h6" component="h1">{board?.name}</Typography>
           <BoardMenu boardId={boardId}/>
         </Box>
       </Grid>

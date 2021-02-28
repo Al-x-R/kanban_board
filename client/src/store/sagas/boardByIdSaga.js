@@ -6,6 +6,7 @@ export function* getBoardByIdSaga(action) {
   try {
     const { payload: { boardId } } = action;
     const data  = yield BoardsService.getBoardById(boardId);
+    console.log(data)
     yield put(BoardByIdAction.getBoardByIdSuccess(data));
 
   } catch (err) {

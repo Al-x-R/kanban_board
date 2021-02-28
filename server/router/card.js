@@ -1,9 +1,9 @@
-const cardRouter = require('express').Router()
-const {createCard, getCards, updateCardById} = require('../controllers/cardController')
+const cardRouter = require('express').Router();
+const { createCard, getCards, updateCardById, removeCard } = require('../controllers/cardController');
 
-cardRouter.post('/boards/:boardId/cards', createCard)
-cardRouter.patch('/boards/:boardId/cards/:cardId', updateCardById)
-cardRouter.delete('/boards/:boardId/cards/:cardId')
 cardRouter.get('/boards/:boardId/cards', getCards);
+cardRouter.post('/boards/:boardId/cards', createCard);
+cardRouter.delete('/boards/:boardId/cards/:cardId', removeCard);
+cardRouter.patch('/boards/:boardId/cards/:cardId', updateCardById);
 
-module.exports = cardRouter
+module.exports = cardRouter;

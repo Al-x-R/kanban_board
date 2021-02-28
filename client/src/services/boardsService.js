@@ -14,6 +14,7 @@ const boardsService = {
 
   getBoardById: async (boardId) => {
     const { data } = await API.get(`/boards/${boardId}`);
+    console.log('api',data)
     return data;
   },
 

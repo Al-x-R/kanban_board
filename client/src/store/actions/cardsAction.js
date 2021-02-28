@@ -74,3 +74,25 @@ export const updateCardError = (err) => ({
     },
   }
 );
+
+export const removeCardRequest = (boardId, cardId) => ({
+    type: ACTION_TYPE.REMOVE_CARD_REQUEST,
+    payload: {
+      boardId,
+      cardId,
+    },
+  }
+);
+
+export const removeCardSuccess = () => ({
+    type: ACTION_TYPE.REMOVE_CARD_SUCCESS,
+  }
+);
+
+export const removeCardError = (err) => ({
+    type: ACTION_TYPE.REMOVE_CARD_ERROR,
+    payload: {
+      error: err,
+    },
+  }
+);

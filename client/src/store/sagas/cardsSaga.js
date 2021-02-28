@@ -34,3 +34,14 @@ export function* updateCardSaga(action) {
     yield put(CardAction.updateCardError(err));
   }
 }
+
+export function* removeCardSaga(action) {
+  try {
+    const { payload: { boardId, cardId } } = action;
+    yield CardService.removeCard(boardId, cardId);
+    yield put(CardAction.removeCardSuccess());
+
+  } catch (err) {
+    yield put(CardAction.removeCardError(err));
+  }
+}

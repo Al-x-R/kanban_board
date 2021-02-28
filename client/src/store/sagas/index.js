@@ -1,10 +1,10 @@
-import { takeLatest } from 'redux-saga/effects';
 import ACTION_TYPE from '../types';
 import * as AuthSaga from './authSaga';
-import * as BoardsSaga from './boardsSaga';
-import * as BoardByIdSaga from './boardByIdSaga';
-import * as ColumnsSaga from './columnsSaga';
 import * as CardsSaga from './cardsSaga';
+import * as BoardsSaga from './boardsSaga';
+import * as ColumnsSaga from './columnsSaga';
+import { takeLatest } from 'redux-saga/effects';
+import * as BoardByIdSaga from './boardByIdSaga';
 
 function* rootSaga() {
   yield takeLatest(ACTION_TYPE.LOGIN_REQUEST, AuthSaga.loginSaga);
@@ -17,14 +17,15 @@ function* rootSaga() {
   yield takeLatest(ACTION_TYPE.GET_BOARD_BY_ID_REQUEST, BoardByIdSaga.getBoardByIdSaga);
   yield takeLatest(ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST, BoardByIdSaga.removeBoardByIdSaga);
 
-  yield takeLatest(ACTION_TYPE.CREATE_COLUMN_REQUEST, ColumnsSaga.createColumnSaga);
   yield takeLatest(ACTION_TYPE.GET_COLUMNS_REQUEST, ColumnsSaga.getColumnsSaga);
+  yield takeLatest(ACTION_TYPE.CREATE_COLUMN_REQUEST, ColumnsSaga.createColumnSaga);
   yield takeLatest(ACTION_TYPE.REMOVE_COLUMN_REQUEST, ColumnsSaga.removeColumnSaga);
   yield takeLatest(ACTION_TYPE.UPDATE_COLUMN_REQUEST, ColumnsSaga.updateColumnSaga);
 
-  yield takeLatest(ACTION_TYPE.CREATE_CARD_REQUEST, CardsSaga.createCardSaga);
   yield takeLatest(ACTION_TYPE.GET_CARDS_REQUEST, CardsSaga.getCardsSaga);
+  yield takeLatest(ACTION_TYPE.CREATE_CARD_REQUEST, CardsSaga.createCardSaga);
   yield takeLatest(ACTION_TYPE.UPDATE_CARD_REQUEST, CardsSaga.updateCardSaga);
+  yield takeLatest(ACTION_TYPE.REMOVE_CARD_REQUEST, CardsSaga.removeCardSaga);
 }
 
 export default rootSaga;

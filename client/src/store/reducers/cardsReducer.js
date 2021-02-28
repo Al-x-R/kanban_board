@@ -29,10 +29,12 @@ const cardsReducer = produce((draftState, action) => {
     }
       break;
 
-    case ACTION_TYPE.UPDATE_CARD_SUCCESS: {
-      draftState.isLoading = false
+    case ACTION_TYPE.REMOVE_CARD_REQUEST: {
+      const { cardId } = payload;
+      draftState.cards.filter(card => card.id !== cardId);
+      draftState.isLoading = true;
     }
-    break
+      break;
 
     case ACTION_TYPE.CREATE_CARD_SUCCESS: {
       const { data } = payload;
@@ -40,6 +42,12 @@ const cardsReducer = produce((draftState, action) => {
       draftState.isLoading = false;
     }
       break;
+
+    case ACTION_TYPE.UPDATE_CARD_SUCCESS:
+    case ACTION_TYPE.REMOVE_CARD_SUCCESS:{
+      draftState.isLoading = false
+    }
+      break
 
     case ACTION_TYPE.GET_CARDS_SUCCESS: {
       const { data } = payload;
@@ -50,7 +58,8 @@ const cardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.GET_CARDS_ERROR:
     case ACTION_TYPE.CREATE_CARD_ERROR:
-    case ACTION_TYPE.UPDATE_CARD_ERROR: {
+    case ACTION_TYPE.UPDATE_CARD_ERROR:
+    case ACTION_TYPE.REMOVE_CARD_ERROR:{
       const { error } = payload;
       draftState.isLoading = false;
       draftState.error = error;
