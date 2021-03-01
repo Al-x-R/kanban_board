@@ -38,8 +38,8 @@ export function* updateCardSaga(action) {
 export function* removeCardSaga(action) {
   try {
     const { payload: { boardId, cardId } } = action;
-    yield CardService.removeCard(boardId, cardId);
-    yield put(CardAction.removeCardSuccess());
+    const data = yield CardService.removeCard(boardId, cardId);
+    yield put(CardAction.removeCardSuccess(data));
 
   } catch (err) {
     yield put(CardAction.removeCardError(err));

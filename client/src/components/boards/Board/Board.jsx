@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import BoardMenu from '../BoardMenu/BoardMenu';
 import Typography from '@material-ui/core/Typography';
-import { currentBoard } from '../../../store/selectors';
+import { currentBoardSelector } from '../../../store/selectors';
 import ColumnsList from '../../column/ColumnsList/ColumnsList';
 import { getBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 
@@ -24,7 +24,7 @@ const headerWrapperStyles = {
 };
 
 const Board = () => {
-  const board = useSelector(currentBoard);
+  const board = useSelector(currentBoardSelector);
   const dispatch = useDispatch();
   const { boardId } = useParams();
 

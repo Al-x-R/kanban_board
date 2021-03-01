@@ -6,7 +6,6 @@ export function* createBoardSaga(action) {
   try {
     const { payload: { values } } = action;
     const data = yield BoardsService.createBoard(values);
-    console.log('cr data',data)
     yield put(BoardsAction.createBoardSuccess(data));
 
   } catch (err) {

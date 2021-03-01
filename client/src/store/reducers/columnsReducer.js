@@ -18,7 +18,7 @@ const columnsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.REMOVE_COLUMN_REQUEST: {
       const { columnId } = payload;
-      draftState.columns.filter(column => column.id !== columnId);
+      draftState.columns = draftState.columns.filter(column => column.id !== columnId);
       draftState.isLoading = true;
     }
       break;

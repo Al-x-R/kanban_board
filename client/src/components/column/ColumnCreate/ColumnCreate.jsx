@@ -8,23 +8,27 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import { createColumnRequest } from '../../../store/actions/columnsAction';
 
+const paper = {
+  top: 0,
+  left: 0,
+  right: 0,
+  zIndex: 1,
+  margin: '0',
+  width: '244px',
+  position: 'absolute',
+  backgroundColor: 'white',
+};
+const menuButton = { width: '244px', height: '40px' };
+const icon = { width: '40px', height: '40px', color: 'grey' };
+const button = { width: '35px', flex: 'start', color: 'white' };
+const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
+
 const ColumnCreate = ({ boardId }) => {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const handleClick = () => {
-    setOpen((prev) => !prev);
-  };
-
-  const paper = {
-    width: '244px', margin: '0', position: 'absolute',
-    top: 0, right: 0, left: 0, zIndex: 1, border: '1px solid', backgroundColor: 'lightGrey',
-  };
-  const menuButton = { width: '244px', height: '40px' };
-  const button = { width: '35px', flex: 'start', color: 'white' };
-  const icon = { width: '40px', height: '40px', color: 'grey' };
-  const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
+  const handleClick = () => setOpen((prev) => !prev);
 
   const createColumn = () => {
     if (name) {

@@ -30,10 +30,9 @@ const BoardsList = () => {
 
   useEffect(() => {
     dispatch(getBoardsRequest());
-  }, []);
+  }, [dispatch]);
 
   const goToBoard = ({ target: {id} }) => {
-    console.log(id)
     history.push(`/boards/${id}`)
     };
 

@@ -38,9 +38,8 @@ const Register = () => {
   const btnstyle = { margin: '35px 0' };
 
   const handleSubmit = useCallback(
-    (values, formikBag) => {
+    (values) => {
       dispatch(registerRequest(values));
-      console.log(values);
     }, [dispatch]);
 
   return (
@@ -49,7 +48,7 @@ const Register = () => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {({ values, errors, isSubmitting, isValidating }) => (
+      {({ isValidating }) => (
         <Paper style={paperStyle}>
           <Form>
             <Box component="span" m={1}>

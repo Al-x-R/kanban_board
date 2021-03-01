@@ -31,7 +31,7 @@ const cardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.REMOVE_CARD_REQUEST: {
       const { cardId } = payload;
-      draftState.cards.filter(card => card.id !== cardId);
+      draftState.cards = draftState.cards.filter(card => card.id !== cardId);
       draftState.isLoading = true;
     }
       break;

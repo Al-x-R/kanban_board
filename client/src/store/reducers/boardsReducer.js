@@ -52,7 +52,7 @@ const boardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.GET_BOARD_BY_ID_REQUEST: {
       const { boardId } = payload;
-      draftState.boards.filter(board => board.id === boardId);
+      draftState.boards = draftState.boards.filter(board => board.id === boardId);
       draftState.isLoading = true;
     }
       break;
@@ -73,15 +73,15 @@ const boardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST: {
       const { boardId } = payload;
-      draftState.boards.filter(board => board.id !== boardId);
+      draftState.boards = draftState.boards.filter(board => board.id !== boardId);
       draftState.currentBoardIndex = null;
+      draftState.currentBoard = null;
       draftState.isLoading = true;
     }
       break;
 
-    case ACTION_TYPE.REMOVE_BOARD_BY_ID_SUCCESS: {
+    case ACTION_TYPE.REMOVE_BOARD_BY_ID_SUCCESS:
       draftState.isLoading = false;
-    }
       break;
 
     case ACTION_TYPE.REMOVE_BOARD_BY_ID_ERROR: {
