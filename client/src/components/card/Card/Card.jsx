@@ -1,21 +1,23 @@
-import { useDrag } from 'react-dnd';
 import Box from '@material-ui/core/Box';
-import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useDrag, useDrop } from 'react-dnd';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Tooltip from '@material-ui/core/Tooltip';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import { useDispatch, useSelector } from 'react-redux';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import React, { useState, useRef, useEffect } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
 import { ItemTypes } from '../../../utils/items';
+import { cardActivities } from '../../../store/selectors';
+import { getCardActivitiesRequest } from '../../../store/actions/activitiesAction';
 import { updateCardRequest, removeCardRequest } from '../../../store/actions/cardsAction';
 
 const cardStyles = { width: '200px', margin: '5px' };
@@ -27,24 +29,65 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
   const [comment, setComment] = useState('');
+
   const dispatch = useDispatch();
   const { boardId } = useParams();
 
+  const ref = useRef(null);
+
+  const [, drop] = useDrop({
+    accept: ItemTypes.CARD,
+    hover(item, monitor) {
+      const dragIndex = item.index;
+
+      const hoverIndex = index;
+
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+      const clientOffset = monitor.getClientOffset();
+
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+
+      item.index = hoverIndex;
+
+    },
+  });
+
   const [{ isDragging }, drag] = useDrag({
     item: {
+      index,
+      columnId,
       type: ItemTypes.CARD,
       id: cardId,
     },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (dropResult && dropResult.column !== columnId) {
-        dispatch(updateCardRequest(boardId, item.id, { columnId: dropResult.column }));
+        dispatch(updateCardRequest(boardId, item.id, { from: columnId, columnId: dropResult.column }));
       }
+      console.group('---');
+      console.log(monitor);
+      console.log(item);
+      console.groupEnd();
     },
     collect: monitor => ({
       isDragging: monitor.isDragging(),
     }),
   });
+
+  drag(drop(ref));
+
+  const backgroundColor = isDragging ? 'lightBlue' : '';
 
   const handleClickOpen = () => setOpen(true);
 
@@ -60,12 +103,14 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
     setOpen(false);
   };
 
-  const opacity = isDragging ? '0.5' : '1';
+  useEffect(() => {
+    dispatch(getCardActivitiesRequest(boardId, cardId));
+  },[cardId]);
 
   return (
     <Box style={cardStyles}>
-      <Button ref={drag}
-              style={{ opacity }}
+      <Button ref={ref}
+              style={{ backgroundColor }}
               fullWidth={true}
               variant="outlined"
               color="primary"

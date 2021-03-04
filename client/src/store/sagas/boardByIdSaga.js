@@ -1,6 +1,6 @@
 import { put } from 'redux-saga/effects';
-import * as BoardByIdAction from '../actions/boardByIdAction';
 import BoardsService from '../../services/boardsService';
+import * as BoardByIdAction from '../actions/boardByIdAction';
 
 export function* getBoardByIdSaga(action) {
   try {

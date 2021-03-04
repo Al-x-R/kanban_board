@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import DeleteIcon from '@material-ui/icons/Delete';
+import React, { useEffect, useState } from 'react';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
+import { boardActivities } from '../../../store/selectors';
 import { removeBoardByIdRequest } from '../../../store/actions/boardByIdAction';
+import { getBoardActivitiesRequest } from '../../../store/actions/activitiesAction';
 
 const BoardMenu = ({ boardId }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const activities = useSelector(boardActivities);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -24,6 +27,10 @@ const BoardMenu = ({ boardId }) => {
     history.replace('/');
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    dispatch(getBoardActivitiesRequest(boardId));
+  }, [boardId]);
 
   return (
     <div>
@@ -39,7 +46,9 @@ const BoardMenu = ({ boardId }) => {
       >
         <MenuItem onClick={removeBoard}><DeleteIcon/>Remove board</MenuItem>
         <Divider/>
-        <MenuItem><AssignmentIcon/> Activity</MenuItem>
+        {activities && activities.map(act => (
+          <MenuItem key={act.id}><AssignmentIcon/>{act?.action}</MenuItem>
+        ))}
       </Menu>
     </div>
   );

@@ -17,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Board, {
         foreignKey: 'boardId'
       })
+      this.hasMany(models.CardActivities, {
+        foreignKey: 'cardId'
+      })
     }
   };
   Card.init({

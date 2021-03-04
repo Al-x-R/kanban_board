@@ -11,8 +11,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 
-import { boardsStateSelector, userSelector } from '../../../store/selectors';
 import { createBoardRequest } from '../../../store/actions/boardsAction';
+import { boardsListSelector, userSelector, currentBoardIndex } from '../../../store/selectors';
 
 const iconStyle = {
   color: 'blue',
@@ -44,7 +44,8 @@ const BoardCreate = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id: userId } = useSelector(userSelector);
-  const { currentBoardIndex, boards } = useSelector(boardsStateSelector);
+  const boards = useSelector(boardsListSelector);
+  const boardIndex = boards.length - 1;
 
   const handleClickOpen = () => setOpen(true);
 
@@ -57,11 +58,11 @@ const BoardCreate = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    if (typeof currentBoardIndex === 'number') {
-      history.push(`/boards/${boards[currentBoardIndex].id}`);
-    }
-  }, [currentBoardIndex]);
+  // useEffect(() => {
+  //   if (boardIndex && typeof boardIndex === 'number') {
+  //     history.push(`/boards/${boards[boardIndex].id}`);
+  //   }
+  // }, [dispatch]);
 
   return (
     <Paper style={paperStyle}>

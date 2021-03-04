@@ -3,6 +3,7 @@ const authRouter = require('./auth');
 const borderRouter = require('./board');
 const columnRouter = require('./column');
 const cardRouter = require('./card');
+const activitiesRouter = require('./activities')
 const { auth } = require('../middleware/auth');
 
 router.get('/', (req, res) => {
@@ -14,5 +15,6 @@ router.use(auth);
 router.use('/', borderRouter);
 router.use('/', columnRouter);
 router.use('/', cardRouter);
+router.use('/', activitiesRouter);
 
 module.exports = router;

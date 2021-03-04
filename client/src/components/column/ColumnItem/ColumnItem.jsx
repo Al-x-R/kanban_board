@@ -13,11 +13,8 @@ import { cardsSelector } from '../../../store/selectors';
 import CardCreate from '../../card/CardCreate/CardCreate';
 import { getCardsRequest } from '../../../store/actions/cardsAction';
 
-const wrapperStyle = {
-  margin: '0 5px',
+const cardsListStyles = {
   display: 'flex',
-  border: '1px solid',
-  borderRadius: '4px',
   alignItems: 'center',
   flexDirection: 'column',
 };
@@ -38,18 +35,34 @@ const ColumnItem = ({ columnId, name }) => {
     dispatch(getCardsRequest(boardId));
   }, [boardId]);
 
-  const [, drop] = useDrop({
+  const [{isOver, canDrop}, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: () => ({ column: columnId }),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
   });
 
+  const getBackgroundColor = () => {
+    if (isOver) {
+      if (canDrop) {
+        return 'rgb(188,203,255)'
+      } else if (!canDrop) {
+        return 'rgb(255,188,188)'
+      }
+    } else {
+      return '';
+    }
+  };
+
   return (
-    <Paper style={wrapperStyle} ref={drop}>
+    <Paper style={{backgroundColor: getBackgroundColor()}} ref={drop}>
       <Box p={1} style={columnHeaderStyle}>
         <Title boardId={boardId} columnId={columnId} name={name}/>
         <ColumnRemove columnId={columnId}/>
       </Box>
-      <Box>
+      <Box style={cardsListStyles}>
         {cards && cards.filter(c => c.columnId === columnId).map((card, index) => (
           <Card key={card.id}
                 name={card.name}

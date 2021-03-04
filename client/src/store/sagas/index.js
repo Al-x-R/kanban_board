@@ -5,6 +5,7 @@ import * as BoardsSaga from './boardsSaga';
 import * as ColumnsSaga from './columnsSaga';
 import { takeLatest } from 'redux-saga/effects';
 import * as BoardByIdSaga from './boardByIdSaga';
+import * as ActivitiesSaga from './activitiesSaga'
 
 function* rootSaga() {
   yield takeLatest(ACTION_TYPE.LOGIN_REQUEST, AuthSaga.loginSaga);
@@ -26,6 +27,9 @@ function* rootSaga() {
   yield takeLatest(ACTION_TYPE.CREATE_CARD_REQUEST, CardsSaga.createCardSaga);
   yield takeLatest(ACTION_TYPE.UPDATE_CARD_REQUEST, CardsSaga.updateCardSaga);
   yield takeLatest(ACTION_TYPE.REMOVE_CARD_REQUEST, CardsSaga.removeCardSaga);
+
+  yield takeLatest(ACTION_TYPE.GET_CARD_ACTIVITIES_REQUEST, ActivitiesSaga.getCardActivities)
+  yield takeLatest(ACTION_TYPE.GET_BOARD_ACTIVITIES_REQUEST, ActivitiesSaga.getBoardActivities)
 }
 
 export default rootSaga;

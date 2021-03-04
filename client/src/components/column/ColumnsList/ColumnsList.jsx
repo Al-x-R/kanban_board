@@ -19,11 +19,9 @@ const ColumnsList = () => {
     dispatch(getColumnsRequest(boardId));
   }, [boardId]);
 
-  const content = { display: 'flex', justifyContent: 'flex-start' };
-
   return (
     <DndProvider backend={HTML5Backend}>
-      <Grid container style={content} spacing={1}>
+      <Grid container spacing={1}>
         {columns && columns.map(column => (
           <Grid item key={column.id}>
             <ColumnItem name={column?.name} columnId={column.id}/>

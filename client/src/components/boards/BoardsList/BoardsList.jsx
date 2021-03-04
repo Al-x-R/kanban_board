@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 
 import BoardCreate from '../BoardCreate/BoardCreate';
-import { boardsSelector } from '../../../store/selectors';
+import { boardsListSelector } from '../../../store/selectors';
 import { getBoardsRequest } from '../../../store/actions/boardsAction';
 
 const paperStyle = {
@@ -24,13 +24,15 @@ const paperStyle = {
 };
 
 const BoardsList = () => {
-  const boards = useSelector(boardsSelector);
+  const location = useLocation()
+  const boards = useSelector(boardsListSelector);
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if ((location.pathname === '/'))
     dispatch(getBoardsRequest());
-  }, [dispatch]);
+  }, [location.pathname]);
 
   const goToBoard = ({ target: {id} }) => {
     history.push(`/boards/${id}`)

@@ -27,7 +27,8 @@ export function* getCardsSaga(action) {
 export function* updateCardSaga(action) {
   try {
     const { payload: { boardId, cardId, values } } = action;
-    yield CardService.updateCard(boardId, cardId, values);
+    const data = yield CardService.updateCard(boardId, cardId, values);
+    console.log(data)
     yield put(CardAction.updateCardSuccess());
 
   } catch (err) {

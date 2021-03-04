@@ -1,4 +1,4 @@
-const { Column } = require('../models');
+const { Column, Activities } = require('../models');
 
 exports.createColumn = async (req, res) => {
   const { body } = req;
@@ -30,7 +30,7 @@ exports.getColumns = async (req, res) => {
 };
 
 exports.removeColumn = async (req, res) => {
-  const { params: { boardId, columnId } } = req;
+  const { params: { boardId, columnId }, user: { email, id } } = req;
 
   try {
     const column = await Column.findOne({
@@ -41,6 +41,14 @@ exports.removeColumn = async (req, res) => {
     });
 
     await column.destroy();
+
+    await Activities.create({
+      userId: id,
+      boardId,
+      columnId,
+      action: `${email} remove column ${column.name}`,
+    });
+
     res.status(200).send({ message: `the column ${column}  has been removed` });
 
   } catch (e) {
@@ -66,7 +74,7 @@ exports.updateColumn = async (req, res) => {
     }
 
     const updatedColumn = await column.update(body);
-    res.status(200).send(updatedColumn);
+    res.status(200).send({ message: `the column ${updatedColumn}  has been updated` }, updatedColumn);
 
   } catch (e) {
     return res.status(400).send({ message: e.message });

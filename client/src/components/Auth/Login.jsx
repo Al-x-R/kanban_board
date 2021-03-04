@@ -28,7 +28,7 @@ const Login = () => {
   const btnStyle = { margin: '35px 0' };
 
   const handleSubmit = useCallback(
-    (values, formikBag) => {
+    (values) => {
       dispatch(loginRequest(values));
     }, [dispatch]);
 
@@ -38,7 +38,7 @@ const Login = () => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      {({ values, errors, isSubmitting, isValidating }) => (
+      {({ isValidating }) => (
         <Paper style={paperStyle}>
           <Form>
             <Box component="span" m={1}>
