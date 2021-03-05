@@ -74,7 +74,7 @@ const boardsReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST: {
       const { boardId } = payload;
-      draftState.boards.filter(board => board.id !== boardId);
+      draftState.boards = draftState.boards.filter(b => b.id !== boardId)
       draftState.isLoading = true;
     }
       break;

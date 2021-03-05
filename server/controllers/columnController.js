@@ -1,11 +1,17 @@
-const { Column, Activities } = require('../models');
+const { Column, BoardActivities } = require('../models');
 
 exports.createColumn = async (req, res) => {
-  const { body } = req;
+  const { body, params: {boardId}, user: {email} } = req;
 
   try {
     const column = await Column.create(body);
-    return res.status(201).send(column);
+
+    await BoardActivities.create({
+      boardId,
+      action: `${email} add new column ${column.name}`,
+    });
+
+    res.status(201).send(column);
 
   } catch (e) {
     return res.status(400).send({ message: e.message });
@@ -30,7 +36,7 @@ exports.getColumns = async (req, res) => {
 };
 
 exports.removeColumn = async (req, res) => {
-  const { params: { boardId, columnId }, user: { email, id } } = req;
+  const { params: { boardId, columnId }, user: { email } } = req;
 
   try {
     const column = await Column.findOne({
@@ -40,14 +46,12 @@ exports.removeColumn = async (req, res) => {
       },
     });
 
-    await column.destroy();
-
-    await Activities.create({
-      userId: id,
+    await BoardActivities.create({
       boardId,
-      columnId,
-      action: `${email} remove column ${column.name}`,
+      action: `${email} remove ${column.name}`,
     });
+
+    await column.destroy();
 
     res.status(200).send({ message: `the column ${column}  has been removed` });
 

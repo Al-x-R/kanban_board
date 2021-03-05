@@ -18,12 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Board, {
         foreignKey: 'userId'
       })
-      this.hasMany(models.BoardActivities, {
-        foreignKey: 'userId'
-      })
-      this.hasMany(models.CardActivities, {
-        foreignKey: 'userId'
-      })
     }
   };
   User.init({

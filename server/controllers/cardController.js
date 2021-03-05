@@ -1,13 +1,25 @@
 const { Card, Column, BoardActivities, CardActivities } = require('../models');
 
 exports.createCard = async (req, res) => {
-  const { body, params: { boardId }, user: { id, email } } = req;
+  const { body, params: { boardId }, user: {email} } = req;
 
   try {
     const card = await Card.create({
       ...body,
       boardId,
     });
+
+    const column = await Column.findOne({
+      where: {
+        boardId,
+        id: body.columnId
+      }
+    })
+
+    await CardActivities.create({
+      cardId: card.id,
+      action: `${email} add this card to ${column.name}`
+    })
 
     res.status(201).send(card);
 
@@ -48,72 +60,19 @@ exports.updateCardById = async (req, res) => {
       });
     }
 
-    const column = await Column.findOne({
-      where: {
-        id: body.columnId,
-      },
-    });
-
-    const from = await Column.findOne({
-      where: {
-        id: body.from,
-      },
-    });
-
     const updatedCard = await card.update(body);
 
-    if (body.from) {
-      try {
-        const action = await BoardActivities.create({
-          userId: id,
-          boardId,
-          columnId: body.columnId,
-          cardId,
-          action: `${email} move card ${updatedCard.name} form ${from.name} to ${column.name}`,
-        });
-        res.send(action);
-
-      } catch (e) {
-        return res.status(400).send({ message: e.message });
-      }
-
-    } else {
-      try {
-        const action = await BoardActivities.create({
-          userId: id,
-          boardId,
-          columnId: body.columnId,
-          cardId,
-          action: `${email} add card ${updatedCard.name} to ${column.name}`,
-        });
-        res.send(action);
-
-      } catch (e) {
-        return res.status(400).send({ message: e.message });
-      }
-    }
-
     if (body.description) {
-      try {
-        await CardActivities.create({
-          userId: id,
-          boardId,
-          columnId: body.columnId,
-          cardId,
-          action: `${email} add description`,
-        });
-        await BoardActivities.create({
-          userId: id,
-          boardId,
-          columnId: body.columnId,
-          cardId,
-          action: `${email} add description to ${updatedCard.name} card`,
-        })
-      } catch (e) {
-        return res.status(400).send({ message: e.message });
-      }
-    }
+      await CardActivities.create({
+        cardId,
+        action: `${email} add description`
+      })
 
+      await BoardActivities.create({
+        boardId,
+        action: `${email} add description to ${updatedCard.name}`
+      })
+    }
     res.status(200).send(updatedCard);
 
   } catch (e) {
@@ -122,7 +81,7 @@ exports.updateCardById = async (req, res) => {
 };
 
 exports.removeCard = async (req, res) => {
-  const { params: { boardId, cardId }, user: { email, id } } = req;
+  const { params: { boardId, cardId }, user: {email} } = req;
 
   try {
     const card = await Card.findOne({
@@ -132,8 +91,14 @@ exports.removeCard = async (req, res) => {
       },
     });
 
+    await BoardActivities.create({
+      boardId,
+      action: `${email} del card ${card.name}`,
+    });
+
     await card.destroy();
-    res.status(200).send({ message: `the column ${card} has been removed` });
+
+    res.status(200).send({ message: `the column ${card.name} has been removed` });
 
   } catch (e) {
     return res.status(400).send({ message: e.message });

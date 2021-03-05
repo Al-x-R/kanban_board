@@ -33,5 +33,4 @@ exports.getCardActivities = async (req, res) => {
   } catch (e) {
     return res.status(400).send({ message: e.message });
   }
-
 };

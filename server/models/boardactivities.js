@@ -11,25 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.User, {
-        foreignKey: 'userId',
-      })
       this.belongsTo(models.Board, {
         foreignKey: 'boardId'
-      })
-      this.belongsTo(models.Column, {
-        foreignKey: 'columnId',
-      })
-      this.belongsTo(models.Card, {
-        foreignKey: 'cardId'
       })
     }
   };
   BoardActivities.init({
-    userId: DataTypes.INTEGER,
     boardId: DataTypes.INTEGER,
-    columnId: DataTypes.INTEGER,
-    cardId: DataTypes.INTEGER,
     action: DataTypes.STRING
   }, {
     sequelize,

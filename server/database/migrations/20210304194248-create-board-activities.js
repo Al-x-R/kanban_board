@@ -8,15 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-      },
       boardId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -25,22 +16,6 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'CASCADE',
-      },
-      columnId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Columns',
-          key: 'id',
-        },
-      },
-      cardId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Cards',
-          key: 'id',
-        },
       },
       action: {
         type: Sequelize.STRING,

@@ -3,13 +3,16 @@ const { Board } = require('../models');
 exports.boardCreate = async (req, res) => {
   const { body } = req;
 
-  try {
-    const board = await Board.create(body);
-    return res.status(201).send(board);
+  if (body) {
+    try {
+      const board = await Board.create(body);
+      return res.status(201).send(board);
 
-  } catch (e) {
-    return res.status(400).send({ message: e.message });
+    } catch (e) {
+      return res.status(400).send({ message: e.message });
+    }
   }
+
 };
 
 exports.boardsGetAll = async (req, res) => {
@@ -61,7 +64,7 @@ exports.boardRemoving = async (req, res) => {
     });
 
     await board.destroy();
-    res.status(200).send({ message: `the board ${board}  has been removed` });
+    res.status(200).send({ message: `the board ${board.name}  has been removed` });
 
   } catch (e) {
     return res.status(400).send({ message: e.message });
