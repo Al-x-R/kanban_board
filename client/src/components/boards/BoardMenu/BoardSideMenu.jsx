@@ -2,9 +2,10 @@ import List from '@material-ui/core/List';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
+import ListIcon from '@material-ui/icons/List';
 import Divider from '@material-ui/core/Divider';
+import CloseIcon from '@material-ui/icons/Close';
 import ListItem from '@material-ui/core/ListItem';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,9 +15,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import React, { useEffect, useState, Fragment } from 'react';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
+import  formatCreatedAt  from '../../../utils/formatDate';
 import { boardActivities } from '../../../store/selectors';
 import { removeBoardByIdRequest } from '../../../store/actions/boardByIdAction';
 import { getBoardActivitiesRequest } from '../../../store/actions/activitiesAction';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles({
   list: {
@@ -26,6 +29,13 @@ const useStyles = makeStyles({
   fullList: {
     width: 'auto',
   },
+  inline: {
+    display: 'inline',
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column'
+  }
 });
 
 const BoardSideMenu = () => {
@@ -65,15 +75,22 @@ const BoardSideMenu = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
+        <ListItem>
+          <ListItemText primary='Menu'/><CloseIcon/>
+        </ListItem>
+        <Divider/>
         {['Remove board'].map((text, index) => (
           <ListItem button key={text} onClick={removeBoard} onKeyDown={removeBoard}>
-            <ListItemIcon><DeleteIcon/></ListItemIcon>
             <ListItemText primary={text}/>
           </ListItem>
         ))}
       </List>
       <Divider/>
       <List>
+        <ListItem>
+          <ListItemIcon><ListIcon/></ListItemIcon>
+          <ListItemText primary='Activity'/>
+        </ListItem>
         {activities && activities.map((act) => (
           <Fragment key={act.id}>
             <ListItem alignItems="flex-start">
@@ -83,16 +100,22 @@ const BoardSideMenu = () => {
               <ListItemText
                 primary={act.user}
                 secondary={
-                  <Fragment>
+                  <Box className={classes.column}>
                     <Typography
                       component="span"
                       variant="body2"
                       className={classes.inline}
                       color="textPrimary"
-                    >
+                    >{act.action}
                     </Typography>
-                    {act.action}
-                  </Fragment>
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      className={classes.inline}
+                      color="textPrimary"
+                    >{formatCreatedAt(act.createdAt)}
+                    </Typography>
+                  </Box>
                 }
               />
             </ListItem>
