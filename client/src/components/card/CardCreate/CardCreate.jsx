@@ -9,6 +9,34 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import { createCardRequest } from '../../../store/actions/cardsAction';
 
+const paper = {
+  width: '210px',
+  margin: '0',
+};
+
+const menuButton = {
+  width: '200px',
+  height: '40px',
+};
+
+const button = {
+  width: '35px',
+  flex: 'start',
+  color: 'white',
+};
+
+const icon = {
+  width: '40px',
+  height: '40px',
+  color: 'grey',
+};
+
+const box = {
+  display: 'flex',
+  padding: '7px 0 0',
+  alignItems: 'center',
+};
+
 const CardCreate = ({ columnId }) => {
   const [name, setName] = useState('');
   const [open, setOpen] = useState(false);
@@ -18,12 +46,6 @@ const CardCreate = ({ columnId }) => {
   const handleClick = () => {
     setOpen((prev) => !prev);
   };
-
-  const paper = { width: '210px', margin: '0' };
-  const menuButton = { width: '244px', height: '40px' };
-  const button = { width: '35px', flex: 'start', color: 'white' };
-  const icon = { width: '40px', height: '40px', color: 'grey' };
-  const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
 
   const createCard = () => {
     if (name) {
@@ -36,7 +58,7 @@ const CardCreate = ({ columnId }) => {
     <ClickAwayListener onClickAway={() => setOpen(false)}>
       <div style={{ position: 'relative' }}>
         <Button style={menuButton} onClick={handleClick}>
-          Add a card...
+          Add a new card
         </Button>
         {open ? <div style={paper}>
           <TextField
@@ -53,7 +75,7 @@ const CardCreate = ({ columnId }) => {
             <Button variant="contained" style={button} color='primary' onClick={createCard}>
               Add
             </Button>
-            <ClearIcon style={icon} onClick={handleClick} color="primary" />
+            <ClearIcon style={icon} onClick={handleClick} color="primary"/>
           </Box>
         </div> : null}
       </div>

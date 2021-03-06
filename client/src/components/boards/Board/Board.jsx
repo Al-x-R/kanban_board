@@ -16,6 +16,7 @@ const boardHeaderStyles = {
   display: 'flex',
   alignItems: 'center',
 };
+
 const headerWrapperStyles = {
   width: '100%',
   display: 'flex',
@@ -37,7 +38,7 @@ const Board = () => {
       <Grid container style={boardHeaderStyles}>
         <Box style={headerWrapperStyles}>
           <Typography variant="h6" component="h1">{board?.name}</Typography>
-          <BoardSideMenu />
+          <BoardSideMenu/>
         </Box>
       </Grid>
       <ColumnsList boardId={boardId}/>

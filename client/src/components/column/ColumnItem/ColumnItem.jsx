@@ -35,7 +35,7 @@ const ColumnItem = ({ columnId, name }) => {
     dispatch(getCardsRequest(boardId));
   }, [boardId]);
 
-  const [{isOver, canDrop}, drop] = useDrop({
+  const [{ isOver, canDrop }, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: () => ({ column: columnId }),
     collect: (monitor) => ({
@@ -47,9 +47,9 @@ const ColumnItem = ({ columnId, name }) => {
   const getBackgroundColor = () => {
     if (isOver) {
       if (canDrop) {
-        return 'rgb(188,203,255)'
+        return 'rgb(188,203,255)';
       } else if (!canDrop) {
-        return 'rgb(255,188,188)'
+        return 'rgb(255,188,188)';
       }
     } else {
       return '';
@@ -57,7 +57,7 @@ const ColumnItem = ({ columnId, name }) => {
   };
 
   return (
-    <Paper style={{backgroundColor: getBackgroundColor()}} ref={drop}>
+    <Paper style={{ backgroundColor: getBackgroundColor() }} ref={drop}>
       <Box p={1} style={columnHeaderStyle}>
         <Title boardId={boardId} columnId={columnId} name={name}/>
         <ColumnRemove columnId={columnId}/>
@@ -72,8 +72,8 @@ const ColumnItem = ({ columnId, name }) => {
                 columnName={name}
           />
         ))}
+        <CardCreate columnId={columnId}/>
       </Box>
-      <CardCreate columnId={columnId}/>
     </Paper>
   );
 };

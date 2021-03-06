@@ -14,14 +14,33 @@ const paper = {
   right: 0,
   zIndex: 1,
   margin: '0',
-  width: '244px',
+  width: '200px',
   position: 'absolute',
   backgroundColor: 'white',
 };
-const menuButton = { width: '244px', height: '40px' };
-const icon = { width: '40px', height: '40px', color: 'grey' };
-const button = { width: '35px', flex: 'start', color: 'white' };
-const box = { display: 'flex', alignItems: 'center', padding: '7px 0 0' };
+
+const menuButton = {
+  width: '200px',
+  height: '40px',
+};
+
+const icon = {
+  width: '40px',
+  color: 'grey',
+  height: '40px',
+};
+
+const button = {
+  width: '35px',
+  flex: 'start',
+  color: 'white',
+};
+
+const box = {
+  display: 'flex',
+  padding: '7px 0 0',
+  alignItems: 'center',
+};
 
 const ColumnCreate = ({ boardId }) => {
   const [name, setName] = useState('');

@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.CardActivities, {
         foreignKey: 'cardId'
       })
+      this.hasMany(models.Comment, {
+        foreignKey: 'cardId'
+      })
     }
   };
   Card.init({
@@ -27,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     columnId: DataTypes.INTEGER,
     boardId: DataTypes.INTEGER,
     description: DataTypes.STRING,
-    comment: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Card',

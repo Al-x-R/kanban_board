@@ -3,4 +3,5 @@ const { getBoardActivities, getCardActivities } = require('../controllers/activi
 
 activitiesRouter.get('/boards/:id/activities', getBoardActivities);
 activitiesRouter.get('/boards/:id/cards/:cardId/activities', getCardActivities)
+
 module.exports = activitiesRouter;
