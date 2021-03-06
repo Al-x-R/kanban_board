@@ -8,6 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      user: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       boardId: {
         type: Sequelize.INTEGER,
         allowNull: false,

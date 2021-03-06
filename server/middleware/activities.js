@@ -13,7 +13,8 @@ exports.cardCreationAction = async (req, res, next) => {
 
     await BoardActivities.create({
       boardId,
-      action: `${email} add new card ${name} to ${column.name}`,
+      user: email,
+      action: `add new card ${name} to ${column.name}`,
     });
 
     next();
@@ -52,7 +53,8 @@ exports.moveCardBoardAction = async (req, res, next) => {
 
       await BoardActivities.create({
         boardId,
-        action: `${email} move card ${card.name} from ${columnFrom.name} to ${columnTo.name}`,
+        user: email,
+        action: `move card ${card.name} from ${columnFrom.name} to ${columnTo.name}`,
       });
 
     }
@@ -86,7 +88,8 @@ exports.moveCardCardAction = async (req, res, next) => {
 
       await CardActivities.create({
         cardId,
-        action: `${email} move this card from ${columnFrom.name} to ${columnTo.name}`,
+        user: email,
+        action: `move this card from ${columnFrom.name} to ${columnTo.name}`,
       });
     }
 

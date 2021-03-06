@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   BoardActivities.init({
     boardId: DataTypes.INTEGER,
+    user: DataTypes.STRING,
     action: DataTypes.STRING
   }, {
     sequelize,

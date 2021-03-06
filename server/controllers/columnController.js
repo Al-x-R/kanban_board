@@ -8,7 +8,8 @@ exports.createColumn = async (req, res) => {
 
     await BoardActivities.create({
       boardId,
-      action: `${email} add new column ${column.name}`,
+      user: email,
+      action: `add new column ${column.name}`,
     });
 
     res.status(201).send(column);
@@ -48,7 +49,8 @@ exports.removeColumn = async (req, res) => {
 
     await BoardActivities.create({
       boardId,
-      action: `${email} remove ${column.name}`,
+      user: email,
+      action: `remove ${column.name}`,
     });
 
     await column.destroy();

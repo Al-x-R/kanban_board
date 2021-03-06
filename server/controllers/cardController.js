@@ -65,12 +65,14 @@ exports.updateCardById = async (req, res) => {
     if (body.description) {
       await CardActivities.create({
         cardId,
-        action: `${email} add description`
+        user: email,
+        action: `add description`
       })
 
       await BoardActivities.create({
         boardId,
-        action: `${email} add description to ${updatedCard.name}`
+        user: email,
+        action: `add description to ${updatedCard.name}`
       })
     }
     res.status(200).send(updatedCard);
@@ -93,7 +95,8 @@ exports.removeCard = async (req, res) => {
 
     await BoardActivities.create({
       boardId,
-      action: `${email} del card ${card.name}`,
+      user: email,
+      action: `del card ${card.name}`,
     });
 
     await card.destroy();
