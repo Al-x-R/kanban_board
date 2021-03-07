@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 
 import BoardCreate from '../BoardCreate/BoardCreate';
-import { boardsListSelector } from '../../../store/selectors';
+import { boardsSelector } from '../../../store/selectors';
 import { getBoardsRequest } from '../../../store/actions/boardsAction';
 
 const paperStyle = {
@@ -24,19 +24,27 @@ const paperStyle = {
 };
 
 const BoardsList = () => {
-  const location = useLocation()
-  const boards = useSelector(boardsListSelector);
-  const history = useHistory();
   const dispatch = useDispatch();
+  /**
+   * TODO spinner on loading
+   * TODO error alert
+   */
+  const { boards, isLoading, error } = useSelector(boardsSelector);
 
   useEffect(() => {
-    if ((location.pathname === '/'))
     dispatch(getBoardsRequest());
-  }, [location.pathname]);
+  }, []);
 
-  const goToBoard = ({ target: {id} }) => {
-    history.push(`/boards/${id}`)
-    };
+
+  const mappedBoards = useMemo(() => boards.map((board) => (
+    <Grid item key={board.id}>
+      <Link to={`/boards/${board.id}`}>
+        <Paper style={paperStyle} id={board?.id}>
+          {board?.name}
+        </Paper>
+      </Link>
+    </Grid>
+  )), [boards]);
 
   return (
     <Container>
@@ -46,14 +54,10 @@ const BoardsList = () => {
       <Grid container style={{ flexGrow: 1, flexWrap: 'wrap' }} spacing={2}>
         <Grid item xs={12}>
           <Grid container spacing={2}>
-            {boards && boards.map(board => (
-              <Grid item key={board.id} onClick={goToBoard}>
-                <Paper style={paperStyle} id={board?.id} >
-                  {board?.name}
-                </Paper>
-              </Grid>
-            ))}
-            <Grid item><BoardCreate /></Grid>
+            {mappedBoards}
+            <Grid item>
+              <BoardCreate />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

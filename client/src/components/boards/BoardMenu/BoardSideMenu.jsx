@@ -9,15 +9,15 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import React, { useEffect, useState, Fragment } from 'react';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
-import  formatCreatedAt  from '../../../utils/formatDate';
-import { boardActivities } from '../../../store/selectors';
-import { removeBoardByIdRequest } from '../../../store/actions/boardByIdAction';
+import formatCreatedAt from '../../../utils/formatDate';
+import { boardActivities, currentBoardSelector } from '../../../store/selectors';
+import { removeBoardByIdRequest } from '../../../store/actions/currentBoardAction';
 import { getBoardActivitiesRequest } from '../../../store/actions/activitiesAction';
 import Box from '@material-ui/core/Box';
 
@@ -34,8 +34,8 @@ const useStyles = makeStyles({
   },
   column: {
     display: 'flex',
-    flexDirection: 'column'
-  }
+    flexDirection: 'column',
+  },
 });
 
 const BoardSideMenu = () => {
@@ -45,7 +45,10 @@ const BoardSideMenu = () => {
   });
 
   const activities = useSelector(boardActivities);
-  const history = useHistory();
+  /**
+   * TODO spinner and error alert
+   */
+  const { board, isLoading, error, isDeleted } = useSelector(currentBoardSelector);
   const dispatch = useDispatch();
   const { boardId } = useParams();
 
@@ -54,7 +57,9 @@ const BoardSideMenu = () => {
   }, [boardId]);
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (event.type === 'keydown' && (
+      event.key === 'Tab' || event.key === 'Shift'
+    )) {
       return;
     }
 
@@ -63,7 +68,6 @@ const BoardSideMenu = () => {
 
   const removeBoard = (anchor) => {
     dispatch(removeBoardByIdRequest(boardId));
-    history.replace('/');
     toggleDrawer(anchor, false);
   };
 
@@ -76,26 +80,26 @@ const BoardSideMenu = () => {
     >
       <List>
         <ListItem>
-          <ListItemText primary='Menu'/><CloseIcon/>
+          <ListItemText primary='Menu' /><CloseIcon />
         </ListItem>
-        <Divider/>
+        <Divider />
         {['Remove board'].map((text, index) => (
           <ListItem button key={text} onClick={removeBoard} onKeyDown={removeBoard}>
-            <ListItemText primary={text}/>
+            <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
-      <Divider/>
+      <Divider />
       <List>
         <ListItem>
-          <ListItemIcon><ListIcon/></ListItemIcon>
-          <ListItemText primary='Activity'/>
+          <ListItemIcon><ListIcon /></ListItemIcon>
+          <ListItemText primary='Activity' />
         </ListItem>
         {activities && activities.map((act) => (
           <Fragment key={act.id}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <Avatar alt="Freshcode" src=""/>
+                <Avatar alt="Freshcode" src="" />
               </ListItemAvatar>
               <ListItemText
                 primary={act.user}
@@ -119,12 +123,16 @@ const BoardSideMenu = () => {
                 }
               />
             </ListItem>
-            <Divider variant="inset" component="li"/>
+            <Divider variant="inset" component="li" />
           </Fragment>
         ))}
       </List>
     </div>
   );
+
+  if (!board && isDeleted) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div>

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { currentBoardSelector } from '../../../store/selectors';
 import ColumnsList from '../../column/ColumnsList/ColumnsList';
-import { getBoardByIdRequest } from '../../../store/actions/boardByIdAction';
+import { getBoardByIdRequest } from '../../../store/actions/currentBoardAction';
 
 const boardHeaderStyles = {
   height: '70px',
@@ -25,7 +25,10 @@ const headerWrapperStyles = {
 };
 
 const Board = () => {
-  const board = useSelector(currentBoardSelector);
+  /**
+   * TODO spinner and error alert
+   */
+  const { board, isLoading, error } = useSelector(currentBoardSelector);
   const dispatch = useDispatch();
   const { boardId } = useParams();
 
@@ -38,10 +41,10 @@ const Board = () => {
       <Grid container style={boardHeaderStyles}>
         <Box style={headerWrapperStyles}>
           <Typography variant="h6" component="h1">{board?.name}</Typography>
-          <BoardSideMenu/>
+          <BoardSideMenu />
         </Box>
       </Grid>
-      <ColumnsList boardId={boardId}/>
+      <ColumnsList boardId={boardId} />
     </Box>
   );
 };

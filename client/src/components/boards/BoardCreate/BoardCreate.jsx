@@ -1,18 +1,17 @@
+import React, { useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import { useHistory } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-
-import { createBoardRequest } from '../../../store/actions/boardsAction';
-import { boardsListSelector, userSelector, currentBoardIndex } from '../../../store/selectors';
+import { Redirect } from 'react-router-dom';
+import { createBoardRequest, resetNewBoardReducer } from '../../../store/actions/newBoardAction';
+import { userSelector, newBoardSelector } from '../../../store/selectors';
 
 const iconStyle = {
   color: 'blue',
@@ -41,11 +40,12 @@ const BoardCreate = () => {
   const [name, setName] = useState(null);
   const [open, setOpen] = useState(false);
 
-  const history = useHistory();
   const dispatch = useDispatch();
   const { id: userId } = useSelector(userSelector);
-  const boards = useSelector(boardsListSelector);
-  const boardIndex = boards.length - 1;
+  /**
+   * TODO spinner and error alert
+   */
+  const { isLoading, error, board } = useSelector(newBoardSelector);
 
   const handleClickOpen = () => setOpen(true);
 
@@ -58,16 +58,20 @@ const BoardCreate = () => {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   if (boardIndex && typeof boardIndex === 'number') {
-  //     history.push(`/boards/${boards[boardIndex].id}`);
-  //   }
-  // }, [dispatch]);
+  useEffect(() => {
+    return () => {
+      dispatch(resetNewBoardReducer());
+    };
+  }, []);
+
+  if (board) {
+    return <Redirect to={`/boards/${board.id}`} />;
+  }
 
   return (
     <Paper style={paperStyle}>
       <Box style={wrapperStyle} onClick={handleClickOpen}>
-        <AddIcon style={iconStyle}/>
+        <AddIcon style={iconStyle} />
         Create new board
       </Box>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

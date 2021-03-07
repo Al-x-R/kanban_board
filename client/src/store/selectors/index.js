@@ -1,6 +1,7 @@
 export const userSelector = state => state.auth.user;
-export const boardsListSelector = state => state.boards.boards;
-export const currentBoardSelector = state => state.boards.currentBoard;
+export const boardsSelector = state => state.boards;
+export const newBoardSelector = state => state.newBoard;
+export const currentBoardSelector = (state) => state.currentBoard;
 export const currentBoardIndex = state => state.boards.currentBoardIndex;
 export const columnsSelector = state => state.columns.columns;
 export const cardsSelector = state => state.cards.cards;
