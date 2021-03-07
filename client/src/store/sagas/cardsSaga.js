@@ -6,6 +6,7 @@ export function* createCardSaga(action) {
   try {
     const { payload: { values, boardId } } = action;
     const data = yield CardService.createCard(boardId, values);
+    console.log(data)
     yield put(CardAction.createCardSuccess(data));
 
   } catch (err) {

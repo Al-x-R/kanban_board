@@ -4,31 +4,44 @@ import { useParams } from 'react-router-dom';
 import { useDrag, useDrop } from 'react-dnd';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import ListIcon from '@material-ui/icons/List';
 import Tooltip from '@material-ui/core/Tooltip';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
+import PaymentIcon from '@material-ui/icons/Payment';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import React, { useState, useRef, useEffect } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
+import DescriptionIcon from '@material-ui/icons/Description';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
 import { ItemTypes } from '../../../utils/items';
-import { cardActivities } from '../../../store/selectors';
+import { cardActivities, userSelector } from '../../../store/selectors';
 import { getCardActivitiesRequest } from '../../../store/actions/activitiesAction';
 import { updateCardRequest, removeCardRequest } from '../../../store/actions/cardsAction';
+import { addCommentRequest, getCommentsRequest } from '../../../store/actions/commentsAction';
+import commentService from '../../../services/commentService';
+import Comments from '../../Comments/Comments';
 
-const cardStyles = { width: '200px', margin: '5px' };
+const cardStyles = { width: '195px', margin: '5px' };
 const closeIconStyles = { position: 'absolute', top: '5px', right: '5px', zIndex: '5' };
-const titleStyles = { margin: '0', paddingLeft: '25px' };
-const subtitleStyles = { margin: '0' };
+const titleStyles = { margin: '0', paddingLeft: '25px', display: 'flex', alignItems: 'center' };
+const subtitleStyles = { margin: '0', display: 'flex', alignItems: 'center' };
+const actionsBoxStyles = {
+  display: 'flex',
+  padding: '10px 0',
+  justifyContent: 'space-between',
+};
 
 const Card = ({ name, cardId, index, columnId, columnName }) => {
   const [open, setOpen] = useState(false);
+  const [isShow, setIsShow] = useState(false);
   const [description, setDescription] = useState('');
   const [comment, setComment] = useState('');
+  const { email } = useSelector(userSelector);
+  console.log(email);
 
   const dispatch = useDispatch();
   const { boardId } = useParams();
@@ -94,8 +107,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
   const handleClose = () => setOpen(false);
 
   const updateCard = () => {
-    dispatch(updateCardRequest(boardId, cardId, { columnId, description, comment }));
-    setOpen(false);
+    dispatch(updateCardRequest(boardId, cardId, { columnId, description }));
   };
 
   const removeCard = () => {
@@ -103,9 +115,15 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
     setOpen(false);
   };
 
+  const saveComment = () => {
+    if (comment) {
+      dispatch(addCommentRequest(boardId, cardId, { cardId, comment, user: email }));
+    }
+  };
+
   useEffect(() => {
     dispatch(getCardActivitiesRequest(boardId, cardId));
-  },[cardId]);
+  }, [cardId]);
 
   return (
     <Box style={cardStyles}>
@@ -125,7 +143,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
         aria-labelledby="form-dialog-title"
       >
         <Typography style={titleStyles} variant="h6" component="h2" gutterBottom>
-          {name}
+          <PaymentIcon/> {name}
         </Typography>
         <Typography style={titleStyles} variant="subtitle1" gutterBottom>
           {`in column ${columnName}`}
@@ -136,7 +154,9 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
           </Tooltip>
           <Grid container>
             <Grid item xs={8}>
-              <DialogContentText style={subtitleStyles}>Add description</DialogContentText>
+              <DialogContentText style={subtitleStyles}>
+                <DescriptionIcon/>Add description
+              </DialogContentText>
               <TextField
                 autoFocus
                 margin="dense"
@@ -147,6 +167,18 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
                 fullWidth
                 onChange={e => setDescription(e.target.value)}
               />
+              <Button onClick={updateCard} color="primary" variant="outlined" size="small">
+                Save
+              </Button>
+              <Box style={actionsBoxStyles}>
+                <Typography variant="h6" style={subtitleStyles}>
+                  <ListIcon/>Actions
+                </Typography>
+                <Button onClick={() => {
+                }} color="primary">
+                  Show details
+                </Button>
+              </Box>
             </Grid>
             <Box style={{ paddingLeft: '70px ' }}>
               <DialogContentText style={subtitleStyles}>Actions</DialogContentText>
@@ -157,7 +189,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
           </Grid>
           <Grid container>
             <Grid item xs={8}>
-              <DialogContentText style={subtitleStyles}>Add comment</DialogContentText>
+              <DialogContentText style={subtitleStyles}><ChatBubbleOutlineIcon/>Add comment</DialogContentText>
               <TextField
                 variant="outlined"
                 multiline={true}
@@ -168,14 +200,16 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
                 fullWidth
                 onChange={e => setComment(e.target.value)}
               />
-              <DialogActions>
-                <Button onClick={updateCard} color="primary">
-                  Save
-                </Button>
-              </DialogActions>
+              <Button onClick={saveComment} color="primary" variant="outlined" size="small">
+                Save comment
+              </Button>
+
+              {/*details*/}
+
+              {/*comments*/}
+              <Comments boardId={boardId} cardId={cardId} />
             </Grid>
           </Grid>
-          <DialogTitle id="form-title-3">Activity</DialogTitle>
         </DialogContent>
       </Dialog>
     </Box>

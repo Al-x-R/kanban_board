@@ -10,12 +10,15 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { createCardRequest } from '../../../store/actions/cardsAction';
 
 const paper = {
-  width: '210px',
-  margin: '0',
+  top: 0,
+  margin: 0,
+  width: 190,
+  position: 'absolute',
+  backgroundColor: 'white',
 };
 
 const menuButton = {
-  width: '200px',
+  width: '190px',
   height: '40px',
 };
 
@@ -31,7 +34,7 @@ const icon = {
   color: 'grey',
 };
 
-const box = {
+const buttonsWrapper = {
   display: 'flex',
   padding: '7px 0 0',
   alignItems: 'center',
@@ -56,11 +59,11 @@ const CardCreate = ({ columnId }) => {
 
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
-      <div style={{ position: 'relative' }}>
+      <Box style={{ position: 'relative' }}>
         <Button style={menuButton} onClick={handleClick}>
           Add a new card
         </Button>
-        {open ? <div style={paper}>
+        {open ? <Box style={paper}>
           <TextField
             variant="outlined"
             autoFocus
@@ -68,17 +71,18 @@ const CardCreate = ({ columnId }) => {
             required={true}
             label="Card name"
             type="text"
+            size="small"
             fullWidth
             onChange={(e) => setName(e.target.value)}
           />
-          <Box style={box}>
-            <Button variant="contained" style={button} color='primary' onClick={createCard}>
+          <Box style={buttonsWrapper}>
+            <Button variant="contained" style={button} color='primary' size="small" onClick={createCard}>
               Add
             </Button>
             <ClearIcon style={icon} onClick={handleClick} color="primary"/>
           </Box>
-        </div> : null}
-      </div>
+        </Box> : null}
+      </Box>
     </ClickAwayListener>
   );
 };

@@ -16,6 +16,8 @@ import { getColumnsRequest } from '../../../store/actions/columnsAction';
 
 const useStyles = makeStyles(() => ({
   gridList: {
+    paddingBottom: 50,
+    minHeight: 500,
     flexWrap: 'nowrap',
     transform: 'translateZ(0)',
   },
@@ -23,8 +25,13 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexWrap: 'wrap',
     overflow: 'hidden',
-  },
+  }
 }));
+
+const gridItem = {
+  width: '200px',
+  height: 'auto'
+}
 
 const ColumnsList = () => {
   const classes = useStyles();
@@ -39,13 +46,13 @@ const ColumnsList = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <Box className={classes.root}>
-        <GridList className={classes.gridList} cols={6}>
+        <GridList className={classes.gridList} cols={5}>
           {columns && columns.map(column => (
-            <GridListTile item key={column.id}>
+            <GridListTile key={column.id} style={gridItem} >
               <ColumnItem name={column?.name} columnId={column.id}/>
             </GridListTile>
           ))}
-          <GridListTile>
+          <GridListTile style={gridItem}>
             <ColumnCreate boardId={boardId}/>
           </GridListTile>
         </GridList>

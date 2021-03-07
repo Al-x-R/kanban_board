@@ -25,6 +25,7 @@ const useStyles = makeStyles({
   list: {
     width: 'auto',
     maxWidth: 500,
+    minWidth: 200,
   },
   fullList: {
     width: 'auto',
@@ -136,7 +137,7 @@ const BoardSideMenu = () => {
 
   return (
     <div>
-      {['Right'].map((anchor) => (
+      {['right'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>Show Menu</Button>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>

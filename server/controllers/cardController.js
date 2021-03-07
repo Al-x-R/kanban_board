@@ -1,7 +1,7 @@
 const { Card, Column, BoardActivities, CardActivities } = require('../models');
 
 exports.createCard = async (req, res) => {
-  const { body, params: { boardId }, user: {email} } = req;
+  const { body, params: { boardId }, user: { email } } = req;
 
   try {
     const card = await Card.create({
@@ -12,14 +12,17 @@ exports.createCard = async (req, res) => {
     const column = await Column.findOne({
       where: {
         boardId,
-        id: body.columnId
-      }
-    })
+        id: body.columnId,
+      },
+    });
 
     await CardActivities.create({
       cardId: card.id,
-      action: `${email} add this card to ${column.name}`
-    })
+      boardId,
+      user: email,
+      action: `add this card to ${column.name}`,
+    });
+
 
     res.status(201).send(card);
 
@@ -65,15 +68,16 @@ exports.updateCardById = async (req, res) => {
     if (body.description) {
       await CardActivities.create({
         cardId,
+        boardId,
         user: email,
-        action: `add description`
-      })
+        action: `add description`,
+      });
 
       await BoardActivities.create({
         boardId,
         user: email,
-        action: `add description to ${updatedCard.name}`
-      })
+        action: `add description to ${updatedCard.name}`,
+      });
     }
     res.status(200).send(updatedCard);
 
@@ -83,7 +87,7 @@ exports.updateCardById = async (req, res) => {
 };
 
 exports.removeCard = async (req, res) => {
-  const { params: { boardId, cardId }, user: {email} } = req;
+  const { params: { boardId, cardId }, user: { email } } = req;
 
   try {
     const card = await Card.findOne({

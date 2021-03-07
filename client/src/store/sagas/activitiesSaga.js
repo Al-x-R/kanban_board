@@ -15,8 +15,10 @@ export function* getBoardActivities(action) {
 
 export function* getCardActivities(action) {
   try {
+    console.log(action)
     const { payload: { boardId, cardId } } = action;
     const data = yield ActivitiesService.getCardActivities(boardId, cardId);
+    console.log(data)
     yield put(ActivitiesAction.getCardActivitiesSuccess(data));
 
   } catch (err) {

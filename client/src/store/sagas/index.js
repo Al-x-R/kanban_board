@@ -3,9 +3,10 @@ import * as AuthSaga from './authSaga';
 import * as CardsSaga from './cardsSaga';
 import * as BoardsSaga from './boardsSaga';
 import * as ColumnsSaga from './columnsSaga';
+import * as CommentsSaga from './commentsSaga';
 import { takeLatest } from 'redux-saga/effects';
 import * as BoardByIdSaga from './boardByIdSaga';
-import * as ActivitiesSaga from './activitiesSaga'
+import * as ActivitiesSaga from './activitiesSaga';
 
 function* rootSaga() {
   /**
@@ -31,18 +32,35 @@ function* rootSaga() {
   yield takeLatest(ACTION_TYPE.GET_BOARD_BY_ID_REQUEST, BoardByIdSaga.getBoardByIdSaga);
   yield takeLatest(ACTION_TYPE.REMOVE_BOARD_BY_ID_REQUEST, BoardByIdSaga.removeBoardByIdSaga);
 
+  /**
+   * COLUMNS SAGAS
+   * */
   yield takeLatest(ACTION_TYPE.GET_COLUMNS_REQUEST, ColumnsSaga.getColumnsSaga);
   yield takeLatest(ACTION_TYPE.CREATE_COLUMN_REQUEST, ColumnsSaga.createColumnSaga);
   yield takeLatest(ACTION_TYPE.REMOVE_COLUMN_REQUEST, ColumnsSaga.removeColumnSaga);
   yield takeLatest(ACTION_TYPE.UPDATE_COLUMN_REQUEST, ColumnsSaga.updateColumnSaga);
 
+  /**
+   * CARDS SAGAS
+   * */
   yield takeLatest(ACTION_TYPE.GET_CARDS_REQUEST, CardsSaga.getCardsSaga);
   yield takeLatest(ACTION_TYPE.CREATE_CARD_REQUEST, CardsSaga.createCardSaga);
   yield takeLatest(ACTION_TYPE.UPDATE_CARD_REQUEST, CardsSaga.updateCardSaga);
   yield takeLatest(ACTION_TYPE.REMOVE_CARD_REQUEST, CardsSaga.removeCardSaga);
 
-  yield takeLatest(ACTION_TYPE.GET_CARD_ACTIVITIES_REQUEST, ActivitiesSaga.getCardActivities)
-  yield takeLatest(ACTION_TYPE.GET_BOARD_ACTIVITIES_REQUEST, ActivitiesSaga.getBoardActivities)
+  /**
+   * ACTIVITIES SAGAS
+   * */
+  yield takeLatest(ACTION_TYPE.GET_CARD_ACTIVITIES_REQUEST, ActivitiesSaga.getCardActivities);
+  yield takeLatest(ACTION_TYPE.GET_BOARD_ACTIVITIES_REQUEST, ActivitiesSaga.getBoardActivities);
+
+  /**
+   * COMMENTS SAGAS
+   * */
+  yield takeLatest(ACTION_TYPE.ADD_COMMENT_REQUEST, CommentsSaga.addCommentSaga);
+  yield takeLatest(ACTION_TYPE.GET_COMMENTS_REQUEST, CommentsSaga.getCommentsSaga);
+  yield takeLatest(ACTION_TYPE.EDIT_COMMENT_REQUEST, CommentsSaga.editCommentSaga);
+  yield takeLatest(ACTION_TYPE.REMOVE_COMMENT_REQUEST, CommentsSaga.removeCommentSaga);
 }
 
 export default rootSaga;

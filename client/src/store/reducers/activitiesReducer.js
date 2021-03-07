@@ -26,6 +26,7 @@ const activitiesReducer = produce((draftState, action) => {
 
     case ACTION_TYPE.GET_CARD_ACTIVITIES_SUCCESS: {
       const { data } = payload;
+      console.log(data)
       draftState.cardActivities = data;
       draftState.isLoading = false;
     }

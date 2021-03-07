@@ -20,8 +20,10 @@ const cardsListStyles = {
 };
 
 const columnHeaderStyle = {
+  height: 45,
   width: '100%',
   display: 'flex',
+  padding: '0 10px',
   alignItems: 'center',
   justifyContent: 'space-between',
 };
@@ -57,24 +59,24 @@ const ColumnItem = ({ columnId, name }) => {
   };
 
   return (
-    <Paper style={{ backgroundColor: getBackgroundColor() }} ref={drop}>
-      <Box p={1} style={columnHeaderStyle}>
-        <Title boardId={boardId} columnId={columnId} name={name}/>
-        <ColumnRemove columnId={columnId}/>
-      </Box>
-      <Box style={cardsListStyles}>
-        {cards && cards.filter(c => c.columnId === columnId).map((card, index) => (
-          <Card key={card.id}
-                name={card.name}
-                cardId={card.id}
-                index={index}
-                columnId={columnId}
-                columnName={name}
-          />
-        ))}
-        <CardCreate columnId={columnId}/>
-      </Box>
-    </Paper>
+      <Paper style={{ backgroundColor: getBackgroundColor() }} ref={drop}>
+        <Box style={columnHeaderStyle}>
+          <Title boardId={boardId} columnId={columnId} name={name}/>
+          <ColumnRemove columnId={columnId}/>
+        </Box>
+        <Box style={cardsListStyles}>
+          {cards && cards.filter(c => c.columnId === columnId).map((card, index) => (
+            <Card key={card.id}
+                  name={card.name}
+                  cardId={card.id}
+                  index={index}
+                  columnId={columnId}
+                  columnName={name}
+            />
+          ))}
+          <CardCreate columnId={columnId}/>
+        </Box>
+      </Paper>
   );
 };
 

@@ -88,6 +88,7 @@ exports.moveCardCardAction = async (req, res, next) => {
 
       await CardActivities.create({
         cardId,
+        boardId,
         user: email,
         action: `move this card from ${columnFrom.name} to ${columnTo.name}`,
       });

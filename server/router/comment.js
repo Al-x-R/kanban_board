@@ -1,7 +1,15 @@
 const commentRouter = require('express').Router();
-// const {} = require('../controllers/')
+const {
+  getComments,
+  createComment,
+  updateComment,
+  removeComment,
+} = require('../controllers/commentController');
 
-commentRouter.get('/boards/:id/cards/:cardId/comment');
-commentRouter.get('/boards/:id/cards/:cardId/comment');
+// `${basePath}/${boardId}/cards/${cardId}/comments`
+commentRouter.get('/boards/:id/cards/:cardId/comments', getComments);
+commentRouter.post('/boards/:boardId/cards/:cardId/comments', createComment);
+commentRouter.patch('/boards/:id/cards/:cardId/comments', updateComment);
+commentRouter.delete('/boards/:id/cards/:cardId/comments', removeComment);
 
 module.exports = commentRouter;

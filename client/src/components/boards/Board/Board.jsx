@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import BoardSideMenu from '../BoardMenu/BoardSideMenu';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { currentBoardSelector } from '../../../store/selectors';
 import ColumnsList from '../../column/ColumnsList/ColumnsList';
+import { currentBoardSelector } from '../../../store/selectors';
 import { getBoardByIdRequest } from '../../../store/actions/currentBoardAction';
 
 const boardHeaderStyles = {

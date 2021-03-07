@@ -14,13 +14,13 @@ const paper = {
   right: 0,
   zIndex: 1,
   margin: '0',
-  width: '200px',
+  width: '190px',
   position: 'absolute',
   backgroundColor: 'white',
 };
 
 const menuButton = {
-  width: '200px',
+  width: '190px',
   height: '40px',
 };
 
@@ -36,7 +36,7 @@ const button = {
   color: 'white',
 };
 
-const box = {
+const buttonsWrapper = {
   display: 'flex',
   padding: '7px 0 0',
   alignItems: 'center',
@@ -58,10 +58,10 @@ const ColumnCreate = ({ boardId }) => {
 
   return (
     <ClickAwayListener onClickAway={() => setOpen(false)}>
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', margin: '5px' }}>
         <Button style={menuButton} color='primary' variant="contained"
                 onClick={handleClick}>
-          Add new list...
+          Add new list
         </Button>
         {open ? <div style={paper}>
           <TextField
@@ -74,7 +74,7 @@ const ColumnCreate = ({ boardId }) => {
             fullWidth
             onChange={(e) => setName(e.target.value)}
           />
-          <Box style={box}>
+          <Box style={buttonsWrapper}>
             <Button variant="contained" style={button} color='primary' onClick={createColumn}>
               Add
             </Button>

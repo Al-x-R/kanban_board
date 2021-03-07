@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Card, {
         foreignKey: 'cardId'
       })
+      this.belongsTo(models.Board, {
+        foreignKey: 'boardId'
+      })
     }
   };
   CardActivities.init({
