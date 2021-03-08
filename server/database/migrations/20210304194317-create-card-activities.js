@@ -24,11 +24,6 @@ module.exports = {
       boardId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: 'Boards',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
       },
       action: {
         type: Sequelize.STRING,

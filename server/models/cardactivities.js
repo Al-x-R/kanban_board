@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   CardActivities.init({
     cardId: DataTypes.INTEGER,
+    boardId: DataTypes.INTEGER,
     user: DataTypes.STRING,
     action: DataTypes.STRING
   }, {

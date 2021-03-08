@@ -18,13 +18,12 @@ exports.getBoardActivities = async (req, res) => {
 };
 
 exports.getCardActivities = async (req, res) => {
-  const { params: { id, cardId } } = req;
+  const { params: { id } } = req;
 
   try {
     const activities = await CardActivities.findAll({
       where: {
         boardId: id,
-        id: cardId,
       },
     });
 

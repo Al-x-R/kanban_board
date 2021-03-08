@@ -6,22 +6,22 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import ListIcon from '@material-ui/icons/List';
 import Tooltip from '@material-ui/core/Tooltip';
+import React, { useState, useRef } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 import PaymentIcon from '@material-ui/icons/Payment';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useState, useRef, useEffect } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import DescriptionIcon from '@material-ui/icons/Description';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
-import Comments from '../../Comments/Comments';
+import Comments from '../Comments/Comments';
 import { ItemTypes } from '../../../utils/items';
-import { cardActivities, userSelector } from '../../../store/selectors';
+import {  userSelector } from '../../../store/selectors';
+import CardActivities from '../CardActivities/CardActivities';
 import { addCommentRequest } from '../../../store/actions/commentsAction';
-import { getCardActivitiesRequest } from '../../../store/actions/activitiesAction';
 import { updateCardRequest, removeCardRequest, moveCardInColumn } from '../../../store/actions/cardsAction';
 
 const cardStyles = { width: '195px', margin: '5px' };
@@ -33,17 +33,14 @@ const actionsBoxStyles = { display: 'flex', padding: '10px 0', justifyContent: '
 const Card = ({ name, cardId, index, columnId, columnName }) => {
   const [open, setOpen] = useState(false);
   const [isShow, setIsShow] = useState(false);
-  const [description, setDescription] = useState('');
   const [comment, setComment] = useState('');
-  const [dragIndex, setDragIndex] = useState();
-  const [hoverIndex, setHoverIndex] = useState();
-  // console.log('drag',dragIndex)
-  // console.log('hover',hoverIndex)
-
-  const { email } = useSelector(userSelector);
+  const [description, setDescription] = useState('');
 
   const dispatch = useDispatch();
   const { boardId } = useParams();
+  const { email } = useSelector(userSelector);
+
+  const showCardDetails = () => setIsShow(prevState => !prevState);
 
   const ref = useRef(null);
 
@@ -54,10 +51,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
       console.log('monitor', monitor);
       const dragIndex = item.index;
       const hoverIndex = index;
-      console.log('drag', dragIndex);
-      console.log('hover', hoverIndex);
-      // setDragIndex(item.index);
-      // setHoverIndex(index);
+
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
@@ -74,9 +68,6 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
       item.index = hoverIndex;
 
       // dispatch(moveCardInColumn(dragIndex, hoverIndex))
-      // dragIndex
-      // hoverIndex
-
     },
   });
 
@@ -124,9 +115,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
     setComment('');
   };
 
-  useEffect(() => {
-    dispatch(getCardActivitiesRequest(boardId, cardId));
-  }, [cardId]);
+  const showDetailsButtonTitle = isShow ? 'Hide details' : 'Show details'
 
   return (
     <Box style={cardStyles}>
@@ -177,9 +166,8 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
                 <Typography variant="h6" style={subtitleStyles}>
                   <ListIcon/>Actions
                 </Typography>
-                <Button onClick={() => {
-                }} color="primary">
-                  Show details
+                <Button onClick={showCardDetails} color="primary">
+                  {showDetailsButtonTitle}
                 </Button>
               </Box>
             </Grid>
@@ -208,7 +196,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
                 Save comment
               </Button>
 
-              {/*details*/}
+              {isShow && <CardActivities boardId={boardId} cardId={cardId}/>}
 
               <Comments boardId={boardId} cardId={cardId}/>
             </Grid>

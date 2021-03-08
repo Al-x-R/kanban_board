@@ -25,9 +25,6 @@ const headerWrapperStyles = {
 };
 
 const Board = () => {
-  /**
-   * TODO spinner and error alert
-   */
   const { board, isLoading, error } = useSelector(currentBoardSelector);
   const dispatch = useDispatch();
   const { boardId } = useParams();
