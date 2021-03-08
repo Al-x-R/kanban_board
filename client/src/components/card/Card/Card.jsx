@@ -17,31 +17,30 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
+import Comments from '../../Comments/Comments';
 import { ItemTypes } from '../../../utils/items';
 import { cardActivities, userSelector } from '../../../store/selectors';
+import { addCommentRequest } from '../../../store/actions/commentsAction';
 import { getCardActivitiesRequest } from '../../../store/actions/activitiesAction';
-import { updateCardRequest, removeCardRequest } from '../../../store/actions/cardsAction';
-import { addCommentRequest, getCommentsRequest } from '../../../store/actions/commentsAction';
-import commentService from '../../../services/commentService';
-import Comments from '../../Comments/Comments';
+import { updateCardRequest, removeCardRequest, moveCardInColumn } from '../../../store/actions/cardsAction';
 
 const cardStyles = { width: '195px', margin: '5px' };
+const subtitleStyles = { margin: '0', display: 'flex', alignItems: 'center' };
 const closeIconStyles = { position: 'absolute', top: '5px', right: '5px', zIndex: '5' };
 const titleStyles = { margin: '0', paddingLeft: '25px', display: 'flex', alignItems: 'center' };
-const subtitleStyles = { margin: '0', display: 'flex', alignItems: 'center' };
-const actionsBoxStyles = {
-  display: 'flex',
-  padding: '10px 0',
-  justifyContent: 'space-between',
-};
+const actionsBoxStyles = { display: 'flex', padding: '10px 0', justifyContent: 'space-between' };
 
 const Card = ({ name, cardId, index, columnId, columnName }) => {
   const [open, setOpen] = useState(false);
   const [isShow, setIsShow] = useState(false);
   const [description, setDescription] = useState('');
   const [comment, setComment] = useState('');
+  const [dragIndex, setDragIndex] = useState();
+  const [hoverIndex, setHoverIndex] = useState();
+  // console.log('drag',dragIndex)
+  // console.log('hover',hoverIndex)
+
   const { email } = useSelector(userSelector);
-  console.log(email);
 
   const dispatch = useDispatch();
   const { boardId } = useParams();
@@ -51,16 +50,17 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
     hover(item, monitor) {
+      console.log('item', item);
+      console.log('monitor', monitor);
       const dragIndex = item.index;
-
       const hoverIndex = index;
-
+      console.log('drag', dragIndex);
+      console.log('hover', hoverIndex);
+      // setDragIndex(item.index);
+      // setHoverIndex(index);
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
       const clientOffset = monitor.getClientOffset();
-
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -72,6 +72,10 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
       }
 
       item.index = hoverIndex;
+
+      // dispatch(moveCardInColumn(dragIndex, hoverIndex))
+      // dragIndex
+      // hoverIndex
 
     },
   });
@@ -87,11 +91,9 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
       const dropResult = monitor.getDropResult();
       if (dropResult && dropResult.column !== columnId) {
         dispatch(updateCardRequest(boardId, item.id, { from: columnId, columnId: dropResult.column }));
+      } else {
+        // dispatch(moveCardInColumn(dragIndex, hoverIndex))
       }
-      console.group('---');
-      console.log(monitor);
-      console.log(item);
-      console.groupEnd();
     },
     collect: monitor => ({
       isDragging: monitor.isDragging(),
@@ -119,6 +121,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
     if (comment) {
       dispatch(addCommentRequest(boardId, cardId, { cardId, comment, user: email }));
     }
+    setComment('');
   };
 
   useEffect(() => {
@@ -195,6 +198,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
                 multiline={true}
                 margin="dense"
                 id="comment"
+                value={comment}
                 type="text"
                 placeholder="Add comment"
                 fullWidth
@@ -206,8 +210,7 @@ const Card = ({ name, cardId, index, columnId, columnName }) => {
 
               {/*details*/}
 
-              {/*comments*/}
-              <Comments boardId={boardId} cardId={cardId} />
+              <Comments boardId={boardId} cardId={cardId}/>
             </Grid>
           </Grid>
         </DialogContent>

@@ -65,6 +65,15 @@ const cardsReducer = produce((draftState, action) => {
       draftState.error = error;
     }
       break;
+
+    case ACTION_TYPE.MOVE_CARD_IN_COLUMN: {
+      const {dragIndex, hoverIndex} = payload
+      const drag = draftState.cards[dragIndex]
+      const hover = draftState.cards[hoverIndex]
+      const prevArray = draftState.cards.splice(hover, 1, drag)
+      draftState.cards = draftState.cards.splice(drag, 1, prevArray)
+    }
+    break
   }
 }, initialState);
 

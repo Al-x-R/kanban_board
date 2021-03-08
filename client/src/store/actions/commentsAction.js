@@ -66,18 +66,17 @@ export const editCommentError = (err) => ({
   },
 });
 
-export const removeCommentRequest = (commentId) => ({
+export const removeCommentRequest = (boardId, cardId, commentId) => ({
   type: ACTION_TYPE.REMOVE_COMMENT_REQUEST,
   payload: {
+    boardId,
+    cardId,
     commentId,
   },
 });
 
-export const removeCommentSuccess = (data) => ({
+export const removeCommentSuccess = () => ({
   type: ACTION_TYPE.REMOVE_COMMENT_SUCCESS,
-  payload: {
-    data,
-  },
 });
 
 export const removeCommentError = (err) => ({

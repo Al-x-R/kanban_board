@@ -96,3 +96,12 @@ export const removeCardError = (err) => ({
     },
   }
 );
+
+export const moveCardInColumn = (dragIndex, hoverIndex) => ({
+    type: ACTION_TYPE.MOVE_CARD_IN_COLUMN,
+    payload: {
+      dragIndex,
+      hoverIndex
+    },
+  }
+);

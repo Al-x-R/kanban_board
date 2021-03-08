@@ -92,7 +92,6 @@ const Register = () => {
               Login
             </Link>
             </Typography>
-
           </Form>
         </Paper>
       )}

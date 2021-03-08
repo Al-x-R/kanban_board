@@ -2,9 +2,7 @@ const { Comment, BoardActivities, CardActivities, Card } = require('../models');
 
 exports.createComment = async (req, res) => {
   const { params: { cardId, boardId }, body, user: { email } } = req;
-  console.log('REQUEST', req.params);
-  console.log('REQUEST', req.body);
-  console.log('REQUEST', req.user);
+
   try {
     const comment = await Comment.create({ ...body });
 
@@ -57,9 +55,20 @@ exports.updateComment = async (req, res) => {
 };
 
 exports.removeComment = async (req, res) => {
-  const { params, body, user } = req;
+  const { params: { cardId, commentId }, user: { email } } = req;
 
   try {
+    const comment = await Comment.findOne({
+      where: {
+        user: email,
+        cardId,
+        id: commentId,
+      },
+    });
+
+    await comment.destroy();
+
+    res.send({ message: `comment ${comment.comment} has been removed` });
 
   } catch (e) {
     return res.status(400).send({ message: e.message });

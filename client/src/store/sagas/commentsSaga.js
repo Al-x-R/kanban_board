@@ -17,7 +17,6 @@ export function* addCommentSaga(action) {
   try {
     const { payload: { boardId, cardId, values } } = action;
     const data = yield CommentService.addComment(boardId, cardId, values);
-    console.log(data);
     yield put(CommentsAction.addCommentSuccess(data));
 
   } catch (err) {
@@ -38,8 +37,8 @@ export function* editCommentSaga(action) {
 
 export function* removeCommentSaga(action) {
   try {
-    const { payload: { commentId } } = action;
-    yield CommentService.removeComment(commentId);
+    const { payload: { boardId, cardId, commentId } } = action;
+    yield CommentService.removeComment(boardId, cardId, commentId);
     yield put(CommentsAction.removeCommentSuccess());
 
   } catch (err) {

@@ -46,9 +46,27 @@ const commentsReducer = produce((draftState, action) => {
       draftState.error = error;
     }
       break;
+
+    case ACTION_TYPE.REMOVE_COMMENT_REQUEST: {
+      const { commentId } = payload;
+      draftState.comments = draftState.comments.filter(c => c.id !== commentId);
+      draftState.isLoading = true;
+    }
+      break;
+
+    case ACTION_TYPE.REMOVE_COMMENT_SUCCESS: {
+      draftState.isLoading = false;
+    }
+      break;
+
+    case ACTION_TYPE.REMOVE_COMMENT_ERROR: {
+      const { error } = payload;
+      draftState.isLoading = false;
+      draftState.error = error;
+    }
+      break;
+
   }
-
-
 }, initialState);
 
 export default commentsReducer;

@@ -1,9 +1,9 @@
-export const userSelector = state => state.auth.user;
 export const boardsSelector = state => state.boards;
+export const userSelector = state => state.auth.user;
+export const commentsSelector = state => state.comment.comments;
 export const newBoardSelector = state => state.newBoard;
-export const currentBoardSelector = (state) => state.currentBoard;
-export const currentBoardIndex = state => state.boards.currentBoardIndex;
-export const columnsSelector = state => state.columns.columns;
 export const cardsSelector = state => state.cards.cards;
-export const boardActivities = state => state.activities.boardActivities;
+export const columnsSelector = state => state.columns.columns;
+export const currentBoardSelector = state => state.currentBoard;
 export const cardActivities = state => state.activities.cardActivities;
+export const boardActivities = state => state.activities.boardActivities;
