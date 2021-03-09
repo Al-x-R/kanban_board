@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import React, { useCallback, useState } from 'react';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-import { removeColumnRequest } from '../../../store/actions/columnsAction';
+import { removeColumnRequest } from '../../store/actions/columnsAction';
 
 const ColumnRemove = ({ columnId }) => {
   const [anchorEl, setAnchorEl] = useState(null);

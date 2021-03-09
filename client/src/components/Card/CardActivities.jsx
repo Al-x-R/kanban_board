@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
-import formatCreatedAt from '../../../utils/formatDate';
-import { cardActivities } from '../../../store/selectors';
-import { getCardActivitiesRequest } from '../../../store/actions/activitiesAction';
+import formatCreatedAt from '../../utils/formatDate';
+import { cardActivities } from '../../store/selectors';
+import { getCardActivitiesRequest } from '../../store/actions/activitiesAction';
 
 const useStyles = makeStyles({
   list: {

@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import { updateColumnRequest } from '../../../store/actions/columnsAction';
+import { updateColumnRequest } from '../../store/actions/columnsAction';
 
-const Title = ({ boardId, columnId, name }) => {
+const ColumnTitle = ({ boardId, columnId, name }) => {
   const [toggle, setToggle] = useState(true);
   const [newName, setNewName] = useState(name);
 
@@ -37,4 +37,4 @@ const Title = ({ boardId, columnId, name }) => {
   );
 };
 
-export default Title;
+export default ColumnTitle;

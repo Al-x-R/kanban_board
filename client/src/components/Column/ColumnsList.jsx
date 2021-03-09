@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import GridListTile from '@material-ui/core/GridListTile';
 
-import ColumnItem from '../ColumnItem/ColumnItem';
-import ColumnCreate from '../ColumnCreate/ColumnCreate';
-import { columnsSelector } from '../../../store/selectors';
-import { getColumnsRequest } from '../../../store/actions/columnsAction';
+import ColumnItem from './ColumnItem';
+import ColumnCreate from './ColumnCreate';
+import { columnsSelector } from '../../store/selectors';
+import { getColumnsRequest } from '../../store/actions/columnsAction';
 
 
 const useStyles = makeStyles(() => ({

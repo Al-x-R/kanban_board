@@ -1,23 +1,10 @@
-const { Comment, BoardActivities, CardActivities, Card } = require('../models');
+const { Comment } = require('../models');
 
 exports.createComment = async (req, res) => {
-  const { params: { cardId, boardId }, body, user: { email } } = req;
+  const { body } = req;
 
   try {
     const comment = await Comment.create({ ...body });
-
-    // const card = await Card.findOne({
-    //   where: {
-    //     cardId,
-    //   },
-    // });
-    // console.log(card)
-    //
-    // await BoardActivities.create({
-    //   boardId,
-    //   user: email,
-    //   action: `add comment to ${card.name}`,
-    // });
 
     res.status(201).send(comment);
 

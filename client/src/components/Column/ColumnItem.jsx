@@ -5,13 +5,13 @@ import Paper from '@material-ui/core/Paper';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Title from '../Title/Title';
-import Card from '../../card/Card/Card';
-import { ItemTypes } from '../../../utils/items';
-import ColumnRemove from '../ColumnRemove/ColumnRemove';
-import { cardsSelector } from '../../../store/selectors';
-import CardCreate from '../../card/CardCreate/CardCreate';
-import { getCardsRequest } from '../../../store/actions/cardsAction';
+import ColumnTitle from './ColumnTitle';
+import Card from '../Card/Card';
+import { ItemTypes } from '../../utils/items';
+import ColumnRemove from './ColumnRemove';
+import { cardsSelector } from '../../store/selectors';
+import CardCreate from '../Card/CardCreate';
+import { getCardsRequest } from '../../store/actions/cardsAction';
 
 const cardsListStyles = {
   display: 'flex',
@@ -61,7 +61,7 @@ const ColumnItem = ({ columnId, name }) => {
   return (
       <Paper style={{ backgroundColor: getBackgroundColor() }} ref={drop}>
         <Box style={columnHeaderStyle}>
-          <Title boardId={boardId} columnId={columnId} name={name}/>
+          <ColumnTitle boardId={boardId} columnId={columnId} name={name}/>
           <ColumnRemove columnId={columnId}/>
         </Box>
         <Box style={cardsListStyles}>

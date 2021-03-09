@@ -7,7 +7,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import TextField from '@material-ui/core/TextField';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
-import { createCardRequest } from '../../../store/actions/cardsAction';
+import { createCardRequest } from '../../store/actions/cardsAction';
 
 const paper = {
   top: 0,

@@ -10,8 +10,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Redirect } from 'react-router-dom';
-import { createBoardRequest, resetNewBoardReducer } from '../../../store/actions/newBoardAction';
-import { userSelector, newBoardSelector } from '../../../store/selectors';
+import { createBoardRequest, resetNewBoardReducer } from '../../store/actions/newBoardAction';
+import { userSelector, newBoardSelector } from '../../store/selectors';
 
 const iconStyle = {
   color: 'blue',

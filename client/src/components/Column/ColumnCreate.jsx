@@ -6,7 +6,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import TextField from '@material-ui/core/TextField';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
-import { createColumnRequest } from '../../../store/actions/columnsAction';
+import { createColumnRequest } from '../../store/actions/columnsAction';
 
 const paper = {
   top: 0,

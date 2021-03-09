@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { useParams } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import BoardSideMenu from '../BoardMenu/BoardSideMenu';
+import BoardSideMenu from './BoardSideMenu';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ColumnsList from '../../column/ColumnsList/ColumnsList';
-import { currentBoardSelector } from '../../../store/selectors';
-import { getBoardByIdRequest } from '../../../store/actions/currentBoardAction';
+import ColumnsList from '../Column/ColumnsList';
+import { currentBoardSelector } from '../../store/selectors';
+import { getBoardByIdRequest } from '../../store/actions/currentBoardAction';
 
 const boardHeaderStyles = {
   height: '70px',

@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './components/Header';
 import AuthPage from './pages/AuthPage/AuthPage';
-import Board from './components/boards/Board/Board';
-import BoardsList from './components/boards/BoardsList/BoardsList';
+import Board from './components/Board/Board';
+import BoardsList from './components/Board/BoardsList';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {

@@ -12,8 +12,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { loginRequest } from '../../store/actions/authAction';
 
 const initialValues = {
-  email: '',
-  password: '',
+  email: 'john.doe@gmail.com',
+  password: 'secret',
 };
 
 const validationSchema = Yup.object({

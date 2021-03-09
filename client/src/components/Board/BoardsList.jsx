@@ -6,9 +6,9 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 
-import BoardCreate from '../BoardCreate/BoardCreate';
-import { boardsSelector } from '../../../store/selectors';
-import { getBoardsRequest } from '../../../store/actions/boardsAction';
+import BoardCreate from './BoardCreate';
+import { boardsSelector } from '../../store/selectors';
+import { getBoardsRequest } from '../../store/actions/boardsAction';
 
 const paperStyle = {
   width: 200,

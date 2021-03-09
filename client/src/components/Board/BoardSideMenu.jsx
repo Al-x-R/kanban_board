@@ -16,10 +16,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
-import formatCreatedAt from '../../../utils/formatDate';
-import { boardActivities, currentBoardSelector } from '../../../store/selectors';
-import { removeBoardByIdRequest } from '../../../store/actions/currentBoardAction';
-import { getBoardActivitiesRequest } from '../../../store/actions/activitiesAction';
+import formatCreatedAt from '../../utils/formatDate';
+import { boardActivities, currentBoardSelector } from '../../store/selectors';
+import { removeBoardByIdRequest } from '../../store/actions/currentBoardAction';
+import { getBoardActivitiesRequest } from '../../store/actions/activitiesAction';
 
 const useStyles = makeStyles({
   list: {

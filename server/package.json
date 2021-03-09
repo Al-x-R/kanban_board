@@ -9,7 +9,9 @@
     "server": "nodemon -r  ./index.js",
     "client": "npm start --prefix ../client",
     "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "db:migrate": "npx sequelize db:migrate"
+    "db:create": "npx sequelize db:create",
+    "db:migrate": "npx sequelize db:migrate",
+    "db:seeds": "npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "Roshchin Alexander",

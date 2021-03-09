@@ -9,9 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
-import formatCreatedAt from '../../../utils/formatDate';
-import { commentsSelector } from '../../../store/selectors';
-import { getCommentsRequest, removeCommentRequest } from '../../../store/actions/commentsAction';
+import formatCreatedAt from '../../utils/formatDate';
+import { commentsSelector } from '../../store/selectors';
+import { getCommentsRequest, removeCommentRequest } from '../../store/actions/commentsAction';
 
 const useStyles = makeStyles({
   inline: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Comments = ({ boardId, cardId }) => {
+const CardComments = ({ boardId, cardId }) => {
   const classes = useStyles();
   const [commentId, setCommentId] = useState(null);
   const dispatch = useDispatch();
@@ -98,4 +98,4 @@ const Comments = ({ boardId, cardId }) => {
   );
 };
 
-export default Comments;
+export default CardComments;
